@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://swg6jnn4mnqi"]
+
+[ext_resource type="Script" path="res://Game/UI/small_notification.gd" id="1_583qv"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dgb8v"]
+bg_color = Color(0, 0, 0, 1)
+
+[node name="SmallNotification" type="Panel"]
+custom_minimum_size = Vector2(0, 30)
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_dgb8v")
+script = ExtResource("1_583qv")

@@ -1,0 +1,61 @@
+[gd_scene load_steps=10 format=3 uid="uid://cvw7dgpmytcn8"]
+
+[ext_resource type="Shader" path="res://Assets/Shaders/ghost_shader.gdshader" id="1_ygcvh"]
+[ext_resource type="Texture2D" uid="uid://cuy2dxltjfvbg" path="res://Assets/Graphics/Spirits@2x.png" id="2_cqv8q"]
+[ext_resource type="Script" path="res://Game/3d/spirit.gd" id="3_tt06j"]
+
+[sub_resource type="Gradient" id="Gradient_b0hh8"]
+resource_local_to_scene = true
+colors = PackedColorArray(1, 1, 1, 0, 0.4, 0.8, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_kpqde"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_b0hh8")
+fill_from = Vector2(0, 0.25)
+fill_to = Vector2(0, 0)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cc6y2"]
+atlas = ExtResource("2_cqv8q")
+region = Rect2(0, 0, 128, 256)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_v7emt"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("1_ygcvh")
+shader_parameter/normal_offset = 0.3
+shader_parameter/time_influence = 3.0
+shader_parameter/y_div = 2.87
+shader_parameter/offset_time = Vector2(1, 1)
+shader_parameter/alpha = 1.0
+shader_parameter/offsetuv = 0.0
+shader_parameter/tex = SubResource("AtlasTexture_cc6y2")
+shader_parameter/colorgrad = SubResource("GradientTexture2D_kpqde")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_to1y4"]
+resource_local_to_scene = true
+atlas = ExtResource("2_cqv8q")
+region = Rect2(0, 0, 128, 256)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_h3ho3"]
+radius = 0.8
+
+[node name="Spirit" type="Node3D"]
+script = ExtResource("3_tt06j")
+
+[node name="SpiritSpr" type="Sprite3D" parent="."]
+transform = Transform3D(0.707107, -0.183013, 0.683013, 0, 0.965926, 0.258819, -0.707107, -0.183013, 0.683013, 0.25, 0, 0.25)
+material_override = SubResource("ShaderMaterial_v7emt")
+offset = Vector2(0, 128)
+double_sided = false
+texture = SubResource("AtlasTexture_to1y4")
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_h3ho3")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

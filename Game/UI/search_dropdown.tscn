@@ -1,0 +1,159 @@
+[gd_scene load_steps=11 format=3 uid="uid://cqbjw87kdrmc8"]
+
+[ext_resource type="Script" path="res://Game/UI/SearchDropdown.gd" id="1_qopyh"]
+[ext_resource type="FontFile" uid="uid://ct4y3rnndcu5n" path="res://Assets/Fonts/Rubik/static/Rubik-Medium.ttf" id="2_qix35"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h6ab8"]
+content_margin_left = 15.0
+content_margin_top = 15.0
+content_margin_right = 15.0
+content_margin_bottom = 15.0
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 1024
+corner_radius_top_right = 1024
+corner_radius_bottom_right = 1024
+corner_radius_bottom_left = 1024
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wvmkp"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_egw2h"]
+content_margin_left = 8.0
+content_margin_top = 2.0
+content_margin_right = 8.0
+content_margin_bottom = 2.0
+bg_color = Color(1, 1, 1, 0)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 1, 1, 1)
+border_blend = true
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r751d"]
+content_margin_left = 8.0
+content_margin_top = 2.0
+content_margin_right = 8.0
+content_margin_bottom = 2.0
+bg_color = Color(0.901961, 0.133333, 0, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_arum6"]
+content_margin_left = 8.0
+content_margin_top = 2.0
+content_margin_right = 8.0
+content_margin_bottom = 2.0
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q0f81"]
+content_margin_left = 8.0
+content_margin_top = 2.0
+content_margin_right = 8.0
+content_margin_bottom = 2.0
+bg_color = Color(0, 0, 0, 0.501961)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="Theme" id="Theme_5qdmj"]
+default_font = ExtResource("2_qix35")
+Button/styles/focus = SubResource("StyleBoxFlat_egw2h")
+Button/styles/hover = SubResource("StyleBoxFlat_r751d")
+Button/styles/normal = SubResource("StyleBoxFlat_arum6")
+Button/styles/pressed = SubResource("StyleBoxFlat_q0f81")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_orqu3"]
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="SearchDropdown" type="PanelContainer"]
+custom_minimum_size = Vector2(80, 80)
+offset_right = 67.0
+offset_bottom = 71.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_h6ab8")
+script = ExtResource("1_qopyh")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+alignment = 1
+
+[node name="label" type="RichTextLabel" parent="VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_colors/default_color = Color(0.745098, 0.745098, 0.745098, 1)
+theme_override_fonts/normal_font = ExtResource("2_qix35")
+theme_override_font_sizes/normal_font_size = 9
+bbcode_enabled = true
+text = "[center]iso search"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="Search" type="LineEdit" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_qix35")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxEmpty_wvmkp")
+alignment = 1
+max_length = 3
+context_menu_enabled = false
+virtual_keyboard_type = 2
+flat = true
+select_all_on_focus = true
+caret_blink = true
+
+[node name="SelectOption" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = SubResource("Theme_5qdmj")
+text = "999"
+
+[node name="dd" type="Control" parent="VBoxContainer/SelectOption"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_top = 32.0
+offset_right = 20.0
+offset_bottom = 72.0
+grow_horizontal = 2
+
+[node name="ddpc" type="PanelContainer" parent="VBoxContainer/SelectOption/dd"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -21.5
+offset_right = 21.5
+offset_bottom = 92.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_orqu3")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/SelectOption/dd/ddpc"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Button" type="Button" parent="VBoxContainer/SelectOption/dd/ddpc/VBoxContainer"]
+layout_mode = 2
+
+[connection signal="text_changed" from="VBoxContainer/Search" to="." method="_on_search_text_changed"]
+[connection signal="text_submitted" from="VBoxContainer/Search" to="." method="_on_search_text_submitted"]
+[connection signal="pressed" from="VBoxContainer/SelectOption" to="." method="_on_select_option_pressed"]

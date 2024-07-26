@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://cxypq8nlmylpv"]
+
+[ext_resource type="Script" path="res://Game/3d/PusableBarrier.gd" id="1_e7pbq"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_npuok"]
+size = Vector3(1.6, 1.6, 5)
+
+[node name="ALTPusableBarrier" type="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("1_e7pbq")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5.6)
+shape = SubResource("BoxShape3D_npuok")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.6)
+shape = SubResource("BoxShape3D_npuok")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

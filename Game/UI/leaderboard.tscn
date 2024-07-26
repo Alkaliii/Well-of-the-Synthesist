@@ -1,0 +1,167 @@
+[gd_scene load_steps=6 format=3 uid="uid://dw8tk5u763xb0"]
+
+[ext_resource type="FontFile" uid="uid://ct4y3rnndcu5n" path="res://Assets/Fonts/Rubik/static/Rubik-Medium.ttf" id="1_8pbhv"]
+[ext_resource type="FontFile" uid="uid://cdwlkjegxsf3m" path="res://Assets/Fonts/catshop/CatShop.ttf" id="2_2g0dg"]
+[ext_resource type="FontFile" uid="uid://bbcr4m4d7iemb" path="res://Assets/Fonts/GreekSprt/NotoSerifDisplay-Medium.ttf" id="3_dotac"]
+[ext_resource type="FontFile" uid="uid://dkfstxdl3jabk" path="res://Assets/Fonts/Rubik/static/Rubik-SemiBold.ttf" id="4_0pkqm"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ccm52"]
+content_margin_left = 16.0
+content_margin_top = 16.0
+content_margin_right = 16.0
+content_margin_bottom = 16.0
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="Leaderboard" type="PanelContainer"]
+theme_override_styles/panel = SubResource("StyleBoxFlat_ccm52")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 2
+
+[node name="lblist" type="VBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+
+[node name="BigPlacement" type="HBoxContainer" parent="ScrollContainer/lblist"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="place" type="RichTextLabel" parent="ScrollContainer/lblist/BigPlacement"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_colors/default_color = Color(0.466667, 0.466667, 0.466667, 1)
+theme_override_fonts/normal_font = ExtResource("1_8pbhv")
+theme_override_font_sizes/normal_font_size = 12
+bbcode_enabled = true
+text = "1."
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="FirstSecThird" type="VBoxContainer" parent="ScrollContainer/lblist/BigPlacement"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/lblist/BigPlacement/FirstSecThird"]
+layout_mode = 2
+
+[node name="ElementName" type="RichTextLabel" parent="ScrollContainer/lblist/BigPlacement/FirstSecThird/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("2_2g0dg")
+theme_override_fonts/mono_font = ExtResource("3_dotac")
+theme_override_font_sizes/normal_font_size = 45
+theme_override_font_sizes/mono_font_size = 45
+bbcode_enabled = true
+text = "[wave]m[code]ξ"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="Control" type="Control" parent="ScrollContainer/lblist/BigPlacement/FirstSecThird/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="player" type="RichTextLabel" parent="ScrollContainer/lblist/BigPlacement/FirstSecThird/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_colors/default_color = Color(0.466667, 0.466667, 0.466667, 1)
+theme_override_fonts/normal_font = ExtResource("1_8pbhv")
+theme_override_fonts/bold_font = ExtResource("4_0pkqm")
+theme_override_font_sizes/normal_font_size = 15
+bbcode_enabled = true
+text = "[color=black][pulse][b]ALEX"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="IsotopeSum" type="RichTextLabel" parent="ScrollContainer/lblist/BigPlacement/FirstSecThird"]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_colors/default_color = Color(0.466667, 0.466667, 0.466667, 1)
+theme_override_fonts/normal_font = ExtResource("1_8pbhv")
+theme_override_font_sizes/normal_font_size = 12
+bbcode_enabled = true
+text = "(99+99+99)"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="IsotopicTier" type="RichTextLabel" parent="ScrollContainer/lblist/BigPlacement/FirstSecThird"]
+layout_mode = 2
+theme_override_colors/default_color = Color(0.168627, 0.176471, 0.2, 1)
+theme_override_fonts/normal_font = ExtResource("1_8pbhv")
+theme_override_font_sizes/normal_font_size = 16
+bbcode_enabled = true
+text = "efficacy: 10000000"
+fit_content = true
+scroll_active = false
+
+[node name="SmallPlacement" type="HBoxContainer" parent="ScrollContainer/lblist"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="place" type="RichTextLabel" parent="ScrollContainer/lblist/SmallPlacement"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_colors/default_color = Color(0.466667, 0.466667, 0.466667, 1)
+theme_override_fonts/normal_font = ExtResource("1_8pbhv")
+theme_override_font_sizes/normal_font_size = 12
+bbcode_enabled = true
+text = "4."
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="NotFirstSecThird" type="VBoxContainer" parent="ScrollContainer/lblist/SmallPlacement"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/lblist/SmallPlacement/NotFirstSecThird"]
+layout_mode = 2
+
+[node name="ElementName" type="RichTextLabel" parent="ScrollContainer/lblist/SmallPlacement/NotFirstSecThird/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("2_2g0dg")
+theme_override_fonts/mono_font = ExtResource("3_dotac")
+theme_override_font_sizes/normal_font_size = 22
+theme_override_font_sizes/mono_font_size = 22
+bbcode_enabled = true
+text = "[wave]m[code]ξ"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="Control" type="Control" parent="ScrollContainer/lblist/SmallPlacement/NotFirstSecThird/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="player" type="RichTextLabel" parent="ScrollContainer/lblist/SmallPlacement/NotFirstSecThird/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_colors/default_color = Color(0.466667, 0.466667, 0.466667, 1)
+theme_override_fonts/normal_font = ExtResource("1_8pbhv")
+theme_override_fonts/bold_font = ExtResource("4_0pkqm")
+theme_override_font_sizes/normal_font_size = 15
+bbcode_enabled = true
+text = "[color=black][pulse][b]ALEX"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="IsotopeSum" type="RichTextLabel" parent="ScrollContainer/lblist/SmallPlacement/NotFirstSecThird"]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_colors/default_color = Color(0.466667, 0.466667, 0.466667, 1)
+theme_override_fonts/normal_font = ExtResource("1_8pbhv")
+theme_override_font_sizes/normal_font_size = 12
+bbcode_enabled = true
+text = "(99+99+99)"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0

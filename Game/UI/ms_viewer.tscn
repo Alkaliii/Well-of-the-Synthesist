@@ -1,0 +1,328 @@
+[gd_scene load_steps=19 format=3 uid="uid://0s5ee35yufly"]
+
+[ext_resource type="Script" path="res://Game/UI/ms_viewer.gd" id="1_dnr02"]
+[ext_resource type="Texture2D" uid="uid://d1va5pqd8by16" path="res://Assets/Graphics/sgrid@4x.png" id="2_mqtki"]
+[ext_resource type="Texture2D" uid="uid://dxd14cin1f06a" path="res://Assets/Graphics/bgrid@4x.png" id="3_yo4n0"]
+[ext_resource type="FontFile" uid="uid://ct4y3rnndcu5n" path="res://Assets/Fonts/Rubik/static/Rubik-Medium.ttf" id="4_kdcau"]
+[ext_resource type="Texture2D" uid="uid://ctsd7qtbixila" path="res://Assets/Graphics/GrabberLight.png" id="5_kponj"]
+[ext_resource type="Texture2D" uid="uid://bl8ipapgf1ctf" path="res://Assets/Graphics/GrabberDark.png" id="6_7dmcf"]
+
+[sub_resource type="Environment" id="Environment_8bgc3"]
+ambient_light_source = 3
+ambient_light_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xope2"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hdkn7"]
+transparency = 1
+cull_mode = 2
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("2_mqtki")
+
+[sub_resource type="QuadMesh" id="QuadMesh_te6sg"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4keuw"]
+transparency = 1
+cull_mode = 2
+shading_mode = 0
+albedo_texture = ExtResource("3_yo4n0")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_sykw2"]
+size = Vector2(1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qkdtu"]
+content_margin_left = 6.0
+content_margin_top = 6.0
+content_margin_right = 6.0
+content_margin_bottom = 6.0
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p4751"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 1024
+corner_radius_top_right = 1024
+corner_radius_bottom_right = 1024
+corner_radius_bottom_left = 1024
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iuvlb"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hu8mt"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_skeww"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 0, 0, 0.901961)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ccvb7"]
+
+[node name="MSViewer" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_dnr02")
+
+[node name="TextureRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.501961)
+
+[node name="D3SVC" type="SubViewportContainer" parent="."]
+custom_minimum_size = Vector2(720, 720)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+stretch = true
+
+[node name="SV" type="SubViewport" parent="D3SVC"]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(1280, 720)
+render_target_update_mode = 4
+
+[node name="env" type="Node3D" parent="D3SVC/SV"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="D3SVC/SV/env"]
+environment = SubResource("Environment_8bgc3")
+
+[node name="Camera3D" type="Camera3D" parent="D3SVC/SV/env"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="D3SVC/SV/env"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.74, 0)
+visible = false
+material = SubResource("StandardMaterial3D_xope2")
+
+[node name="SynergyCore" type="Node3D" parent="D3SVC/SV/env"]
+
+[node name="GridCore" type="Node3D" parent="D3SVC/SV/env"]
+
+[node name="Side" type="MeshInstance3D" parent="D3SVC/SV/env/GridCore"]
+transform = Transform3D(1.38, 0, 0, 0, 1.38, 0, 0, 0, 1.38, 0, 0, -0.5)
+material_override = SubResource("StandardMaterial3D_hdkn7")
+mesh = SubResource("QuadMesh_te6sg")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="D3SVC/SV/env/GridCore"]
+transform = Transform3D(1.38, 0, 0, 0, 1.38, 0, 0, 0, 1.38, 0, -0.5, 0)
+material_override = SubResource("StandardMaterial3D_4keuw")
+mesh = SubResource("PlaneMesh_sykw2")
+
+[node name="Controls" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 64.0
+offset_top = -239.0
+offset_right = 332.0
+offset_bottom = -64.0
+grow_vertical = 0
+
+[node name="rX" type="PanelContainer" parent="Controls"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_qkdtu")
+
+[node name="Rotate" type="HBoxContainer" parent="Controls/rX"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="label" type="RichTextLabel" parent="Controls/rX/Rotate"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_colors/default_color = Color(0.745098, 0.745098, 0.745098, 1)
+theme_override_fonts/normal_font = ExtResource("4_kdcau")
+theme_override_font_sizes/normal_font_size = 9
+bbcode_enabled = true
+text = "rotation X"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="xslider" type="HSlider" parent="Controls/rX/Rotate"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/center_grabber = 1
+theme_override_icons/grabber = ExtResource("5_kponj")
+theme_override_icons/grabber_highlight = ExtResource("6_7dmcf")
+theme_override_styles/slider = SubResource("StyleBoxFlat_p4751")
+max_value = 360.0
+tick_count = 3
+
+[node name="rY" type="PanelContainer" parent="Controls"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_qkdtu")
+
+[node name="Rotate" type="HBoxContainer" parent="Controls/rY"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="label" type="RichTextLabel" parent="Controls/rY/Rotate"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_colors/default_color = Color(0.745098, 0.745098, 0.745098, 1)
+theme_override_fonts/normal_font = ExtResource("4_kdcau")
+theme_override_font_sizes/normal_font_size = 9
+bbcode_enabled = true
+text = "rotation Y"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="yslider" type="HSlider" parent="Controls/rY/Rotate"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/center_grabber = 1
+theme_override_icons/grabber = ExtResource("5_kponj")
+theme_override_icons/grabber_highlight = ExtResource("6_7dmcf")
+theme_override_styles/slider = SubResource("StyleBoxFlat_p4751")
+max_value = 360.0
+tick_count = 3
+
+[node name="rZ" type="PanelContainer" parent="Controls"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_qkdtu")
+
+[node name="Rotate" type="HBoxContainer" parent="Controls/rZ"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="label" type="RichTextLabel" parent="Controls/rZ/Rotate"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_colors/default_color = Color(0.745098, 0.745098, 0.745098, 1)
+theme_override_fonts/normal_font = ExtResource("4_kdcau")
+theme_override_font_sizes/normal_font_size = 9
+bbcode_enabled = true
+text = "rotation Z"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="zslider" type="HSlider" parent="Controls/rZ/Rotate"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/center_grabber = 1
+theme_override_icons/grabber = ExtResource("5_kponj")
+theme_override_icons/grabber_highlight = ExtResource("6_7dmcf")
+theme_override_styles/slider = SubResource("StyleBoxFlat_p4751")
+max_value = 360.0
+tick_count = 3
+
+[node name="tier" type="PanelContainer" parent="Controls"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_qkdtu")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Controls/tier"]
+layout_mode = 2
+
+[node name="isonum" type="RichTextLabel" parent="Controls/tier/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_fonts/normal_font = ExtResource("4_kdcau")
+theme_override_font_sizes/normal_font_size = 15
+bbcode_enabled = true
+text = "99"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="isocombo" type="HBoxContainer" parent="Controls/tier/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="label" type="RichTextLabel" parent="Controls/tier/VBoxContainer/isocombo"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_colors/default_color = Color(0.745098, 0.745098, 0.745098, 1)
+theme_override_fonts/normal_font = ExtResource("4_kdcau")
+theme_override_font_sizes/normal_font_size = 9
+bbcode_enabled = true
+text = "Isotope Combination"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="isoslider" type="HSlider" parent="Controls/tier/VBoxContainer/isocombo"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_constants/center_grabber = 1
+theme_override_icons/grabber = ExtResource("5_kponj")
+theme_override_icons/grabber_highlight = ExtResource("6_7dmcf")
+theme_override_styles/slider = SubResource("StyleBoxFlat_p4751")
+max_value = 297.0
+tick_count = 3
+
+[node name="spec" type="Control" parent="Controls/tier/VBoxContainer"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+
+[node name="gen" type="Button" parent="Controls/tier/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_kdcau")
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_iuvlb")
+theme_override_styles/hover = SubResource("StyleBoxFlat_hu8mt")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_skeww")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ccvb7")
+text = "view"
+
+[connection signal="drag_ended" from="Controls/rX/Rotate/xslider" to="." method="_on_xslider_drag_ended"]
+[connection signal="value_changed" from="Controls/rX/Rotate/xslider" to="." method="_on_xslider_value_changed"]
+[connection signal="drag_ended" from="Controls/rY/Rotate/yslider" to="." method="_on_yslider_drag_ended"]
+[connection signal="value_changed" from="Controls/rY/Rotate/yslider" to="." method="_on_yslider_value_changed"]
+[connection signal="drag_ended" from="Controls/rZ/Rotate/zslider" to="." method="_on_zslider_drag_ended"]
+[connection signal="value_changed" from="Controls/rZ/Rotate/zslider" to="." method="_on_zslider_value_changed"]
+[connection signal="drag_ended" from="Controls/tier/VBoxContainer/isocombo/isoslider" to="." method="_on_isoslider_drag_ended"]
+[connection signal="value_changed" from="Controls/tier/VBoxContainer/isocombo/isoslider" to="." method="_on_isoslider_value_changed"]
+[connection signal="pressed" from="Controls/tier/VBoxContainer/gen" to="." method="_on_gen_pressed"]

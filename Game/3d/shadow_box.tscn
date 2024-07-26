@@ -1,0 +1,116 @@
+[gd_scene load_steps=20 format=3 uid="uid://5rfq7mk6g1y0"]
+
+[ext_resource type="Shader" path="res://Assets/Shaders/VertexDisplacement.gdshader" id="1_jvv3k"]
+[ext_resource type="Shader" path="res://Assets/Shaders/CardFog.gdshader" id="2_li364"]
+[ext_resource type="Script" path="res://Game/3d/shadow_box.gd" id="2_pmfje"]
+[ext_resource type="Texture2D" uid="uid://dke5cqe6d5uxx" path="res://Assets/Graphics/external/fx_cloudalphas/FX_CloudAlpha06.png" id="3_pnap6"]
+[ext_resource type="PackedScene" uid="uid://cvw7dgpmytcn8" path="res://Game/3d/spirit.tscn" id="5_r33a3"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_rylco"]
+fractal_weighted_strength = 1.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_cacy4"]
+seamless = true
+noise = SubResource("FastNoiseLite_rylco")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_3ruvu"]
+noise_type = 3
+fractal_weighted_strength = 1.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_nugo1"]
+seamless = true
+noise = SubResource("FastNoiseLite_3ruvu")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rruru"]
+render_priority = 0
+shader = ExtResource("1_jvv3k")
+shader_parameter/speed = Vector2(0.01, 0.1)
+shader_parameter/str = 0.3
+shader_parameter/ctrl = 0.7
+shader_parameter/time_offset = Vector2(1, 1)
+shader_parameter/noise_tex = SubResource("NoiseTexture2D_cacy4")
+shader_parameter/noise_texB = SubResource("NoiseTexture2D_nugo1")
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_xssj0"]
+resource_local_to_scene = true
+top_radius = 1.2
+bottom_radius = 1.2
+height = 4.0
+radial_segments = 5
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_lp8jq"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_xpwbs"]
+noise = SubResource("FastNoiseLite_lp8jq")
+
+[sub_resource type="Gradient" id="Gradient_wirml"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_5y5er"]
+gradient = SubResource("Gradient_wirml")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_elrev"]
+render_priority = 1
+shader = ExtResource("2_li364")
+shader_parameter/inv_proximity_fade_distance = 30.0
+shader_parameter/proximity_fade_distance = 31.0
+shader_parameter/y_billboard = false
+shader_parameter/df_unshaded = 1.0
+shader_parameter/twk_shaded = 0.4
+shader_parameter/direction = Vector2(0, 0.1)
+shader_parameter/strength = 0.3
+shader_parameter/TEXTURE = ExtResource("3_pnap6")
+shader_parameter/flowMap = SubResource("NoiseTexture2D_xpwbs")
+shader_parameter/mask_tex = SubResource("GradientTexture2D_5y5er")
+
+[sub_resource type="QuadMesh" id="QuadMesh_xe2aj"]
+size = Vector2(3, 3)
+
+[sub_resource type="Gradient" id="Gradient_arx4a"]
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_o7gmt"]
+size = Vector3(1.2, 4, 1.2)
+
+[node name="ShadowBox" type="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8, 2, -0.8)
+material_override = SubResource("ShaderMaterial_rruru")
+cast_shadow = 3
+mesh = SubResource("CylinderMesh_xssj0")
+script = ExtResource("2_pmfje")
+
+[node name="Testfloor" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
+visible = false
+size = Vector3(6, 1, 6)
+
+[node name="CPUParticles3D" type="CPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
+material_override = SubResource("ShaderMaterial_elrev")
+cast_shadow = 0
+lifetime = 8.0
+local_coords = true
+mesh = SubResource("QuadMesh_xe2aj")
+emission_shape = 1
+emission_sphere_radius = 0.2
+direction = Vector3(0, 0, 0)
+spread = 180.0
+flatness = 1.0
+gravity = Vector3(0, 0, 0)
+color = Color(0.141176, 0.141176, 0.141176, 1)
+color_ramp = SubResource("Gradient_arx4a")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("BoxShape3D_o7gmt")
+
+[node name="Spirit" parent="." instance=ExtResource("5_r33a3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3, 0)
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]

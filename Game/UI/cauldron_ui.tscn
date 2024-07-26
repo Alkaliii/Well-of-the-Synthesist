@@ -1,0 +1,416 @@
+[gd_scene load_steps=25 format=3 uid="uid://dvfob4jmvuuxi"]
+
+[ext_resource type="Script" path="res://Game/UI/cauldron_ui.gd" id="1_4pf3x"]
+[ext_resource type="PackedScene" uid="uid://nkiljeughwnv" path="res://Game/UI/particleContainer.tscn" id="1_s2jdl"]
+[ext_resource type="Shader" path="res://Assets/Shaders/MarchingAnts.gdshader" id="3_a4ej2"]
+[ext_resource type="Script" path="res://Game/UI/CauldronDropZone.gd" id="4_sww70"]
+[ext_resource type="Shader" path="res://Assets/Shaders/radialprogress.gdshader" id="5_8hf7d"]
+[ext_resource type="Script" path="res://Game/UI/CircDropZone.gd" id="5_h4sae"]
+[ext_resource type="FontFile" uid="uid://cdwlkjegxsf3m" path="res://Assets/Fonts/catshop/CatShop.ttf" id="5_w5n3x"]
+[ext_resource type="FontFile" uid="uid://bbcr4m4d7iemb" path="res://Assets/Fonts/GreekSprt/NotoSerifDisplay-Medium.ttf" id="6_bl8xs"]
+[ext_resource type="FontFile" uid="uid://ct4y3rnndcu5n" path="res://Assets/Fonts/Rubik/static/Rubik-Medium.ttf" id="7_jlkqe"]
+[ext_resource type="Texture2D" uid="uid://k6ofiuwd8boa" path="res://Assets/Graphics/Grabber.png" id="8_cilg2"]
+[ext_resource type="Script" path="res://Game/UI/HandleISSnap.gd" id="8_gm3d4"]
+[ext_resource type="Texture2D" uid="uid://dweex0ly8wl4m" path="res://Assets/Graphics/GrabberHighlight.png" id="9_qg6vx"]
+[ext_resource type="PackedScene" uid="uid://cqbjw87kdrmc8" path="res://Game/UI/search_dropdown.tscn" id="11_orkpr"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p4d4y"]
+shader = ExtResource("3_a4ej2")
+shader_parameter/ant_color_1 = Color(1, 1, 1, 0)
+shader_parameter/ant_color_2 = Color(0, 0, 0, 0)
+shader_parameter/ant_width = 2.0
+shader_parameter/ant_length = 10.0
+shader_parameter/ant_speed = 30.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8h8gw"]
+shader = ExtResource("5_8hf7d")
+shader_parameter/outer_radius = 0.9
+shader_parameter/inner_radius = 1.0
+shader_parameter/turn = 1.0
+shader_parameter/blur = 0.02
+shader_parameter/fill_ratio = 1.25
+shader_parameter/time_speed = Vector2(1, 1)
+shader_parameter/fake_time = 0.0
+
+[sub_resource type="Gradient" id="Gradient_2yaxn"]
+offsets = PackedFloat32Array(0, 0.85)
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_s3er2"]
+gradient = SubResource("Gradient_2yaxn")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.8, 0)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_x1cu2"]
+texture = SubResource("GradientTexture2D_s3er2")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_27mfq"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_towpq"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_05vvv"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0, 0, 0, 0.901961)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rvmht"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pne2m"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0.901961, 0.133333, 0, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ti1b2"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 1024
+corner_radius_top_right = 1024
+corner_radius_bottom_right = 1024
+corner_radius_bottom_left = 1024
+
+[node name="CauldronUI" type="Control"]
+custom_minimum_size = Vector2(1280, 720)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4pf3x")
+
+[node name="particlecont" parent="." instance=ExtResource("1_s2jdl")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -390.0
+offset_top = -142.5
+offset_right = -105.0
+offset_bottom = 142.5
+grow_horizontal = 2
+grow_vertical = 2
+debug = false
+
+[node name="alloycont" parent="." instance=ExtResource("1_s2jdl")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 107.5
+offset_top = -142.5
+offset_right = 392.5
+offset_bottom = 142.5
+grow_horizontal = 2
+grow_vertical = 2
+debug = false
+contfor = 1
+
+[node name="CauldronDropZone" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_p4d4y")
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -55.0
+offset_right = 55.0
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_sww70")
+
+[node name="DropZone" type="Control" parent="."]
+custom_minimum_size = Vector2(130, 65)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -65.0
+offset_top = -13.5
+offset_right = 65.0
+offset_bottom = 51.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("5_h4sae")
+
+[node name="CircDropZone" type="ColorRect" parent="DropZone"]
+modulate = Color(1, 1, 1, 0.501961)
+material = SubResource("ShaderMaterial_8h8gw")
+custom_minimum_size = Vector2(130, 130)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -65.0
+offset_top = -29.0
+offset_right = 65.0
+offset_bottom = 101.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1, 0.5)
+
+[node name="ReadoutOptions" type="Panel" parent="."]
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(220, 220)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -110.0
+offset_top = 58.0
+offset_right = 110.0
+offset_bottom = 278.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_x1cu2")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ReadoutOptions"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -110.0
+offset_right = 150.0
+offset_bottom = 110.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="detail" type="RichTextLabel" parent="ReadoutOptions/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/default_color = Color(0.745098, 0.745098, 0.745098, 1)
+theme_override_fonts/normal_font = ExtResource("7_jlkqe")
+theme_override_font_sizes/normal_font_size = 9
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="rd" type="RichTextLabel" parent="ReadoutOptions/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("5_w5n3x")
+theme_override_fonts/mono_font = ExtResource("6_bl8xs")
+theme_override_font_sizes/normal_font_size = 25
+theme_override_font_sizes/mono_font_size = 25
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
+
+[node name="options" type="HBoxContainer" parent="ReadoutOptions/VBoxContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+alignment = 1
+
+[node name="synth" type="Button" parent="ReadoutOptions/VBoxContainer/options"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("7_jlkqe")
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_27mfq")
+theme_override_styles/hover = SubResource("StyleBoxFlat_towpq")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_05vvv")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_rvmht")
+text = "synthesize"
+
+[node name="decay" type="Button" parent="ReadoutOptions/VBoxContainer/options"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("7_jlkqe")
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_27mfq")
+theme_override_styles/hover = SubResource("StyleBoxFlat_towpq")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_05vvv")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_rvmht")
+text = "decay"
+
+[node name="echo" type="Button" parent="ReadoutOptions/VBoxContainer/options"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("7_jlkqe")
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_27mfq")
+theme_override_styles/hover = SubResource("StyleBoxFlat_towpq")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_05vvv")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_rvmht")
+text = "echo"
+
+[node name="clear" type="Button" parent="ReadoutOptions/VBoxContainer/options"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("7_jlkqe")
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_pne2m")
+theme_override_styles/hover = SubResource("StyleBoxFlat_towpq")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_05vvv")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_rvmht")
+text = "clear"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ReadoutOptions"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -215.0
+offset_top = -40.0
+offset_right = 215.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 130
+alignment = 1
+
+[node name="HandleISSnap" type="Node" parent="ReadoutOptions/HBoxContainer" node_paths=PackedStringArray("slidera", "sliderb")]
+script = ExtResource("8_gm3d4")
+slidera = NodePath("../twkisoA/isosliderA")
+sliderb = NodePath("../twkisoB/isosliderB")
+
+[node name="twkisoA" type="VBoxContainer" parent="ReadoutOptions/HBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = -5
+
+[node name="detailA" type="RichTextLabel" parent="ReadoutOptions/HBoxContainer/twkisoA"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_colors/default_color = Color(0.745098, 0.745098, 0.745098, 1)
+theme_override_fonts/normal_font = ExtResource("7_jlkqe")
+theme_override_font_sizes/normal_font_size = 9
+bbcode_enabled = true
+text = "MM Isotope"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="isosliderA" type="HSlider" parent="ReadoutOptions/HBoxContainer/twkisoA"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_constants/center_grabber = 1
+theme_override_icons/grabber = ExtResource("8_cilg2")
+theme_override_icons/grabber_highlight = ExtResource("9_qg6vx")
+theme_override_styles/slider = SubResource("StyleBoxFlat_ti1b2")
+tick_count = 3
+
+[node name="twkisoB" type="VBoxContainer" parent="ReadoutOptions/HBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = -5
+
+[node name="detailB" type="RichTextLabel" parent="ReadoutOptions/HBoxContainer/twkisoB"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_colors/default_color = Color(0.745098, 0.745098, 0.745098, 1)
+theme_override_fonts/normal_font = ExtResource("7_jlkqe")
+theme_override_font_sizes/normal_font_size = 9
+bbcode_enabled = true
+text = "[right]MM Isotope"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="isosliderB" type="HSlider" parent="ReadoutOptions/HBoxContainer/twkisoB"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_constants/center_grabber = 1
+theme_override_icons/grabber = ExtResource("8_cilg2")
+theme_override_icons/grabber_highlight = ExtResource("9_qg6vx")
+theme_override_styles/slider = SubResource("StyleBoxFlat_ti1b2")
+tick_count = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -276.0
+offset_top = 89.0
+offset_right = 276.0
+offset_bottom = 215.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 300
+
+[node name="SearchDropdownA" parent="HBoxContainer" instance=ExtResource("11_orkpr")]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 2
+
+[node name="SearchDropdownB" parent="HBoxContainer" instance=ExtResource("11_orkpr")]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 10
+
+[connection signal="pressed" from="ReadoutOptions/VBoxContainer/options/synth" to="." method="_on_synth_pressed"]
+[connection signal="pressed" from="ReadoutOptions/VBoxContainer/options/decay" to="." method="_on_decay_pressed"]
+[connection signal="pressed" from="ReadoutOptions/VBoxContainer/options/echo" to="." method="_on_echo_pressed"]
+[connection signal="pressed" from="ReadoutOptions/VBoxContainer/options/clear" to="." method="_on_clear_pressed"]
+[connection signal="drag_ended" from="ReadoutOptions/HBoxContainer/twkisoA/isosliderA" to="ReadoutOptions/HBoxContainer/HandleISSnap" method="_on_isoslider_a_drag_ended"]
+[connection signal="mouse_exited" from="ReadoutOptions/HBoxContainer/twkisoA/isosliderA" to="ReadoutOptions/HBoxContainer/HandleISSnap" method="_on_isoslider_a_mouse_exited"]
+[connection signal="drag_ended" from="ReadoutOptions/HBoxContainer/twkisoB/isosliderB" to="ReadoutOptions/HBoxContainer/HandleISSnap" method="_on_isoslider_b_drag_ended"]
+[connection signal="mouse_exited" from="ReadoutOptions/HBoxContainer/twkisoB/isosliderB" to="ReadoutOptions/HBoxContainer/HandleISSnap" method="_on_isoslider_b_mouse_exited"]

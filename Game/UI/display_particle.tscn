@@ -1,0 +1,243 @@
+[gd_scene load_steps=19 format=3 uid="uid://bs02ml2ejb5ld"]
+
+[ext_resource type="Script" path="res://Game/UI/display_particle.gd" id="1_44q7u"]
+[ext_resource type="Texture2D" uid="uid://ge5lxmiq1luj" path="res://Assets/Graphics/particleatlas.png" id="1_ac7qu"]
+[ext_resource type="Shader" path="res://Assets/Shaders/flamming_outline.gdshader" id="1_cx350"]
+[ext_resource type="Shader" path="res://Assets/Shaders/Woble2Dper.gdshader" id="1_djca6"]
+[ext_resource type="Shader" path="res://Assets/Shaders/MarchingAnts.gdshader" id="2_tovvp"]
+[ext_resource type="Shader" path="res://Assets/Shaders/mana.gdshader" id="3_utm30"]
+[ext_resource type="PackedScene" uid="uid://buu8ff4ffpikq" path="res://Game/UI/particletooltip.tscn" id="7_m3rgn"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qf01j"]
+shader = ExtResource("1_cx350")
+shader_parameter/DonutMaskCenter = Vector2(0.5, 0.5)
+shader_parameter/DonutMaskSize = 0.5
+shader_parameter/DonutMaskThickness = 0.15
+shader_parameter/OutlineWidth = 3.0
+shader_parameter/OutlinePixelSize = 1.0
+shader_parameter/UseRainbowColorOutline = true
+shader_parameter/RainbowColorLightOffset = 0.5
+shader_parameter/RainbowColorSinFrequency = 0.1
+shader_parameter/OutlineUseNoise = false
+shader_parameter/NoiseBlockSize = 5.0
+shader_parameter/NoiseMaxLineWidth = 10.0
+shader_parameter/NoiseMinLineWidth = 5.0
+shader_parameter/NoiseFreq = 1.0
+shader_parameter/BackgroundColor = Color(0.95, 0.95, 0.95, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_eiv5s"]
+resource_local_to_scene = true
+frequency = 0.0022
+fractal_octaves = 1
+domain_warp_enabled = true
+domain_warp_type = 1
+domain_warp_fractal_octaves = 1
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_woys3"]
+resource_local_to_scene = true
+seamless = true
+seamless_blend_skirt = 1.0
+noise = SubResource("FastNoiseLite_eiv5s")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_jw0dc"]
+resource_local_to_scene = true
+noise_type = 4
+frequency = 0.0026
+fractal_gain = 50.0
+domain_warp_fractal_octaves = 1
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_snmev"]
+resource_local_to_scene = true
+seamless = true
+noise = SubResource("FastNoiseLite_jw0dc")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vks6g"]
+resource_local_to_scene = true
+shader = ExtResource("3_utm30")
+shader_parameter/current_mana = 1.0
+shader_parameter/max_mana = 1.0
+shader_parameter/rank_advance_mana = 1.0
+shader_parameter/offset_time = Vector2(1, 1)
+shader_parameter/inset = 0.8
+shader_parameter/groove_opacity = -3.0
+shader_parameter/groove_speed = 0.3
+shader_parameter/groove_width = 0.5
+shader_parameter/groove_distance = 5.0
+shader_parameter/border_color = Color(0.901961, 0.133333, 0, 1)
+shader_parameter/border_width = -0.05
+shader_parameter/border_speed = 0.02
+shader_parameter/noise = SubResource("NoiseTexture2D_snmev")
+shader_parameter/groovy_noise = SubResource("NoiseTexture2D_woys3")
+shader_parameter/glow_strength = 2.0
+shader_parameter/mana_color = Color(0.901961, 0.133333, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gslad"]
+bg_color = Color(0, 0, 0, 0.85098)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iwa6j"]
+atlas = ExtResource("1_ac7qu")
+region = Rect2(6, 6, 84, 84)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2oepq"]
+resource_local_to_scene = true
+shader = ExtResource("1_djca6")
+shader_parameter/atlas_size = Vector2(10, 5)
+shader_parameter/atlas_pos = 0.0
+shader_parameter/alpha = 1.0
+shader_parameter/colort = Color(1, 1, 1, 1)
+shader_parameter/offset_time = Vector2(1, 1)
+shader_parameter/normal_offset = 0.5
+shader_parameter/time_influence = 2.0
+shader_parameter/y_div = 2.87
+shader_parameter/fov = 90.0
+shader_parameter/cull_back = false
+shader_parameter/y_rot = 0.0
+shader_parameter/x_rot = 0.0
+shader_parameter/inset = 4.75e-08
+shader_parameter/texture_pass_in = SubResource("AtlasTexture_iwa6j")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_60hvm"]
+resource_local_to_scene = true
+shader = ExtResource("1_djca6")
+shader_parameter/atlas_size = Vector2(10, 5)
+shader_parameter/atlas_pos = 0.0
+shader_parameter/alpha = 1.0
+shader_parameter/colort = Color(1, 1, 1, 1)
+shader_parameter/offset_time = Vector2(1, 1)
+shader_parameter/normal_offset = 0.5
+shader_parameter/time_influence = 2.0
+shader_parameter/y_div = 2.87
+shader_parameter/fov = 90.0
+shader_parameter/cull_back = false
+shader_parameter/y_rot = 0.0
+shader_parameter/x_rot = 0.0
+shader_parameter/inset = 4.75e-08
+shader_parameter/texture_pass_in = SubResource("AtlasTexture_iwa6j")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qvxix"]
+resource_local_to_scene = true
+shader = ExtResource("2_tovvp")
+shader_parameter/ant_color_1 = Color(1, 1, 1, 0)
+shader_parameter/ant_color_2 = Color(0, 0, 0, 0)
+shader_parameter/ant_width = 2.0
+shader_parameter/ant_length = 10.0
+shader_parameter/ant_speed = 30.0
+
+[node name="DisplayParticle" type="PanelContainer"]
+self_modulate = Color(1, 1, 1, 0)
+material = SubResource("ShaderMaterial_qf01j")
+custom_minimum_size = Vector2(48, 48)
+offset_right = 42.0
+offset_bottom = 42.0
+script = ExtResource("1_44q7u")
+spring = 100.0
+damp = 5.0
+velocity_multiplier = 1.0
+
+[node name="Particle" type="Control" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="Glow" type="ColorRect" parent="Particle"]
+modulate = Color(1, 1, 1, 0)
+material = SubResource("ShaderMaterial_vks6g")
+layout_mode = 2
+offset_right = 48.0
+offset_bottom = 48.0
+mouse_filter = 2
+
+[node name="GridCon" type="GridContainer" parent="Particle"]
+layout_mode = 2
+offset_right = 48.0
+offset_bottom = 48.0
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+columns = 2
+
+[node name="ParticleB" type="PanelContainer" parent="Particle/GridCon"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_gslad")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Particle/GridCon/ParticleB"]
+material = SubResource("ShaderMaterial_2oepq")
+layout_mode = 2
+mouse_filter = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="Particle/GridCon/ParticleB/SubViewportContainer"]
+disable_3d = true
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(2, 2)
+size_2d_override_stretch = true
+render_target_update_mode = 0
+
+[node name="particle" type="TextureRect" parent="Particle/GridCon/ParticleB/SubViewportContainer/SubViewport"]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = SubResource("AtlasTexture_iwa6j")
+expand_mode = 1
+
+[node name="spaceA" type="Control" parent="Particle/GridCon"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="spaceB" type="Control" parent="Particle/GridCon"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="ParticleA" type="PanelContainer" parent="Particle/GridCon"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_gslad")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Particle/GridCon/ParticleA"]
+material = SubResource("ShaderMaterial_60hvm")
+layout_mode = 2
+mouse_filter = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="Particle/GridCon/ParticleA/SubViewportContainer"]
+disable_3d = true
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(2, 2)
+size_2d_override_stretch = true
+render_target_update_mode = 4
+
+[node name="particle" type="TextureRect" parent="Particle/GridCon/ParticleA/SubViewportContainer/SubViewport"]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = SubResource("AtlasTexture_iwa6j")
+expand_mode = 1
+
+[node name="focused" type="ColorRect" parent="Particle"]
+material = SubResource("ShaderMaterial_qvxix")
+layout_mode = 2
+offset_right = 48.0
+offset_bottom = 48.0
+mouse_filter = 2
+
+[node name="tooltip" parent="Particle" instance=ExtResource("7_m3rgn")]
+layout_mode = 1
+offset_left = 35.0
+offset_top = 35.0
+offset_right = 115.0
+offset_bottom = 190.0
+mouse_filter = 2
+use_tl = true

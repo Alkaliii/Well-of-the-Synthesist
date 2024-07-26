@@ -1,0 +1,312 @@
+[gd_scene load_steps=13 format=3 uid="uid://p6ikw8bau02k"]
+
+[ext_resource type="FontFile" uid="uid://ct4y3rnndcu5n" path="res://Assets/Fonts/Rubik/static/Rubik-Medium.ttf" id="1_pi17x"]
+[ext_resource type="FontFile" uid="uid://7wgxoxmevhkj" path="res://Assets/Fonts/amerika/AMERIKA_.ttf" id="2_6ojtb"]
+[ext_resource type="Script" path="res://Game/UI/cc.gd" id="2_benmd"]
+[ext_resource type="PackedScene" uid="uid://c5vveuf1djvjg" path="res://Game/UI/pick_color.tscn" id="3_2lwkl"]
+[ext_resource type="Script" path="res://Game/UI/SetEye.gd" id="3_je0ve"]
+[ext_resource type="PackedScene" uid="uid://col5nncce6km8" path="res://Game/UI/input_rot.tscn" id="4_ghctv"]
+[ext_resource type="PackedScene" uid="uid://dkoojr56muhl0" path="res://Game/UI/input_vec2.tscn" id="5_qdq8b"]
+
+[sub_resource type="Theme" id="Theme_5sbad"]
+default_font = ExtResource("1_pi17x")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1jgdv"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1dsu2"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pr037"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0, 0, 0, 0.901961)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_h1str"]
+
+[node name="CC" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_5sbad")
+script = ExtResource("2_benmd")
+
+[node name="SetEyeA" type="Node" parent="." node_paths=PackedStringArray("inputs_col", "inputs_rot", "inputs_scale", "inputs_pos")]
+script = ExtResource("3_je0ve")
+inputs_col = NodePath("../VBoxContainer/v/eyes/EyeA/eaPickColor")
+inputs_rot = NodePath("../VBoxContainer/v/eyes/EyeA/eaRot")
+inputs_scale = NodePath("../VBoxContainer/v/eyes/EyeA/eaVec2s")
+inputs_pos = NodePath("../VBoxContainer/v/eyes/EyeA/eaVec2p")
+
+[node name="SetEyeB" type="Node" parent="." node_paths=PackedStringArray("inputs_col", "inputs_rot", "inputs_scale", "inputs_pos")]
+script = ExtResource("3_je0ve")
+inputs_col = NodePath("../VBoxContainer/v/eyes/EyeB/ebPickColor")
+inputs_rot = NodePath("../VBoxContainer/v/eyes/EyeB/ebRot")
+inputs_scale = NodePath("../VBoxContainer/v/eyes/EyeB/ebVec2s")
+inputs_pos = NodePath("../VBoxContainer/v/eyes/EyeB/ebVec2p")
+which_eye = "eyeB"
+
+[node name="SetEyeC" type="Node" parent="." node_paths=PackedStringArray("inputs_col", "inputs_rot", "inputs_scale", "inputs_pos")]
+script = ExtResource("3_je0ve")
+inputs_col = NodePath("../VBoxContainer/v/eyes/EyeC/ecPickColor")
+inputs_rot = NodePath("../VBoxContainer/v/eyes/EyeC/ecRot")
+inputs_scale = NodePath("../VBoxContainer/v/eyes/EyeC/ecVec2s")
+inputs_pos = NodePath("../VBoxContainer/v/eyes/EyeC/ecVec2p")
+which_eye = "eyeC"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -412.0
+offset_top = -198.5
+offset_right = 412.0
+offset_bottom = 198.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="TextInput" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = -4
+alignment = 1
+
+[node name="lbl" type="RichTextLabel" parent="VBoxContainer/TextInput"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_colors/default_color = Color(0.745098, 0.745098, 0.745098, 1)
+theme_override_fonts/normal_font = ExtResource("1_pi17x")
+theme_override_font_sizes/normal_font_size = 10
+bbcode_enabled = true
+text = "[center]Name:"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="name_lineedit" type="LineEdit" parent="VBoxContainer/TextInput"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_placeholder_color = Color(1, 0.835294, 0, 1)
+theme_override_fonts/font = ExtResource("2_6ojtb")
+theme_override_font_sizes/font_size = 30
+placeholder_text = "Yiev"
+alignment = 1
+max_length = 16
+expand_to_text_length = true
+flat = true
+
+[node name="lbl2" type="RichTextLabel" parent="VBoxContainer/TextInput"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_colors/default_color = Color(0.745098, 0.745098, 0.745098, 1)
+theme_override_fonts/normal_font = ExtResource("1_pi17x")
+theme_override_font_sizes/normal_font_size = 10
+bbcode_enabled = true
+text = "[center][wave]Apprentice Synthesist"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="Control" type="Control" parent="VBoxContainer/TextInput"]
+custom_minimum_size = Vector2(0, 15)
+layout_mode = 2
+
+[node name="reset" type="Button" parent="VBoxContainer/TextInput"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_pi17x")
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_1jgdv")
+theme_override_styles/hover = SubResource("StyleBoxFlat_1dsu2")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_pr037")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_h1str")
+text = "reset all"
+
+[node name="v" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="colors" type="VBoxContainer" parent="VBoxContainer/v"]
+custom_minimum_size = Vector2(258, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="ccPickColor" parent="VBoxContainer/v/colors" instance=ExtResource("3_2lwkl")]
+layout_mode = 2
+label = "Cloak Color"
+default = "#000000"
+
+[node name="hcPickColor" parent="VBoxContainer/v/colors" instance=ExtResource("3_2lwkl")]
+layout_mode = 2
+label = "Hood Color"
+
+[node name="space" type="Control" parent="VBoxContainer/v"]
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="eyes" type="VBoxContainer" parent="VBoxContainer/v"]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="EyeA" type="VBoxContainer" parent="VBoxContainer/v/eyes"]
+layout_mode = 2
+
+[node name="lbl" type="RichTextLabel" parent="VBoxContainer/v/eyes/EyeA"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_colors/default_color = Color(0.745098, 0.745098, 0.745098, 1)
+theme_override_fonts/normal_font = ExtResource("1_pi17x")
+theme_override_font_sizes/normal_font_size = 10
+bbcode_enabled = true
+text = "[center]EYE A"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="eaPickColor" parent="VBoxContainer/v/eyes/EyeA" instance=ExtResource("3_2lwkl")]
+layout_mode = 2
+
+[node name="eaRot" parent="VBoxContainer/v/eyes/EyeA" instance=ExtResource("4_ghctv")]
+layout_mode = 2
+default = 0.785
+range_settings = Vector3(0, 6.28, 0.01)
+
+[node name="eaVec2p" parent="VBoxContainer/v/eyes/EyeA" instance=ExtResource("5_qdq8b")]
+layout_mode = 2
+label = "EyeA Position"
+default = Vector2(0.05, 0.02)
+x_range_settings = Vector3(-2, 2, 0.01)
+y_range_settings = Vector3(-2, 2, 0.01)
+
+[node name="eaVec2s" parent="VBoxContainer/v/eyes/EyeA" instance=ExtResource("5_qdq8b")]
+layout_mode = 2
+label = "Scale"
+default = Vector2(1, 1)
+x_range_settings = Vector3(0.01, 5, 0.01)
+y_range_settings = Vector3(0.01, 5, 0.01)
+
+[node name="sep" type="HSeparator" parent="VBoxContainer/v/eyes"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="EyeB" type="VBoxContainer" parent="VBoxContainer/v/eyes"]
+layout_mode = 2
+
+[node name="lbl2" type="RichTextLabel" parent="VBoxContainer/v/eyes/EyeB"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_colors/default_color = Color(0.745098, 0.745098, 0.745098, 1)
+theme_override_fonts/normal_font = ExtResource("1_pi17x")
+theme_override_font_sizes/normal_font_size = 10
+bbcode_enabled = true
+text = "[center]EYE B"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="ebPickColor" parent="VBoxContainer/v/eyes/EyeB" instance=ExtResource("3_2lwkl")]
+layout_mode = 2
+
+[node name="ebRot" parent="VBoxContainer/v/eyes/EyeB" instance=ExtResource("4_ghctv")]
+layout_mode = 2
+default = 2.335
+range_settings = Vector3(0, 6.28, 0.01)
+
+[node name="ebVec2p" parent="VBoxContainer/v/eyes/EyeB" instance=ExtResource("5_qdq8b")]
+layout_mode = 2
+default = Vector2(-0.05, 0.02)
+x_range_settings = Vector3(-2, 2, 0.01)
+y_range_settings = Vector3(-2, 2, 0.01)
+
+[node name="ebVec2s" parent="VBoxContainer/v/eyes/EyeB" instance=ExtResource("5_qdq8b")]
+layout_mode = 2
+label = "Scale"
+default = Vector2(1, 1)
+x_range_settings = Vector3(0.01, 5, 0.01)
+y_range_settings = Vector3(0.01, 5, 0.01)
+
+[node name="sepb" type="HSeparator" parent="VBoxContainer/v/eyes"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="EyeC" type="VBoxContainer" parent="VBoxContainer/v/eyes"]
+layout_mode = 2
+
+[node name="lbl3" type="RichTextLabel" parent="VBoxContainer/v/eyes/EyeC"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_colors/default_color = Color(0.745098, 0.745098, 0.745098, 1)
+theme_override_fonts/normal_font = ExtResource("1_pi17x")
+theme_override_font_sizes/normal_font_size = 10
+bbcode_enabled = true
+text = "[center]EYE C"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="ecPickColor" parent="VBoxContainer/v/eyes/EyeC" instance=ExtResource("3_2lwkl")]
+layout_mode = 2
+
+[node name="ecRot" parent="VBoxContainer/v/eyes/EyeC" instance=ExtResource("4_ghctv")]
+layout_mode = 2
+default = 1.57
+range_settings = Vector3(0, 6.28, 0.01)
+
+[node name="ecVec2p" parent="VBoxContainer/v/eyes/EyeC" instance=ExtResource("5_qdq8b")]
+layout_mode = 2
+default = Vector2(0, 0.09)
+x_range_settings = Vector3(-2, 2, 0.01)
+y_range_settings = Vector3(-2, 2, 0.01)
+
+[node name="ecVec2s" parent="VBoxContainer/v/eyes/EyeC" instance=ExtResource("5_qdq8b")]
+layout_mode = 2
+label = "Scale"
+default = Vector2(1, 1)
+x_range_settings = Vector3(0.01, 5, 0.01)
+y_range_settings = Vector3(0.01, 5, 0.01)
+
+[connection signal="text_submitted" from="VBoxContainer/TextInput/name_lineedit" to="." method="_on_name_lineedit_text_submitted"]
+[connection signal="pressed" from="VBoxContainer/TextInput/reset" to="." method="_on_reset_pressed"]

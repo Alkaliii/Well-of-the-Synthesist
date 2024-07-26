@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://duautqlksyck6"]
+
+[ext_resource type="Texture2D" uid="uid://cs116j4w5qyqv" path="res://Assets/Graphics/spellbook.png" id="1_da53l"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_s4bjv"]
+bottom_radius = 0.75
+height = 1.0
+radial_segments = 6
+rings = 2
+
+[node name="Spellbook" type="AnimatableBody3D"]
+collision_layer = 5
+
+[node name="CSGCylinder3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("CylinderMesh_s4bjv")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(0.707107, -0.183013, 0.683013, 0, 0.965926, 0.258819, -0.707107, -0.183013, 0.683013, 0.125, 1.1, 0.125)
+offset = Vector2(0, 54)
+pixel_size = 0.008
+texture = ExtResource("1_da53l")

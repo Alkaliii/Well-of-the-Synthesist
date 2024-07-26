@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://bk73m03xvabcg"]
+
+[ext_resource type="Shader" path="res://Assets/Shaders/fixalpha.gdshader" id="1_oirf7"]
+[ext_resource type="Texture2D" uid="uid://c77k5tf5i4ksi" path="res://Assets/AlloySynergy.tres" id="2_3uske"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7fops"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("1_oirf7")
+shader_parameter/textur = ExtResource("2_3uske")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_qnqkw"]
+size = Vector2(1, 1)
+
+[node name="MSL" type="MeshInstance3D"]
+material_override = SubResource("ShaderMaterial_7fops")
+cast_shadow = 0
+mesh = SubResource("PlaneMesh_qnqkw")

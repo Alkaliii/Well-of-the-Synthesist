@@ -1,0 +1,369 @@
+[gd_scene load_steps=30 format=3 uid="uid://chqieyfb5r4x2"]
+
+[ext_resource type="Script" path="res://Game/title_screen.gd" id="1_co7pu"]
+[ext_resource type="PackedScene" uid="uid://bp8ip3mxn6b60" path="res://Game/3d/cauldron.tscn" id="1_sw1j6"]
+[ext_resource type="PackedScene" uid="uid://5rfq7mk6g1y0" path="res://Game/3d/shadow_box.tscn" id="2_kyq5p"]
+[ext_resource type="Shader" path="res://Assets/Shaders/stars3D.gdshader" id="3_g05uc"]
+[ext_resource type="Texture2D" uid="uid://def5l3bvse6n7" path="res://Assets/Graphics/Logouhalf@2x.png" id="3_gciyn"]
+[ext_resource type="Texture2D" uid="uid://1b7akhkfl4b3" path="res://Assets/Graphics/Logomid@2x.png" id="4_qpqn5"]
+[ext_resource type="Texture2D" uid="uid://do3lo0opi2lnj" path="res://Assets/Graphics/PlayerSplit.png" id="5_0mv3o"]
+[ext_resource type="Shader" path="res://Assets/Shaders/customplayer.gdshader" id="5_80x07"]
+[ext_resource type="Texture2D" uid="uid://bbq0qtir1nuy6" path="res://Assets/Graphics/Logobhalf@2x.png" id="5_h186v"]
+[ext_resource type="Shader" path="res://Assets/Shaders/CRT.gdshader" id="6_a00bw"]
+[ext_resource type="Texture2D" uid="uid://by3y4qdm0tfsq" path="res://Assets/Graphics/eyeiso.png" id="6_yi7n1"]
+[ext_resource type="Texture2D" uid="uid://dqwmleeri8x3j" path="res://Assets/Graphics/othericonatlas.png" id="7_duvie"]
+[ext_resource type="FontFile" uid="uid://7wgxoxmevhkj" path="res://Assets/Fonts/amerika/AMERIKA_.ttf" id="11_og86p"]
+[ext_resource type="FontFile" uid="uid://ct4y3rnndcu5n" path="res://Assets/Fonts/Rubik/static/Rubik-Medium.ttf" id="12_qaw8r"]
+[ext_resource type="Script" path="res://Game/UI/btn_s_m.gd" id="13_q5n48"]
+[ext_resource type="PackedScene" uid="uid://p6ikw8bau02k" path="res://Game/UI/cc.tscn" id="16_53d1s"]
+
+[sub_resource type="Environment" id="Environment_23yob"]
+ambient_light_source = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a7p03"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_a2d3p"]
+resource_local_to_scene = true
+top_radius = 1.2
+bottom_radius = 1.2
+height = 4.0
+radial_segments = 5
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qtb2b"]
+render_priority = -1
+shader = ExtResource("3_g05uc")
+shader_parameter/dimensions = Vector2(1300, 1300)
+shader_parameter/small_stars = 50.0
+shader_parameter/small_stars_far_size = 0.2
+shader_parameter/small_stars_near_size = 0.5
+shader_parameter/large_stars = 8.0
+shader_parameter/large_stars_far_size = 0.2
+shader_parameter/large_stars_near_size = 0.5
+shader_parameter/far_stars_color = Color(1, 0.2, 0.6, 1)
+shader_parameter/near_stars_color = Color(1, 1, 1, 1)
+shader_parameter/base_scroll_speed = 0.01
+shader_parameter/additional_scroll_speed = 0.01
+
+[sub_resource type="QuadMesh" id="QuadMesh_rma4v"]
+size = Vector2(26, 26)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jh6ai"]
+render_priority = 0
+shader = ExtResource("5_80x07")
+shader_parameter/cloak_col = Color(0, 0, 0, 1)
+shader_parameter/hood_col = Color(1, 1, 1, 1)
+shader_parameter/tex = ExtResource("5_0mv3o")
+shader_parameter/eye_tex = ExtResource("6_yi7n1")
+shader_parameter/eyeA_col = Color(1, 1, 1, 1)
+shader_parameter/eyeA_rot = 44.8
+shader_parameter/eyeA_scale = Vector2(1, 1)
+shader_parameter/eyeA_translate = Vector2(0.05, 0.02)
+shader_parameter/eyeB_col = Color(1, 1, 1, 1)
+shader_parameter/eyeB_rot = 46.3
+shader_parameter/eyeB_scale = Vector2(1, 1)
+shader_parameter/eyeB_translate = Vector2(-0.05, 0.02)
+shader_parameter/eyeC_col = Color(1, 1, 1, 1)
+shader_parameter/eyeC_rot = 45.55
+shader_parameter/eyeC_scale = Vector2(1, 1)
+shader_parameter/eyeC_translate = Vector2(0, 0.09)
+
+[sub_resource type="QuadMesh" id="QuadMesh_bsflo"]
+size = Vector2(1.28, 1.28)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7srci"]
+atlas = ExtResource("5_0mv3o")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4s47j"]
+shader = ExtResource("6_a00bw")
+shader_parameter/resolution = Vector2(512, 288)
+shader_parameter/scan_line_amount = 1.0
+shader_parameter/warp_amount = 0.1
+shader_parameter/noise_amount = 0.03
+shader_parameter/interference_amount = 0.2
+shader_parameter/grille_amount = 0.1
+shader_parameter/grille_size = 1.0
+shader_parameter/vignette_amount = 1.5
+shader_parameter/vignette_intensity = 1.0
+shader_parameter/aberation_amount = 0.5
+shader_parameter/roll_line_amount = 0.0
+shader_parameter/roll_speed = 3.8e-07
+shader_parameter/scan_line_strength = -8.0
+shader_parameter/pixel_strength = -2.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lh65d"]
+atlas = ExtResource("7_duvie")
+region = Rect2(288, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p3drh"]
+atlas = ExtResource("7_duvie")
+region = Rect2(768, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bxp54"]
+atlas = ExtResource("7_duvie")
+region = Rect2(480, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m1brn"]
+atlas = ExtResource("7_duvie")
+region = Rect2(384, 0, 96, 96)
+
+[node name="TitleScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_co7pu")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="D3SVC" type="SubViewportContainer" parent="."]
+custom_minimum_size = Vector2(720, 720)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+stretch = true
+
+[node name="SV" type="SubViewport" parent="D3SVC"]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(1280, 720)
+render_target_update_mode = 4
+
+[node name="env" type="Node3D" parent="D3SVC/SV"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="D3SVC/SV/env"]
+environment = SubResource("Environment_23yob")
+
+[node name="titlecam" type="Camera3D" parent="D3SVC/SV/env"]
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 6.6, 1.5)
+fov = 90.0
+
+[node name="CSGBox3D" type="CSGBox3D" parent="D3SVC/SV/env"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.74, 0)
+visible = false
+material = SubResource("StandardMaterial3D_a7p03")
+
+[node name="Cauldron" parent="D3SVC/SV/env" instance=ExtResource("1_sw1j6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.62, 0)
+
+[node name="ShadowBox" parent="D3SVC/SV/env" instance=ExtResource("2_kyq5p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 4)
+mesh = SubResource("CylinderMesh_a2d3p")
+
+[node name="Stars" type="MeshInstance3D" parent="D3SVC/SV/env"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 6, -8)
+material_override = SubResource("ShaderMaterial_qtb2b")
+mesh = SubResource("QuadMesh_rma4v")
+
+[node name="CustomSage" type="MeshInstance3D" parent="D3SVC/SV/env"]
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 1.02, -1.16)
+material_override = SubResource("ShaderMaterial_jh6ai")
+mesh = SubResource("QuadMesh_bsflo")
+
+[node name="Sprite3D" type="Sprite3D" parent="D3SVC/SV/env"]
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 0.4, -1)
+visible = false
+centered = false
+offset = Vector2(-64, 0)
+texture_filter = 5
+texture = SubResource("AtlasTexture_7srci")
+
+[node name="CRT" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_4s47j")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="logo" type="Control" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -100.0
+offset_right = 20.0
+offset_bottom = -60.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="Up" type="TextureRect" parent="logo"]
+custom_minimum_size = Vector2(300, 200)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -100.0
+offset_right = 150.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_gciyn")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Mid" type="TextureRect" parent="logo"]
+custom_minimum_size = Vector2(300, 200)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -100.0
+offset_right = 150.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_qpqn5")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Bot" type="TextureRect" parent="logo"]
+custom_minimum_size = Vector2(300, 200)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -100.0
+offset_right = 150.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_h186v")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="bt" type="ColorRect" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.25098)
+
+[node name="t" type="VBoxContainer" parent="bt"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -285.0
+offset_top = -20.0
+offset_right = 285.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="tip" type="RichTextLabel" parent="bt/t"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("11_og86p")
+theme_override_font_sizes/normal_font_size = 30
+bbcode_enabled = true
+text = "Adding to oneself shall raise it higher"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="ltxt" type="RichTextLabel" parent="bt/t"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_colors/default_color = Color(0.745098, 0.745098, 0.745098, 1)
+theme_override_fonts/normal_font = ExtResource("12_qaw8r")
+theme_override_font_sizes/normal_font_size = 15
+bbcode_enabled = true
+text = "a + a = a*1"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="CC" parent="." node_paths=PackedStringArray("edit") instance=ExtResource("16_53d1s")]
+visible = false
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+edit = NodePath("../D3SVC/SV/env/CustomSage")
+
+[node name="ph" type="HBoxContainer" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 64.0
+offset_top = -124.0
+offset_right = 188.0
+offset_bottom = -64.0
+grow_vertical = 0
+mouse_filter = 0
+alignment = 1
+
+[node name="Play" type="Button" parent="ph"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+icon = SubResource("AtlasTexture_lh65d")
+flat = true
+expand_icon = true
+script = ExtResource("13_q5n48")
+
+[node name="Return" type="Button" parent="ph"]
+visible = false
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+icon = SubResource("AtlasTexture_p3drh")
+flat = true
+expand_icon = true
+script = ExtResource("13_q5n48")
+
+[node name="Settings" type="Button" parent="ph"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+icon = SubResource("AtlasTexture_bxp54")
+flat = true
+expand_icon = true
+script = ExtResource("13_q5n48")
+
+[node name="Help" type="Button" parent="ph"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+icon = SubResource("AtlasTexture_m1brn")
+flat = true
+expand_icon = true
+script = ExtResource("13_q5n48")
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+[connection signal="pressed" from="ph/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="ph/Return" to="." method="_on_return_pressed"]

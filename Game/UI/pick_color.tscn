@@ -1,0 +1,310 @@
+[gd_scene load_steps=12 format=3 uid="uid://c5vveuf1djvjg"]
+
+[ext_resource type="FontFile" uid="uid://ct4y3rnndcu5n" path="res://Assets/Fonts/Rubik/static/Rubik-Medium.ttf" id="1_kili2"]
+[ext_resource type="Script" path="res://Game/UI/pick_color.gd" id="1_uv8t0"]
+[ext_resource type="Texture2D" uid="uid://drusqodyonal8" path="res://Assets/Graphics/cbtn@4x.png" id="3_t6xgp"]
+[ext_resource type="Texture2D" uid="uid://dj1p1fjy8lc73" path="res://Assets/Graphics/cheerfulcirc.png" id="3_yjbwa"]
+[ext_resource type="Texture2D" uid="uid://dqwmleeri8x3j" path="res://Assets/Graphics/othericonatlas.png" id="4_7po11"]
+[ext_resource type="Script" path="res://Game/UI/btn_s_m.gd" id="4_oa8y7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7ss5r"]
+
+[sub_resource type="Theme" id="Theme_kcibp"]
+LineEdit/styles/normal = SubResource("StyleBoxEmpty_7ss5r")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_blqp2"]
+bg_color = Color(0, 0, 0, 0.8)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d5frf"]
+atlas = ExtResource("3_yjbwa")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ex3ji"]
+atlas = ExtResource("4_7po11")
+region = Rect2(576, 0, 96, 96)
+
+[node name="PickColor" type="HBoxContainer"]
+theme = SubResource("Theme_kcibp")
+script = ExtResource("1_uv8t0")
+
+[node name="lbl" type="RichTextLabel" parent="."]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_colors/default_color = Color(0.745098, 0.745098, 0.745098, 1)
+theme_override_fonts/normal_font = ExtResource("1_kili2")
+theme_override_font_sizes/normal_font_size = 10
+bbcode_enabled = true
+text = "[right]Cloak Color:"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="LineEdit" type="LineEdit" parent="."]
+layout_mode = 2
+size_flags_horizontal = 10
+placeholder_text = "#FFFFFF"
+expand_to_text_length = true
+select_all_on_focus = true
+caret_blink = true
+
+[node name="qcb" type="Button" parent="."]
+custom_minimum_size = Vector2(23, 23)
+layout_mode = 2
+icon = ExtResource("3_t6xgp")
+flat = true
+expand_icon = true
+script = ExtResource("4_oa8y7")
+
+[node name="QuickColor" type="PanelContainer" parent="qcb"]
+visible = false
+z_index = 2
+layout_mode = 0
+offset_left = 11.0
+offset_top = 11.0
+offset_right = 51.0
+offset_bottom = 51.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_blqp2")
+
+[node name="Options" type="GridContainer" parent="qcb/QuickColor"]
+layout_mode = 2
+theme_override_constants/h_separation = -2
+theme_override_constants/v_separation = -2
+columns = 6
+
+[node name="Button" type="Button" parent="qcb/QuickColor/Options"]
+custom_minimum_size = Vector2(23, 23)
+layout_mode = 2
+icon = SubResource("AtlasTexture_d5frf")
+flat = true
+expand_icon = true
+
+[node name="Button2" type="Button" parent="qcb/QuickColor/Options"]
+custom_minimum_size = Vector2(23, 23)
+layout_mode = 2
+icon = SubResource("AtlasTexture_d5frf")
+flat = true
+expand_icon = true
+
+[node name="Button3" type="Button" parent="qcb/QuickColor/Options"]
+custom_minimum_size = Vector2(23, 23)
+layout_mode = 2
+icon = SubResource("AtlasTexture_d5frf")
+flat = true
+expand_icon = true
+
+[node name="Button4" type="Button" parent="qcb/QuickColor/Options"]
+custom_minimum_size = Vector2(23, 23)
+layout_mode = 2
+icon = SubResource("AtlasTexture_d5frf")
+flat = true
+expand_icon = true
+
+[node name="Button5" type="Button" parent="qcb/QuickColor/Options"]
+custom_minimum_size = Vector2(23, 23)
+layout_mode = 2
+icon = SubResource("AtlasTexture_d5frf")
+flat = true
+expand_icon = true
+
+[node name="Button6" type="Button" parent="qcb/QuickColor/Options"]
+custom_minimum_size = Vector2(23, 23)
+layout_mode = 2
+icon = SubResource("AtlasTexture_d5frf")
+flat = true
+expand_icon = true
+
+[node name="Button7" type="Button" parent="qcb/QuickColor/Options"]
+custom_minimum_size = Vector2(23, 23)
+layout_mode = 2
+icon = SubResource("AtlasTexture_d5frf")
+flat = true
+expand_icon = true
+
+[node name="Button8" type="Button" parent="qcb/QuickColor/Options"]
+custom_minimum_size = Vector2(23, 23)
+layout_mode = 2
+icon = SubResource("AtlasTexture_d5frf")
+flat = true
+expand_icon = true
+
+[node name="Button9" type="Button" parent="qcb/QuickColor/Options"]
+custom_minimum_size = Vector2(23, 23)
+layout_mode = 2
+icon = SubResource("AtlasTexture_d5frf")
+flat = true
+expand_icon = true
+
+[node name="Button10" type="Button" parent="qcb/QuickColor/Options"]
+custom_minimum_size = Vector2(23, 23)
+layout_mode = 2
+icon = SubResource("AtlasTexture_d5frf")
+flat = true
+expand_icon = true
+
+[node name="Button11" type="Button" parent="qcb/QuickColor/Options"]
+custom_minimum_size = Vector2(23, 23)
+layout_mode = 2
+icon = SubResource("AtlasTexture_d5frf")
+flat = true
+expand_icon = true
+
+[node name="Button12" type="Button" parent="qcb/QuickColor/Options"]
+custom_minimum_size = Vector2(23, 23)
+layout_mode = 2
+icon = SubResource("AtlasTexture_d5frf")
+flat = true
+expand_icon = true
+
+[node name="Button13" type="Button" parent="qcb/QuickColor/Options"]
+custom_minimum_size = Vector2(23, 23)
+layout_mode = 2
+icon = SubResource("AtlasTexture_d5frf")
+flat = true
+expand_icon = true
+
+[node name="Button14" type="Button" parent="qcb/QuickColor/Options"]
+custom_minimum_size = Vector2(23, 23)
+layout_mode = 2
+icon = SubResource("AtlasTexture_d5frf")
+flat = true
+expand_icon = true
+
+[node name="Button15" type="Button" parent="qcb/QuickColor/Options"]
+custom_minimum_size = Vector2(23, 23)
+layout_mode = 2
+icon = SubResource("AtlasTexture_d5frf")
+flat = true
+expand_icon = true
+
+[node name="Button16" type="Button" parent="qcb/QuickColor/Options"]
+custom_minimum_size = Vector2(23, 23)
+layout_mode = 2
+icon = SubResource("AtlasTexture_d5frf")
+flat = true
+expand_icon = true
+
+[node name="Button17" type="Button" parent="qcb/QuickColor/Options"]
+custom_minimum_size = Vector2(23, 23)
+layout_mode = 2
+icon = SubResource("AtlasTexture_d5frf")
+flat = true
+expand_icon = true
+
+[node name="Button18" type="Button" parent="qcb/QuickColor/Options"]
+custom_minimum_size = Vector2(23, 23)
+layout_mode = 2
+icon = SubResource("AtlasTexture_d5frf")
+flat = true
+expand_icon = true
+
+[node name="Button19" type="Button" parent="qcb/QuickColor/Options"]
+custom_minimum_size = Vector2(23, 23)
+layout_mode = 2
+icon = SubResource("AtlasTexture_d5frf")
+flat = true
+expand_icon = true
+
+[node name="Button20" type="Button" parent="qcb/QuickColor/Options"]
+custom_minimum_size = Vector2(23, 23)
+layout_mode = 2
+icon = SubResource("AtlasTexture_d5frf")
+flat = true
+expand_icon = true
+
+[node name="Button21" type="Button" parent="qcb/QuickColor/Options"]
+custom_minimum_size = Vector2(23, 23)
+layout_mode = 2
+icon = SubResource("AtlasTexture_d5frf")
+flat = true
+expand_icon = true
+
+[node name="Button22" type="Button" parent="qcb/QuickColor/Options"]
+custom_minimum_size = Vector2(23, 23)
+layout_mode = 2
+icon = SubResource("AtlasTexture_d5frf")
+flat = true
+expand_icon = true
+
+[node name="Button23" type="Button" parent="qcb/QuickColor/Options"]
+custom_minimum_size = Vector2(23, 23)
+layout_mode = 2
+icon = SubResource("AtlasTexture_d5frf")
+flat = true
+expand_icon = true
+
+[node name="Button24" type="Button" parent="qcb/QuickColor/Options"]
+custom_minimum_size = Vector2(23, 23)
+layout_mode = 2
+icon = SubResource("AtlasTexture_d5frf")
+flat = true
+expand_icon = true
+
+[node name="Button25" type="Button" parent="qcb/QuickColor/Options"]
+custom_minimum_size = Vector2(23, 23)
+layout_mode = 2
+icon = SubResource("AtlasTexture_d5frf")
+flat = true
+expand_icon = true
+
+[node name="Button26" type="Button" parent="qcb/QuickColor/Options"]
+custom_minimum_size = Vector2(23, 23)
+layout_mode = 2
+icon = SubResource("AtlasTexture_d5frf")
+flat = true
+expand_icon = true
+
+[node name="Button27" type="Button" parent="qcb/QuickColor/Options"]
+custom_minimum_size = Vector2(23, 23)
+layout_mode = 2
+icon = SubResource("AtlasTexture_d5frf")
+flat = true
+expand_icon = true
+
+[node name="Button28" type="Button" parent="qcb/QuickColor/Options"]
+custom_minimum_size = Vector2(23, 23)
+layout_mode = 2
+icon = SubResource("AtlasTexture_d5frf")
+flat = true
+expand_icon = true
+
+[node name="Button29" type="Button" parent="qcb/QuickColor/Options"]
+custom_minimum_size = Vector2(23, 23)
+layout_mode = 2
+icon = SubResource("AtlasTexture_d5frf")
+flat = true
+expand_icon = true
+
+[node name="Button30" type="Button" parent="qcb/QuickColor/Options"]
+custom_minimum_size = Vector2(23, 23)
+layout_mode = 2
+icon = SubResource("AtlasTexture_d5frf")
+flat = true
+expand_icon = true
+
+[node name="Button31" type="Button" parent="qcb/QuickColor/Options"]
+custom_minimum_size = Vector2(23, 23)
+layout_mode = 2
+icon = SubResource("AtlasTexture_d5frf")
+flat = true
+expand_icon = true
+
+[node name="Button32" type="Button" parent="qcb/QuickColor/Options"]
+custom_minimum_size = Vector2(23, 23)
+layout_mode = 2
+icon = SubResource("AtlasTexture_d5frf")
+flat = true
+expand_icon = true
+
+[node name="transparent" type="Button" parent="qcb/QuickColor/Options"]
+custom_minimum_size = Vector2(23, 23)
+layout_mode = 2
+icon = SubResource("AtlasTexture_ex3ji")
+flat = true
+expand_icon = true
+
+[connection signal="pressed" from="qcb" to="." method="_on_qcb_pressed"]

@@ -1,0 +1,183 @@
+[gd_scene load_steps=24 format=3 uid="uid://bp8ip3mxn6b60"]
+
+[ext_resource type="Script" path="res://Game/3d/Cauldron.gd" id="1_221yp"]
+[ext_resource type="Shader" path="res://Assets/Shaders/GradientNoiseFire.gdshader" id="2_14d00"]
+[ext_resource type="Shader" path="res://Assets/Shaders/SoloOutline.gdshader" id="2_h30ue"]
+[ext_resource type="Shader" path="res://Assets/Shaders/RayDecal.gdshader" id="3_vab4b"]
+
+[sub_resource type="Gradient" id="Gradient_fkpwe"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_3gyn4"]
+gradient = SubResource("Gradient_fkpwe")
+fill_from = Vector2(0, 0.2)
+fill_to = Vector2(0, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_yg74t"]
+noise_type = 3
+domain_warp_enabled = true
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_aw5mv"]
+seamless = true
+noise = SubResource("FastNoiseLite_yg74t")
+
+[sub_resource type="Gradient" id="Gradient_m218i"]
+offsets = PackedFloat32Array(0.2, 0.8)
+colors = PackedColorArray(1, 0.2, 0.6, 1, 1, 0.2, 0.6, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_0boan"]
+gradient = SubResource("Gradient_m218i")
+fill_from = Vector2(0, 1)
+fill_to = Vector2(0, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_d4f4b"]
+render_priority = 0
+shader = ExtResource("2_14d00")
+shader_parameter/alpha = 0.0
+shader_parameter/speed = Vector2(0, 0.2)
+shader_parameter/vspeed = Vector2(0.1, 0.15)
+shader_parameter/vminmax = Vector2(0.9, 1)
+shader_parameter/vstr = 0.3
+shader_parameter/tex = SubResource("GradientTexture2D_0boan")
+shader_parameter/mask_noise = SubResource("NoiseTexture2D_aw5mv")
+shader_parameter/mask = SubResource("GradientTexture2D_3gyn4")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mxxq0"]
+transparency = 4
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = SubResource("GradientTexture2D_0boan")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wccr8"]
+render_priority = 0
+shader = ExtResource("2_h30ue")
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+shader_parameter/outline_width = 3.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_caviv"]
+next_pass = SubResource("ShaderMaterial_wccr8")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_x6buu"]
+size = Vector3(1.6, 0.2, 1.6)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1t2kj"]
+render_priority = 0
+shader = ExtResource("3_vab4b")
+shader_parameter/col_distance_scale = 1.0
+shader_parameter/col_near = Color(0.486275, 0.427451, 0.635294, 1)
+shader_parameter/col_far = Color(0.352941, 0.345098, 0.533333, 1)
+shader_parameter/emission_boost = 2.0
+shader_parameter/sphere_radius = 0.5
+shader_parameter/noise_scale = 1.0
+shader_parameter/detail = 4
+shader_parameter/rough = 0.5
+shader_parameter/inflate = 0.1
+shader_parameter/smooth_fac = 0.2
+shader_parameter/step_mult = 1.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_53a63"]
+flip_faces = true
+size = Vector2(1.6, 1.6)
+
+[sub_resource type="Gradient" id="Gradient_446qf"]
+offsets = PackedFloat32Array(0, 0.8)
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_xihw0"]
+gradient = SubResource("Gradient_446qf")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wdo5i"]
+transparency = 1
+albedo_texture = SubResource("GradientTexture2D_xihw0")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_68cyo"]
+material = SubResource("StandardMaterial3D_wdo5i")
+size = Vector2(1.8, 1.8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xsd8f"]
+size = Vector3(4.8, 1.6, 1.6)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_q4wi6"]
+size = Vector3(1.6, 1.6, 4.8)
+
+[node name="Cauldron" type="AnimatableBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8, 0.62, -0.8)
+collision_layer = 5
+script = ExtResource("1_221yp")
+
+[node name="Mesh" type="Node3D" parent="."]
+
+[node name="Undeglow" type="CSGSphere3D" parent="Mesh"]
+transform = Transform3D(1, 0, 0, 0, 0.75, 0, 0, 0, 1, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_d4f4b")
+cast_shadow = 0
+radius = 0.85
+radial_segments = 24
+rings = 12
+smooth_faces = false
+material = SubResource("StandardMaterial3D_mxxq0")
+
+[node name="Solid" type="CSGSphere3D" parent="Mesh"]
+transform = Transform3D(1, 0, 0, 0, 0.75, 0, 0, 0, 1, 0, 0, 0)
+material_overlay = SubResource("StandardMaterial3D_caviv")
+use_collision = true
+radius = 0.8
+
+[node name="lip" type="CSGCylinder3D" parent="Mesh/Solid"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.61, 0)
+radius = 0.7
+height = 0.2
+sides = 12
+
+[node name="hole" type="CSGCylinder3D" parent="Mesh/Solid"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+operation = 2
+height = 1.0
+sides = 12
+
+[node name="leg" type="CSGBox3D" parent="Mesh/Solid"]
+transform = Transform3D(0.707107, -0.353553, 0.612372, 0, 0.866025, 0.5, -0.707107, -0.353553, 0.612372, 0.4, -0.5, 0.4)
+size = Vector3(0.1, 0.5, 0.1)
+
+[node name="leg2" type="CSGBox3D" parent="Mesh/Solid"]
+transform = Transform3D(0.707107, 0.353553, -0.612372, 0, 0.866025, 0.5, 0.707107, -0.353553, 0.612372, -0.4, -0.5, 0.4)
+size = Vector3(0.1, 0.5, 0.1)
+
+[node name="leg3" type="CSGBox3D" parent="Mesh/Solid"]
+transform = Transform3D(-0.707107, 0.353553, -0.612372, 0, 0.866025, 0.5, 0.707107, 0.353553, -0.612372, -0.4, -0.5, -0.4)
+size = Vector3(0.1, 0.5, 0.1)
+
+[node name="leg4" type="CSGBox3D" parent="Mesh/Solid"]
+transform = Transform3D(-0.707107, -0.353553, 0.612372, 0, 0.866025, 0.5, -0.707107, 0.353553, -0.612372, 0.4, -0.5, -0.4)
+size = Vector3(0.1, 0.5, 0.1)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+shape = SubResource("BoxShape3D_x6buu")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0)
+material_override = SubResource("ShaderMaterial_1t2kj")
+mesh = SubResource("PlaneMesh_53a63")
+
+[node name="BlobShadow" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+mesh = SubResource("PlaneMesh_68cyo")
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("BoxShape3D_xsd8f")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("BoxShape3D_q4wi6")
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+collision_mask = 8
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]

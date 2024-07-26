@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bwqy0hnvod3ff"]
+
+[ext_resource type="Script" path="res://Game/Debug/TestCalculator.gd" id="1_5ag8v"]
+
+[node name="TestCalculator" type="Node"]
+script = ExtResource("1_5ag8v")

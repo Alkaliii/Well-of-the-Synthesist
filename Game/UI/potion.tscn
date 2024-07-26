@@ -1,0 +1,173 @@
+[gd_scene load_steps=16 format=3 uid="uid://fx816q874ob6"]
+
+[ext_resource type="Texture2D" uid="uid://duqk0rusfem3l" path="res://Assets/Graphics/potionatlas.png" id="1_xl7bf"]
+[ext_resource type="Shader" path="res://Assets/Shaders/waveprogress.gdshader" id="2_2ix1n"]
+[ext_resource type="Script" path="res://Game/UI/potion.gd" id="2_bm7re"]
+[ext_resource type="Texture2D" uid="uid://ge5lxmiq1luj" path="res://Assets/Graphics/particleatlas.png" id="4_e5wds"]
+[ext_resource type="Shader" path="res://Assets/Shaders/Sokowoble2D.gdshader" id="4_e017s"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cwkai"]
+
+[sub_resource type="Gradient" id="Gradient_kjeut"]
+offsets = PackedFloat32Array(0, 0.9)
+colors = PackedColorArray(1, 0, 0, 1, 1, 0.647059, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_b7jq5"]
+resource_local_to_scene = true
+gradient = SubResource("Gradient_kjeut")
+fill = 1
+fill_from = Vector2(0.095, 0.6)
+fill_to = Vector2(0, 0.5)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i6inu"]
+resource_local_to_scene = true
+shader = ExtResource("2_2ix1n")
+shader_parameter/progress = 0.52
+shader_parameter/wave_1_color = Color(0.6, 0.6, 0.6, 1)
+shader_parameter/wave_1_amplitude = 0.015
+shader_parameter/wave_1_frequency = 8.0
+shader_parameter/wave_1_speed = -0.5
+shader_parameter/wave_2_color = Color(1, 1, 1, 1)
+shader_parameter/wave_2_amplitude = 0.01
+shader_parameter/wave_2_frequency = 12.0
+shader_parameter/wave_2_speed = 0.0
+shader_parameter/wave_2_shift = 0.75
+shader_parameter/opacity = 0.7
+shader_parameter/bg_color = Color(0, 0, 0, 0)
+shader_parameter/gradient_overlay = SubResource("GradientTexture2D_b7jq5")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7axc2"]
+resource_local_to_scene = true
+atlas = ExtResource("1_xl7bf")
+region = Rect2(0, 192, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xjlvq"]
+resource_local_to_scene = true
+atlas = ExtResource("1_xl7bf")
+region = Rect2(0, 384, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2kqme"]
+resource_local_to_scene = true
+atlas = ExtResource("1_xl7bf")
+region = Rect2(0, 0, 192, 192)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i468l"]
+shader = ExtResource("4_e017s")
+shader_parameter/normal_offset = 1.5
+shader_parameter/time_influence = 3.0
+shader_parameter/y_div = 2.87
+shader_parameter/offset_time = Vector2(1, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nqit7"]
+resource_local_to_scene = true
+atlas = ExtResource("4_e5wds")
+region = Rect2(0, 0, 96, 96)
+
+[sub_resource type="Gradient" id="Gradient_h488s"]
+offsets = PackedFloat32Array(0, 0.5, 0.9)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[node name="Potion" type="PanelContainer"]
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(64, 64)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxEmpty_cwkai")
+script = ExtResource("2_bm7re")
+bottle = 3
+
+[node name="liquid" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_i6inu")
+layout_mode = 2
+texture = SubResource("AtlasTexture_7axc2")
+expand_mode = 1
+
+[node name="extra" type="TextureRect" parent="."]
+layout_mode = 2
+texture = SubResource("AtlasTexture_xjlvq")
+expand_mode = 1
+
+[node name="bottle" type="TextureRect" parent="."]
+layout_mode = 2
+texture = SubResource("AtlasTexture_2kqme")
+expand_mode = 1
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 2
+flat = true
+
+[node name="p1" type="CPUParticles2D" parent="."]
+material = SubResource("ShaderMaterial_i468l")
+position = Vector2(32, 16)
+amount = 2
+lifetime = 2.0
+texture = SubResource("AtlasTexture_nqit7")
+emission_shape = 2
+emission_sphere_radius = 30.0
+particle_flag_align_y = true
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 5.0
+initial_velocity_max = 5.0
+scale_amount_min = 0.1
+scale_amount_max = 0.2
+color_ramp = SubResource("Gradient_h488s")
+
+[node name="p2" type="CPUParticles2D" parent="."]
+material = SubResource("ShaderMaterial_i468l")
+position = Vector2(32, 16)
+amount = 2
+lifetime = 2.0
+explosiveness = 0.95
+texture = SubResource("AtlasTexture_nqit7")
+emission_shape = 2
+emission_sphere_radius = 30.0
+particle_flag_align_y = true
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 5.0
+initial_velocity_max = 5.0
+scale_amount_min = 0.1
+scale_amount_max = 0.2
+color_ramp = SubResource("Gradient_h488s")
+
+[node name="p3" type="CPUParticles2D" parent="."]
+material = SubResource("ShaderMaterial_i468l")
+position = Vector2(32, 16)
+amount = 2
+lifetime = 2.0
+texture = SubResource("AtlasTexture_nqit7")
+emission_shape = 2
+emission_sphere_radius = 30.0
+particle_flag_align_y = true
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 5.0
+initial_velocity_max = 5.0
+scale_amount_min = 0.1
+scale_amount_max = 0.2
+color_ramp = SubResource("Gradient_h488s")
+
+[node name="p4" type="CPUParticles2D" parent="."]
+material = SubResource("ShaderMaterial_i468l")
+position = Vector2(32, 16)
+emitting = false
+amount = 5
+lifetime = 2.0
+emission_shape = 2
+emission_sphere_radius = 10.0
+particle_flag_align_y = true
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, -80)
+initial_velocity_min = 5.0
+initial_velocity_max = 5.0
+scale_amount_max = 1.2
+color_ramp = SubResource("Gradient_h488s")
+
+[connection signal="mouse_entered" from="Button" to="." method="_on_button_mouse_entered"]
+[connection signal="mouse_exited" from="Button" to="." method="_on_button_mouse_exited"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

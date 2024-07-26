@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://dkoojr56muhl0"]
+
+[ext_resource type="FontFile" uid="uid://ct4y3rnndcu5n" path="res://Assets/Fonts/Rubik/static/Rubik-Medium.ttf" id="1_5urn1"]
+[ext_resource type="Script" path="res://Game/UI/input_vec2.gd" id="1_dvafn"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7ss5r"]
+
+[sub_resource type="Theme" id="Theme_5lnfm"]
+LineEdit/styles/normal = SubResource("StyleBoxEmpty_7ss5r")
+
+[node name="Vec2" type="HBoxContainer"]
+theme = SubResource("Theme_5lnfm")
+script = ExtResource("1_dvafn")
+
+[node name="lbl" type="RichTextLabel" parent="."]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_colors/default_color = Color(0.745098, 0.745098, 0.745098, 1)
+theme_override_fonts/normal_font = ExtResource("1_5urn1")
+theme_override_font_sizes/normal_font_size = 10
+bbcode_enabled = true
+text = "[right]EyeA Position:"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="x" type="SpinBox" parent="."]
+layout_mode = 2
+
+[node name="y" type="SpinBox" parent="."]
+layout_mode = 2
+
+[connection signal="value_changed" from="x" to="." method="_on_x_value_changed"]
+[connection signal="value_changed" from="y" to="." method="_on_y_value_changed"]

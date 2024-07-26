@@ -1,0 +1,237 @@
+[gd_scene load_steps=17 format=3 uid="uid://nkiljeughwnv"]
+
+[ext_resource type="Script" path="res://Game/UI/particleContainer.gd" id="1_pson2"]
+[ext_resource type="Texture2D" uid="uid://dqwmleeri8x3j" path="res://Assets/Graphics/othericonatlas.png" id="2_7nj7p"]
+[ext_resource type="FontFile" uid="uid://ct4y3rnndcu5n" path="res://Assets/Fonts/Rubik/static/Rubik-Medium.ttf" id="3_x5wfi"]
+[ext_resource type="PackedScene" uid="uid://buu8ff4ffpikq" path="res://Game/UI/particletooltip.tscn" id="5_agi5f"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p247d"]
+content_margin_left = 25.0
+content_margin_top = 25.0
+content_margin_right = 25.0
+content_margin_bottom = 25.0
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 1024
+corner_radius_top_right = 1024
+corner_radius_bottom_right = 1024
+corner_radius_bottom_left = 1024
+corner_detail = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_veerp"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 1024
+corner_radius_top_right = 1024
+corner_radius_bottom_right = 1024
+corner_radius_bottom_left = 1024
+anti_aliasing = false
+anti_aliasing_size = 0.01
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ntuph"]
+content_margin_left = 1.0
+content_margin_top = 1.0
+content_margin_right = 1.0
+content_margin_bottom = 1.0
+bg_color = Color(0, 0, 0, 0)
+corner_radius_top_left = 1024
+corner_radius_top_right = 1024
+corner_radius_bottom_right = 1024
+corner_radius_bottom_left = 1024
+
+[sub_resource type="Theme" id="Theme_c27ro"]
+HScrollBar/styles/grabber = SubResource("StyleBoxFlat_veerp")
+HScrollBar/styles/scroll = SubResource("StyleBoxFlat_ntuph")
+VScrollBar/styles/grabber = SubResource("StyleBoxFlat_veerp")
+VScrollBar/styles/scroll = SubResource("StyleBoxFlat_ntuph")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3gihy"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rjtpk"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mafwb"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0, 0, 0, 0.901961)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dr7ls"]
+
+[sub_resource type="Gradient" id="Gradient_mdkky"]
+offsets = PackedFloat32Array(0.5, 0.9)
+colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_xklih"]
+gradient = SubResource("Gradient_mdkky")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.8, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oqsdc"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_36l3t"]
+resource_local_to_scene = true
+atlas = ExtResource("2_7nj7p")
+region = Rect2(96, 0, 96, 96)
+
+[node name="pContManager" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 25.0
+offset_top = 25.0
+offset_right = 310.0
+offset_bottom = 310.0
+script = ExtResource("1_pson2")
+
+[node name="Control" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(250, 250)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -142.5
+offset_top = -142.5
+offset_right = 142.5
+offset_bottom = 142.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_p247d")
+
+[node name="Spacer" type="Control" parent="Control"]
+custom_minimum_size = Vector2(235, 235)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Control"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = SubResource("Theme_c27ro")
+horizontal_scroll_mode = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="sort" type="Button" parent="Control/ScrollContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_x5wfi")
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_3gihy")
+theme_override_styles/hover = SubResource("StyleBoxFlat_rjtpk")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_mafwb")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_dr7ls")
+text = "sort"
+
+[node name="LSpcer" type="Control" parent="Control/ScrollContainer/HBoxContainer"]
+custom_minimum_size = Vector2(48, 0)
+layout_mode = 2
+
+[node name="Displays" type="VFlowContainer" parent="Control/ScrollContainer/HBoxContainer"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+alignment = 1
+
+[node name="RSpcer" type="Control" parent="Control/ScrollContainer/HBoxContainer"]
+custom_minimum_size = Vector2(48, 0)
+layout_mode = 2
+
+[node name="Fade" type="TextureRect" parent="Control"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_xklih")
+
+[node name="Label" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(75, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -142.5
+offset_top = 90.5
+offset_right = -67.5
+offset_bottom = 119.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_oqsdc")
+metadata/_edit_group_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Label"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="licon" type="TextureRect" parent="Label/HBoxContainer"]
+custom_minimum_size = Vector2(12, 12)
+layout_mode = 2
+size_flags_vertical = 8
+texture = SubResource("AtlasTexture_36l3t")
+expand_mode = 1
+
+[node name="ltxt" type="RichTextLabel" parent="Label/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 8
+theme_override_fonts/normal_font = ExtResource("3_x5wfi")
+theme_override_font_sizes/normal_font_size = 10
+bbcode_enabled = true
+text = "alloy"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="tooltip" parent="." instance=ExtResource("5_agi5f")]
+visible = true
+layout_mode = 1
+offset_left = -40.0
+offset_right = 40.0
+offset_bottom = 155.0
+use_highest_discovered_iso = true
+
+[connection signal="pressed" from="Control/ScrollContainer/HBoxContainer/sort" to="." method="_on_sort_pressed"]

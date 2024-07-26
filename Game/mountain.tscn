@@ -1,0 +1,232 @@
+[gd_scene load_steps=33 format=3 uid="uid://bijaxuc7fp0vv"]
+
+[ext_resource type="Shader" path="res://Assets/Shaders/gridshader.gdshader" id="1_axoj0"]
+[ext_resource type="Script" path="res://Game/SageController.gd" id="2_456t8"]
+[ext_resource type="Texture2D" uid="uid://do3lo0opi2lnj" path="res://Assets/Graphics/PlayerSplit.png" id="3_wvqyy"]
+[ext_resource type="Shader" path="res://Assets/Shaders/customplayer.gdshader" id="4_1i2f6"]
+[ext_resource type="Texture2D" uid="uid://by3y4qdm0tfsq" path="res://Assets/Graphics/eyeiso.png" id="5_vokwj"]
+[ext_resource type="Shader" path="res://Assets/Shaders/rainsnow.gdshader" id="7_8yeu4"]
+[ext_resource type="Script" path="res://Game/3d/CameraPivot.gd" id="7_tphcg"]
+[ext_resource type="Shader" path="res://Assets/Shaders/noiseterrain.gdshader" id="9_6eqxl"]
+[ext_resource type="PackedScene" uid="uid://dy113y8sjj6fl" path="res://Game/3d/edith.tscn" id="10_ha7c5"]
+[ext_resource type="Shader" path="res://Assets/Shaders/stars3D.gdshader" id="15_tvw28"]
+
+[sub_resource type="Environment" id="Environment_6lljk"]
+background_mode = 1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_w0gmi"]
+render_priority = -1
+shader = ExtResource("1_axoj0")
+shader_parameter/grid_size = 20.0
+shader_parameter/cell_size = 1.0
+shader_parameter/gutter_size = 0.02
+shader_parameter/cell_color = Color(0, 0, 0, 0)
+shader_parameter/gutter_color = Color(0.662745, 0.662745, 0.662745, 1)
+shader_parameter/cell_roundedness = 0.1
+shader_parameter/cell_manipulator_radius = 0.0
+shader_parameter/cell_manipulator_uv_pos = Vector2(0.5, 0.5)
+shader_parameter/manipulated_cell_size = 0.5
+shader_parameter/manipulator_gutter_color = Color(1, 1, 1, 1)
+shader_parameter/cell_manipulation_anim_speed = 1.0
+shader_parameter/gutter_noise_color = Color(1, 1, 1, 1)
+shader_parameter/gutter_noise_speed = 0.1
+shader_parameter/fresnel_color = Color(0.675, 0.192, 0, 1)
+shader_parameter/fresnel_intensity = 0.2
+shader_parameter/fresnel_amount = 15.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_1thke"]
+top_radius = 8.0
+bottom_radius = 0.0
+height = 0.1
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_md3fu"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iufsy"]
+atlas = ExtResource("3_wvqyy")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g425x"]
+render_priority = 0
+shader = ExtResource("4_1i2f6")
+shader_parameter/cloak_col = Color(0, 0, 0, 1)
+shader_parameter/hood_col = Color(1, 1, 1, 1)
+shader_parameter/tex = ExtResource("3_wvqyy")
+shader_parameter/eye_tex = ExtResource("5_vokwj")
+shader_parameter/eyeA_col = Color(1, 1, 1, 1)
+shader_parameter/eyeA_rot = 44.8
+shader_parameter/eyeA_scale = Vector2(1, 1)
+shader_parameter/eyeA_translate = Vector2(0.05, 0.02)
+shader_parameter/eyeB_col = Color(1, 1, 1, 1)
+shader_parameter/eyeB_rot = 46.3
+shader_parameter/eyeB_scale = Vector2(1, 1)
+shader_parameter/eyeB_translate = Vector2(-0.05, 0.02)
+shader_parameter/eyeC_col = Color(1, 1, 1, 1)
+shader_parameter/eyeC_rot = 45.55
+shader_parameter/eyeC_scale = Vector2(1, 1)
+shader_parameter/eyeC_translate = Vector2(0, 0.09)
+
+[sub_resource type="QuadMesh" id="QuadMesh_uj3c2"]
+size = Vector2(1.28, 1.28)
+
+[sub_resource type="Gradient" id="Gradient_446qf"]
+offsets = PackedFloat32Array(0, 0.8)
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_xihw0"]
+gradient = SubResource("Gradient_446qf")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wdo5i"]
+transparency = 1
+albedo_texture = SubResource("GradientTexture2D_xihw0")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_1goyg"]
+material = SubResource("StandardMaterial3D_wdo5i")
+size = Vector2(1.2, 1.2)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wxgw5"]
+render_priority = 0
+shader = ExtResource("7_8yeu4")
+shader_parameter/count = 250
+shader_parameter/slant = 0.05
+shader_parameter/speed = 15.0
+shader_parameter/blur = 0.0095
+shader_parameter/colour = Color(2, 2, 2, 1)
+shader_parameter/size = Vector2(0.05, 0.07)
+
+[sub_resource type="QuadMesh" id="QuadMesh_ieddr"]
+size = Vector2(32, 16)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_noydm"]
+render_priority = 0
+shader = ExtResource("15_tvw28")
+shader_parameter/dimensions = Vector2(900, 1300)
+shader_parameter/small_stars = 50.0
+shader_parameter/small_stars_far_size = 0.1
+shader_parameter/small_stars_near_size = 0.2
+shader_parameter/large_stars = 8.0
+shader_parameter/large_stars_far_size = 0.1
+shader_parameter/large_stars_near_size = 0.2
+shader_parameter/far_stars_color = Color(1, 0.2, 0.6, 1)
+shader_parameter/near_stars_color = Color(1, 1, 1, 1)
+shader_parameter/base_scroll_speed = 0.01
+shader_parameter/additional_scroll_speed = 0.01
+
+[sub_resource type="QuadMesh" id="QuadMesh_h5pg5"]
+size = Vector2(16, 26)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lkxvh"]
+
+[sub_resource type="Gradient" id="Gradient_60m5p"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_5wp3a"]
+gradient = SubResource("Gradient_60m5p")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.8, 0)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_htn05"]
+noise_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_2tfrv"]
+seamless = true
+noise = SubResource("FastNoiseLite_htn05")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nsu74"]
+render_priority = 0
+shader = ExtResource("9_6eqxl")
+shader_parameter/tcolor = Color(1, 1, 1, 1)
+shader_parameter/strength = -10.0
+shader_parameter/tspeed = Vector2(0.1, 0.1)
+shader_parameter/noise_tex = SubResource("NoiseTexture2D_2tfrv")
+shader_parameter/noise_mask = SubResource("GradientTexture2D_5wp3a")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_55ea2"]
+size = Vector2(64, 64)
+subdivide_width = 64
+subdivide_depth = 64
+
+[node name="Mountain" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_6lljk")
+
+[node name="OmniLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 30, 0)
+light_energy = 0.4
+shadow_enabled = true
+directional_shadow_mode = 0
+directional_shadow_fade_start = 1.0
+directional_shadow_max_distance = 30.0
+sky_mode = 1
+
+[node name="Grid" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+material_override = SubResource("ShaderMaterial_w0gmi")
+mesh = SubResource("CylinderMesh_1thke")
+
+[node name="Sage" type="AnimatableBody3D" parent="." groups=["player"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8, 0.1, 0.8)
+collision_layer = 3
+script = ExtResource("2_456t8")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_md3fu")
+
+[node name="Sprite3D" type="Sprite3D" parent="Sage"]
+transform = Transform3D(0.707107, -0.183013, 0.683013, 0, 0.965926, 0.258819, -0.707107, -0.183013, 0.683013, 0.25, 0, 0.25)
+visible = false
+centered = false
+offset = Vector2(-64, 0)
+texture_filter = 5
+texture = SubResource("AtlasTexture_iufsy")
+
+[node name="CustomSage" type="MeshInstance3D" parent="Sage"]
+transform = Transform3D(0.707107, -0.183013, 0.683013, 0, 0.965926, 0.258819, -0.707107, -0.183013, 0.683013, 0.14, 0.62, 0.14)
+material_override = SubResource("ShaderMaterial_g425x")
+mesh = SubResource("QuadMesh_uj3c2")
+
+[node name="RayA" type="RayCast3D" parent="Sage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+target_position = Vector3(1, 0, 0)
+
+[node name="BlobShadow" type="MeshInstance3D" parent="Sage"]
+mesh = SubResource("PlaneMesh_1goyg")
+
+[node name="pivot" type="Node3D" parent="." groups=["cam"]]
+script = ExtResource("7_tphcg")
+
+[node name="Camera3D" type="Camera3D" parent="pivot"]
+transform = Transform3D(0.707107, -0.353553, 0.612373, 0, 0.866026, 0.5, -0.707107, -0.353553, 0.612373, 20, 18, 20)
+cull_mask = 1048063
+projection = 1
+current = true
+fov = 30.0
+size = 12.0
+far = 60.0
+
+[node name="rainsnow" type="MeshInstance3D" parent="pivot/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, -2.98023e-08, 1, 0, 0, -2)
+material_override = SubResource("ShaderMaterial_wxgw5")
+mesh = SubResource("QuadMesh_ieddr")
+
+[node name="Stars" type="MeshInstance3D" parent="."]
+transform = Transform3D(-3.09086e-08, -0.707107, 0.707107, 1, -4.37114e-08, 0, 3.09086e-08, 0.707107, 0.707107, -4, 6, -4)
+material_override = SubResource("ShaderMaterial_noydm")
+mesh = SubResource("QuadMesh_h5pg5")
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+visible = false
+radius = 8.0
+material = SubResource("StandardMaterial3D_lkxvh")
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+material_override = SubResource("ShaderMaterial_nsu74")
+mesh = SubResource("PlaneMesh_55ea2")
+
+[node name="edith" parent="." instance=ExtResource("10_ha7c5")]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -1, 4, -1)

@@ -17,9 +17,11 @@ corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
 [node name="Leaderboard" type="PanelContainer"]
+size_flags_vertical = 4
 theme_override_styles/panel = SubResource("StyleBoxFlat_ccm52")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
+custom_minimum_size = Vector2(400, 600)
 layout_mode = 2
 
 [node name="lblist" type="VBoxContainer" parent="ScrollContainer"]
@@ -44,6 +46,7 @@ autowrap_mode = 0
 [node name="FirstSecThird" type="VBoxContainer" parent="ScrollContainer/lblist/BigPlacement"]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
+theme_override_constants/separation = 0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/lblist/BigPlacement/FirstSecThird"]
 layout_mode = 2

@@ -1,0 +1,1282 @@
+[gd_scene load_steps=34 format=3 uid="uid://ciroec84d456a"]
+
+[ext_resource type="Script" path="res://Game/UI/particleCauldron.gd" id="1_u8jw8"]
+[ext_resource type="FontFile" uid="uid://ct4y3rnndcu5n" path="res://Assets/Fonts/Rubik/static/Rubik-Medium.ttf" id="2_4ykxk"]
+[ext_resource type="Texture2D" uid="uid://dqwmleeri8x3j" path="res://Assets/Graphics/othericonatlas.png" id="3_0ua1e"]
+[ext_resource type="Script" path="res://Game/UI/btn_s_m.gd" id="3_syyc2"]
+[ext_resource type="PackedScene" uid="uid://bs02ml2ejb5ld" path="res://Game/UI/display_particle.tscn" id="3_yaupv"]
+[ext_resource type="Script" path="res://Game/UI/decay.gd" id="4_aqq60"]
+[ext_resource type="PackedScene" uid="uid://buu8ff4ffpikq" path="res://Game/UI/particletooltip.tscn" id="4_s4et1"]
+[ext_resource type="Shader" path="res://Assets/Shaders/MarchingAnts.gdshader" id="5_r1soq"]
+[ext_resource type="Shader" path="res://Assets/Shaders/radialprogress.gdshader" id="6_av8yy"]
+[ext_resource type="Shader" path="res://Assets/Shaders/creation.gdshader" id="7_3hvgp"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c5oss"]
+content_margin_left = 70.0
+content_margin_top = 70.0
+content_margin_right = 70.0
+content_margin_bottom = 70.0
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 1024
+corner_radius_top_right = 1024
+corner_radius_bottom_right = 1024
+corner_radius_bottom_left = 1024
+corner_detail = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_veerp"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 1024
+corner_radius_top_right = 1024
+corner_radius_bottom_right = 1024
+corner_radius_bottom_left = 1024
+anti_aliasing = false
+anti_aliasing_size = 0.01
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ntuph"]
+content_margin_left = 1.0
+content_margin_top = 1.0
+content_margin_right = 1.0
+content_margin_bottom = 1.0
+bg_color = Color(0, 0, 0, 0)
+corner_radius_top_left = 1024
+corner_radius_top_right = 1024
+corner_radius_bottom_right = 1024
+corner_radius_bottom_left = 1024
+
+[sub_resource type="Theme" id="Theme_c27ro"]
+HScrollBar/styles/grabber = SubResource("StyleBoxFlat_veerp")
+HScrollBar/styles/scroll = SubResource("StyleBoxFlat_ntuph")
+VScrollBar/styles/grabber = SubResource("StyleBoxFlat_veerp")
+VScrollBar/styles/scroll = SubResource("StyleBoxFlat_ntuph")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3gihy"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rjtpk"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mafwb"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0, 0, 0, 0.901961)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dr7ls"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_def6t"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(1, 0.2, 0.6, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tyll2"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0.901961, 0.133333, 0, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_of3tj"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i3i54"]
+shader = ExtResource("5_r1soq")
+shader_parameter/ant_color_1 = Color(1, 1, 1, 1)
+shader_parameter/ant_color_2 = Color(0, 0, 0, 0)
+shader_parameter/ant_width = 2.0
+shader_parameter/ant_length = 10.0
+shader_parameter/ant_speed = 30.0
+
+[sub_resource type="Gradient" id="Gradient_mdkky"]
+offsets = PackedFloat32Array(0.5, 0.9)
+colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_xklih"]
+gradient = SubResource("Gradient_mdkky")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.8, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oqsdc"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_62e7w"]
+resource_local_to_scene = true
+atlas = ExtResource("3_0ua1e")
+region = Rect2(864, 0, 96, 96)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5rwna"]
+shader = ExtResource("6_av8yy")
+shader_parameter/outer_radius = 0.98
+shader_parameter/inner_radius = 1.0
+shader_parameter/turn = 0.0
+shader_parameter/blur = 0.005
+shader_parameter/fill_ratio = 1.125
+shader_parameter/time_speed = Vector2(1, 1)
+shader_parameter/fake_time = 0.0
+
+[sub_resource type="Gradient" id="Gradient_yddkc"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_7r8g1"]
+gradient = SubResource("Gradient_yddkc")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.75, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5f0iv"]
+shader = ExtResource("7_3hvgp")
+shader_parameter/t = 3.14
+shader_parameter/res_x = 648.0
+shader_parameter/res_y = 648.0
+shader_parameter/alpha_mask = SubResource("GradientTexture2D_7r8g1")
+
+[sub_resource type="Curve" id="Curve_rm4lt"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_nkq1k"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.063, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_agi7u"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.031, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[node name="pContManager" type="Control"]
+layout_mode = 3
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -504.0
+offset_top = -220.0
+offset_right = -64.0
+offset_bottom = 220.0
+grow_horizontal = 0
+grow_vertical = 2
+script = ExtResource("1_u8jw8")
+ex = true
+
+[node name="Control" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(250, 250)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -142.5
+offset_top = -142.5
+offset_right = 142.5
+offset_bottom = 142.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_c5oss")
+
+[node name="Spacer" type="Control" parent="Control"]
+custom_minimum_size = Vector2(235, 235)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Control"]
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = SubResource("Theme_c27ro")
+horizontal_scroll_mode = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/ScrollContainer/HBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="sort" type="Button" parent="Control/ScrollContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_4ykxk")
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_3gihy")
+theme_override_styles/hover = SubResource("StyleBoxFlat_rjtpk")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_mafwb")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_dr7ls")
+text = "sort"
+alignment = 2
+script = ExtResource("3_syyc2")
+
+[node name="conjure" type="Button" parent="Control/ScrollContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_disabled_color = Color(0.745098, 0.745098, 0.745098, 1)
+theme_override_fonts/font = ExtResource("2_4ykxk")
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_def6t")
+theme_override_styles/hover = SubResource("StyleBoxFlat_rjtpk")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_mafwb")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_3gihy")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_dr7ls")
+text = "conjure"
+alignment = 2
+script = ExtResource("3_syyc2")
+
+[node name="space" type="Control" parent="Control/ScrollContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="decay" type="Button" parent="Control/ScrollContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_disabled_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_4ykxk")
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_tyll2")
+theme_override_styles/hover = SubResource("StyleBoxFlat_rjtpk")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_mafwb")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_of3tj")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_dr7ls")
+disabled = true
+text = "decay"
+alignment = 2
+script = ExtResource("4_aqq60")
+
+[node name="dropoutline" type="ColorRect" parent="Control/ScrollContainer/HBoxContainer/VBoxContainer/decay"]
+material = SubResource("ShaderMaterial_i3i54")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LSpcer" type="Control" parent="Control/ScrollContainer/HBoxContainer"]
+custom_minimum_size = Vector2(48, 0)
+layout_mode = 2
+
+[node name="Displays" type="VFlowContainer" parent="Control/ScrollContainer/HBoxContainer"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+alignment = 1
+
+[node name="RSpcer" type="Control" parent="Control/ScrollContainer/HBoxContainer"]
+custom_minimum_size = Vector2(48, 0)
+layout_mode = 2
+
+[node name="Fade" type="TextureRect" parent="Control"]
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_xklih")
+
+[node name="Label" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(75, 0)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -37.5
+offset_top = -53.0
+offset_right = 37.5
+offset_bottom = -24.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_oqsdc")
+metadata/_edit_group_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Label"]
+layout_mode = 2
+size_flags_vertical = 4
+alignment = 1
+
+[node name="licon" type="TextureRect" parent="Label/HBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(12, 12)
+layout_mode = 2
+size_flags_vertical = 8
+texture = SubResource("AtlasTexture_62e7w")
+expand_mode = 1
+
+[node name="ltxt" type="RichTextLabel" parent="Label/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_colors/default_color = Color(0.415686, 0.415686, 0.415686, 1)
+theme_override_fonts/normal_font = ExtResource("2_4ykxk")
+theme_override_font_sizes/normal_font_size = 10
+bbcode_enabled = true
+text = "0/60"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="tt" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = -96.0
+offset_right = -16.0
+grow_vertical = 2
+alignment = 1
+
+[node name="tooltip" parent="tt" instance=ExtResource("4_s4et1")]
+visible = true
+layout_mode = 2
+use_highest_discovered_iso = true
+
+[node name="mtooltip" parent="tt" instance=ExtResource("4_s4et1")]
+visible = true
+layout_mode = 2
+use_highest_discovered_iso = true
+
+[node name="scrollprogress" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_5rwna")
+custom_minimum_size = Vector2(425, 425)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.164706, 0.164706, 0.164706, 0.501961)
+
+[node name="cnjr" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_5f0iv")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0)
+
+[node name="burst" type="CPUParticles2D" parent="cnjr"]
+position = Vector2(220, 220)
+emitting = false
+amount = 64
+lifetime = 2.0
+one_shot = true
+explosiveness = 0.95
+randomness = 0.5
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 600.0
+initial_velocity_max = 600.0
+radial_accel_min = -300.0
+radial_accel_max = -300.0
+radial_accel_curve = SubResource("Curve_rm4lt")
+damping_min = 500.0
+damping_max = 500.0
+damping_curve = SubResource("Curve_nkq1k")
+angle_min = -360.0
+angle_max = 360.0
+scale_amount_min = 0.0
+scale_amount_max = 5.0
+scale_amount_curve = SubResource("Curve_agi7u")
+
+[node name="Pool" type="Control" parent="."]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[node name="DisplayParticle" parent="Pool" instance=ExtResource("3_yaupv")]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+emit_signal_on_click = true
+signal_for_tooltip_on_hover = true
+fade_on_right_click = true
+return_on_bad_drop = true
+perform_merge = true
+disabled = true
+
+[node name="DisplayParticle2" parent="Pool" instance=ExtResource("3_yaupv")]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+emit_signal_on_click = true
+signal_for_tooltip_on_hover = true
+fade_on_right_click = true
+return_on_bad_drop = true
+perform_merge = true
+disabled = true
+
+[node name="DisplayParticle3" parent="Pool" instance=ExtResource("3_yaupv")]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+emit_signal_on_click = true
+signal_for_tooltip_on_hover = true
+fade_on_right_click = true
+return_on_bad_drop = true
+perform_merge = true
+disabled = true
+
+[node name="DisplayParticle4" parent="Pool" instance=ExtResource("3_yaupv")]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+emit_signal_on_click = true
+signal_for_tooltip_on_hover = true
+fade_on_right_click = true
+return_on_bad_drop = true
+perform_merge = true
+disabled = true
+
+[node name="DisplayParticle5" parent="Pool" instance=ExtResource("3_yaupv")]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+emit_signal_on_click = true
+signal_for_tooltip_on_hover = true
+fade_on_right_click = true
+return_on_bad_drop = true
+perform_merge = true
+disabled = true
+
+[node name="DisplayParticle6" parent="Pool" instance=ExtResource("3_yaupv")]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+emit_signal_on_click = true
+signal_for_tooltip_on_hover = true
+fade_on_right_click = true
+return_on_bad_drop = true
+perform_merge = true
+disabled = true
+
+[node name="DisplayParticle7" parent="Pool" instance=ExtResource("3_yaupv")]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+emit_signal_on_click = true
+signal_for_tooltip_on_hover = true
+fade_on_right_click = true
+return_on_bad_drop = true
+perform_merge = true
+disabled = true
+
+[node name="DisplayParticle8" parent="Pool" instance=ExtResource("3_yaupv")]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+emit_signal_on_click = true
+signal_for_tooltip_on_hover = true
+fade_on_right_click = true
+return_on_bad_drop = true
+perform_merge = true
+disabled = true
+
+[node name="DisplayParticle9" parent="Pool" instance=ExtResource("3_yaupv")]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+emit_signal_on_click = true
+signal_for_tooltip_on_hover = true
+fade_on_right_click = true
+return_on_bad_drop = true
+perform_merge = true
+disabled = true
+
+[node name="DisplayParticle10" parent="Pool" instance=ExtResource("3_yaupv")]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+emit_signal_on_click = true
+signal_for_tooltip_on_hover = true
+fade_on_right_click = true
+return_on_bad_drop = true
+perform_merge = true
+disabled = true
+
+[node name="DisplayParticle11" parent="Pool" instance=ExtResource("3_yaupv")]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+emit_signal_on_click = true
+signal_for_tooltip_on_hover = true
+fade_on_right_click = true
+return_on_bad_drop = true
+perform_merge = true
+disabled = true
+
+[node name="DisplayParticle12" parent="Pool" instance=ExtResource("3_yaupv")]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+emit_signal_on_click = true
+signal_for_tooltip_on_hover = true
+fade_on_right_click = true
+return_on_bad_drop = true
+perform_merge = true
+disabled = true
+
+[node name="DisplayParticle13" parent="Pool" instance=ExtResource("3_yaupv")]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+emit_signal_on_click = true
+signal_for_tooltip_on_hover = true
+fade_on_right_click = true
+return_on_bad_drop = true
+perform_merge = true
+disabled = true
+
+[node name="DisplayParticle14" parent="Pool" instance=ExtResource("3_yaupv")]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+emit_signal_on_click = true
+signal_for_tooltip_on_hover = true
+fade_on_right_click = true
+return_on_bad_drop = true
+perform_merge = true
+disabled = true
+
+[node name="DisplayParticle15" parent="Pool" instance=ExtResource("3_yaupv")]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+emit_signal_on_click = true
+signal_for_tooltip_on_hover = true
+fade_on_right_click = true
+return_on_bad_drop = true
+perform_merge = true
+disabled = true
+
+[node name="DisplayParticle16" parent="Pool" instance=ExtResource("3_yaupv")]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+emit_signal_on_click = true
+signal_for_tooltip_on_hover = true
+fade_on_right_click = true
+return_on_bad_drop = true
+perform_merge = true
+disabled = true
+
+[node name="DisplayParticle17" parent="Pool" instance=ExtResource("3_yaupv")]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+emit_signal_on_click = true
+signal_for_tooltip_on_hover = true
+fade_on_right_click = true
+return_on_bad_drop = true
+perform_merge = true
+disabled = true
+
+[node name="DisplayParticle18" parent="Pool" instance=ExtResource("3_yaupv")]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+emit_signal_on_click = true
+signal_for_tooltip_on_hover = true
+fade_on_right_click = true
+return_on_bad_drop = true
+perform_merge = true
+disabled = true
+
+[node name="DisplayParticle19" parent="Pool" instance=ExtResource("3_yaupv")]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+emit_signal_on_click = true
+signal_for_tooltip_on_hover = true
+fade_on_right_click = true
+return_on_bad_drop = true
+perform_merge = true
+disabled = true
+
+[node name="DisplayParticle20" parent="Pool" instance=ExtResource("3_yaupv")]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+emit_signal_on_click = true
+signal_for_tooltip_on_hover = true
+fade_on_right_click = true
+return_on_bad_drop = true
+perform_merge = true
+disabled = true
+
+[node name="DisplayParticle21" parent="Pool" instance=ExtResource("3_yaupv")]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+emit_signal_on_click = true
+signal_for_tooltip_on_hover = true
+fade_on_right_click = true
+return_on_bad_drop = true
+perform_merge = true
+disabled = true
+
+[node name="DisplayParticle22" parent="Pool" instance=ExtResource("3_yaupv")]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+emit_signal_on_click = true
+signal_for_tooltip_on_hover = true
+fade_on_right_click = true
+return_on_bad_drop = true
+perform_merge = true
+disabled = true
+
+[node name="DisplayParticle23" parent="Pool" instance=ExtResource("3_yaupv")]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+emit_signal_on_click = true
+signal_for_tooltip_on_hover = true
+fade_on_right_click = true
+return_on_bad_drop = true
+perform_merge = true
+disabled = true
+
+[node name="DisplayParticle24" parent="Pool" instance=ExtResource("3_yaupv")]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+emit_signal_on_click = true
+signal_for_tooltip_on_hover = true
+fade_on_right_click = true
+return_on_bad_drop = true
+perform_merge = true
+disabled = true
+
+[node name="DisplayParticle25" parent="Pool" instance=ExtResource("3_yaupv")]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+emit_signal_on_click = true
+signal_for_tooltip_on_hover = true
+fade_on_right_click = true
+return_on_bad_drop = true
+perform_merge = true
+disabled = true
+
+[node name="DisplayParticle26" parent="Pool" instance=ExtResource("3_yaupv")]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+emit_signal_on_click = true
+signal_for_tooltip_on_hover = true
+fade_on_right_click = true
+return_on_bad_drop = true
+perform_merge = true
+disabled = true
+
+[node name="DisplayParticle27" parent="Pool" instance=ExtResource("3_yaupv")]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+emit_signal_on_click = true
+signal_for_tooltip_on_hover = true
+fade_on_right_click = true
+return_on_bad_drop = true
+perform_merge = true
+disabled = true
+
+[node name="DisplayParticle28" parent="Pool" instance=ExtResource("3_yaupv")]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+emit_signal_on_click = true
+signal_for_tooltip_on_hover = true
+fade_on_right_click = true
+return_on_bad_drop = true
+perform_merge = true
+disabled = true
+
+[node name="DisplayParticle29" parent="Pool" instance=ExtResource("3_yaupv")]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+emit_signal_on_click = true
+signal_for_tooltip_on_hover = true
+fade_on_right_click = true
+return_on_bad_drop = true
+perform_merge = true
+disabled = true
+
+[node name="DisplayParticle30" parent="Pool" instance=ExtResource("3_yaupv")]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+emit_signal_on_click = true
+signal_for_tooltip_on_hover = true
+fade_on_right_click = true
+return_on_bad_drop = true
+perform_merge = true
+disabled = true
+
+[node name="DisplayParticle31" parent="Pool" instance=ExtResource("3_yaupv")]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+emit_signal_on_click = true
+signal_for_tooltip_on_hover = true
+fade_on_right_click = true
+return_on_bad_drop = true
+perform_merge = true
+disabled = true
+
+[node name="DisplayParticle32" parent="Pool" instance=ExtResource("3_yaupv")]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+emit_signal_on_click = true
+signal_for_tooltip_on_hover = true
+fade_on_right_click = true
+return_on_bad_drop = true
+perform_merge = true
+disabled = true
+
+[node name="DisplayParticle33" parent="Pool" instance=ExtResource("3_yaupv")]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+emit_signal_on_click = true
+signal_for_tooltip_on_hover = true
+fade_on_right_click = true
+return_on_bad_drop = true
+perform_merge = true
+disabled = true
+
+[node name="DisplayParticle34" parent="Pool" instance=ExtResource("3_yaupv")]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+emit_signal_on_click = true
+signal_for_tooltip_on_hover = true
+fade_on_right_click = true
+return_on_bad_drop = true
+perform_merge = true
+disabled = true
+
+[node name="DisplayParticle35" parent="Pool" instance=ExtResource("3_yaupv")]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+emit_signal_on_click = true
+signal_for_tooltip_on_hover = true
+fade_on_right_click = true
+return_on_bad_drop = true
+perform_merge = true
+disabled = true
+
+[node name="DisplayParticle36" parent="Pool" instance=ExtResource("3_yaupv")]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+emit_signal_on_click = true
+signal_for_tooltip_on_hover = true
+fade_on_right_click = true
+return_on_bad_drop = true
+perform_merge = true
+disabled = true
+
+[node name="DisplayParticle37" parent="Pool" instance=ExtResource("3_yaupv")]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+emit_signal_on_click = true
+signal_for_tooltip_on_hover = true
+fade_on_right_click = true
+return_on_bad_drop = true
+perform_merge = true
+disabled = true
+
+[node name="DisplayParticle38" parent="Pool" instance=ExtResource("3_yaupv")]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+emit_signal_on_click = true
+signal_for_tooltip_on_hover = true
+fade_on_right_click = true
+return_on_bad_drop = true
+perform_merge = true
+disabled = true
+
+[node name="DisplayParticle39" parent="Pool" instance=ExtResource("3_yaupv")]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+emit_signal_on_click = true
+signal_for_tooltip_on_hover = true
+fade_on_right_click = true
+return_on_bad_drop = true
+perform_merge = true
+disabled = true
+
+[node name="DisplayParticle40" parent="Pool" instance=ExtResource("3_yaupv")]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+emit_signal_on_click = true
+signal_for_tooltip_on_hover = true
+fade_on_right_click = true
+return_on_bad_drop = true
+perform_merge = true
+disabled = true
+
+[node name="DisplayParticle41" parent="Pool" instance=ExtResource("3_yaupv")]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+emit_signal_on_click = true
+signal_for_tooltip_on_hover = true
+fade_on_right_click = true
+return_on_bad_drop = true
+perform_merge = true
+disabled = true
+
+[node name="DisplayParticle42" parent="Pool" instance=ExtResource("3_yaupv")]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+emit_signal_on_click = true
+signal_for_tooltip_on_hover = true
+fade_on_right_click = true
+return_on_bad_drop = true
+perform_merge = true
+disabled = true
+
+[node name="DisplayParticle43" parent="Pool" instance=ExtResource("3_yaupv")]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+emit_signal_on_click = true
+signal_for_tooltip_on_hover = true
+fade_on_right_click = true
+return_on_bad_drop = true
+perform_merge = true
+disabled = true
+
+[node name="DisplayParticle44" parent="Pool" instance=ExtResource("3_yaupv")]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+emit_signal_on_click = true
+signal_for_tooltip_on_hover = true
+fade_on_right_click = true
+return_on_bad_drop = true
+perform_merge = true
+disabled = true
+
+[node name="DisplayParticle45" parent="Pool" instance=ExtResource("3_yaupv")]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+emit_signal_on_click = true
+signal_for_tooltip_on_hover = true
+fade_on_right_click = true
+return_on_bad_drop = true
+perform_merge = true
+disabled = true
+
+[node name="DisplayParticle46" parent="Pool" instance=ExtResource("3_yaupv")]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+emit_signal_on_click = true
+signal_for_tooltip_on_hover = true
+fade_on_right_click = true
+return_on_bad_drop = true
+perform_merge = true
+disabled = true
+
+[node name="DisplayParticle47" parent="Pool" instance=ExtResource("3_yaupv")]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+emit_signal_on_click = true
+signal_for_tooltip_on_hover = true
+fade_on_right_click = true
+return_on_bad_drop = true
+perform_merge = true
+disabled = true
+
+[node name="DisplayParticle48" parent="Pool" instance=ExtResource("3_yaupv")]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+emit_signal_on_click = true
+signal_for_tooltip_on_hover = true
+fade_on_right_click = true
+return_on_bad_drop = true
+perform_merge = true
+disabled = true
+
+[node name="DisplayParticle49" parent="Pool" instance=ExtResource("3_yaupv")]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+emit_signal_on_click = true
+signal_for_tooltip_on_hover = true
+fade_on_right_click = true
+return_on_bad_drop = true
+perform_merge = true
+disabled = true
+
+[node name="DisplayParticle50" parent="Pool" instance=ExtResource("3_yaupv")]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+emit_signal_on_click = true
+signal_for_tooltip_on_hover = true
+fade_on_right_click = true
+return_on_bad_drop = true
+perform_merge = true
+disabled = true
+
+[node name="DisplayParticle51" parent="Pool" instance=ExtResource("3_yaupv")]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+emit_signal_on_click = true
+signal_for_tooltip_on_hover = true
+fade_on_right_click = true
+return_on_bad_drop = true
+perform_merge = true
+disabled = true
+
+[node name="DisplayParticle52" parent="Pool" instance=ExtResource("3_yaupv")]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+emit_signal_on_click = true
+signal_for_tooltip_on_hover = true
+fade_on_right_click = true
+return_on_bad_drop = true
+perform_merge = true
+disabled = true
+
+[node name="DisplayParticle53" parent="Pool" instance=ExtResource("3_yaupv")]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+emit_signal_on_click = true
+signal_for_tooltip_on_hover = true
+fade_on_right_click = true
+return_on_bad_drop = true
+perform_merge = true
+disabled = true
+
+[node name="DisplayParticle54" parent="Pool" instance=ExtResource("3_yaupv")]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+emit_signal_on_click = true
+signal_for_tooltip_on_hover = true
+fade_on_right_click = true
+return_on_bad_drop = true
+perform_merge = true
+disabled = true
+
+[node name="DisplayParticle55" parent="Pool" instance=ExtResource("3_yaupv")]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+emit_signal_on_click = true
+signal_for_tooltip_on_hover = true
+fade_on_right_click = true
+return_on_bad_drop = true
+perform_merge = true
+disabled = true
+
+[node name="DisplayParticle56" parent="Pool" instance=ExtResource("3_yaupv")]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+emit_signal_on_click = true
+signal_for_tooltip_on_hover = true
+fade_on_right_click = true
+return_on_bad_drop = true
+perform_merge = true
+disabled = true
+
+[node name="DisplayParticle57" parent="Pool" instance=ExtResource("3_yaupv")]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+emit_signal_on_click = true
+signal_for_tooltip_on_hover = true
+fade_on_right_click = true
+return_on_bad_drop = true
+perform_merge = true
+disabled = true
+
+[node name="DisplayParticle58" parent="Pool" instance=ExtResource("3_yaupv")]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+emit_signal_on_click = true
+signal_for_tooltip_on_hover = true
+fade_on_right_click = true
+return_on_bad_drop = true
+perform_merge = true
+disabled = true
+
+[node name="DisplayParticle59" parent="Pool" instance=ExtResource("3_yaupv")]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+emit_signal_on_click = true
+signal_for_tooltip_on_hover = true
+fade_on_right_click = true
+return_on_bad_drop = true
+perform_merge = true
+disabled = true
+
+[node name="DisplayParticle60" parent="Pool" instance=ExtResource("3_yaupv")]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+emit_signal_on_click = true
+signal_for_tooltip_on_hover = true
+fade_on_right_click = true
+return_on_bad_drop = true
+perform_merge = true
+disabled = true
+
+[node name="DisplayParticle61" parent="Pool" instance=ExtResource("3_yaupv")]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+emit_signal_on_click = true
+signal_for_tooltip_on_hover = true
+fade_on_right_click = true
+return_on_bad_drop = true
+perform_merge = true
+disabled = true
+
+[node name="DisplayParticle62" parent="Pool" instance=ExtResource("3_yaupv")]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+emit_signal_on_click = true
+signal_for_tooltip_on_hover = true
+fade_on_right_click = true
+return_on_bad_drop = true
+perform_merge = true
+disabled = true
+
+[node name="DisplayParticle63" parent="Pool" instance=ExtResource("3_yaupv")]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+emit_signal_on_click = true
+signal_for_tooltip_on_hover = true
+fade_on_right_click = true
+return_on_bad_drop = true
+perform_merge = true
+disabled = true
+
+[node name="DisplayParticle64" parent="Pool" instance=ExtResource("3_yaupv")]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+emit_signal_on_click = true
+signal_for_tooltip_on_hover = true
+fade_on_right_click = true
+return_on_bad_drop = true
+perform_merge = true
+disabled = true
+
+[node name="DisplayParticle65" parent="Pool" instance=ExtResource("3_yaupv")]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+emit_signal_on_click = true
+signal_for_tooltip_on_hover = true
+fade_on_right_click = true
+return_on_bad_drop = true
+perform_merge = true
+disabled = true
+
+[node name="DisplayParticle66" parent="Pool" instance=ExtResource("3_yaupv")]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+emit_signal_on_click = true
+signal_for_tooltip_on_hover = true
+fade_on_right_click = true
+return_on_bad_drop = true
+perform_merge = true
+disabled = true
+
+[node name="DisplayParticle67" parent="Pool" instance=ExtResource("3_yaupv")]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+emit_signal_on_click = true
+signal_for_tooltip_on_hover = true
+fade_on_right_click = true
+return_on_bad_drop = true
+perform_merge = true
+disabled = true
+
+[node name="DisplayParticle68" parent="Pool" instance=ExtResource("3_yaupv")]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+emit_signal_on_click = true
+signal_for_tooltip_on_hover = true
+fade_on_right_click = true
+return_on_bad_drop = true
+perform_merge = true
+disabled = true
+
+[node name="DisplayParticle69" parent="Pool" instance=ExtResource("3_yaupv")]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+emit_signal_on_click = true
+signal_for_tooltip_on_hover = true
+fade_on_right_click = true
+return_on_bad_drop = true
+perform_merge = true
+disabled = true
+
+[node name="DisplayParticle70" parent="Pool" instance=ExtResource("3_yaupv")]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+emit_signal_on_click = true
+signal_for_tooltip_on_hover = true
+fade_on_right_click = true
+return_on_bad_drop = true
+perform_merge = true
+disabled = true
+
+[node name="DisplayParticle71" parent="Pool" instance=ExtResource("3_yaupv")]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+emit_signal_on_click = true
+signal_for_tooltip_on_hover = true
+fade_on_right_click = true
+return_on_bad_drop = true
+perform_merge = true
+disabled = true
+
+[node name="DisplayParticle72" parent="Pool" instance=ExtResource("3_yaupv")]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+emit_signal_on_click = true
+signal_for_tooltip_on_hover = true
+fade_on_right_click = true
+return_on_bad_drop = true
+perform_merge = true
+disabled = true
+
+[node name="DisplayParticle73" parent="Pool" instance=ExtResource("3_yaupv")]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+emit_signal_on_click = true
+signal_for_tooltip_on_hover = true
+fade_on_right_click = true
+return_on_bad_drop = true
+perform_merge = true
+disabled = true
+
+[node name="DisplayParticle74" parent="Pool" instance=ExtResource("3_yaupv")]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+emit_signal_on_click = true
+signal_for_tooltip_on_hover = true
+fade_on_right_click = true
+return_on_bad_drop = true
+perform_merge = true
+disabled = true
+
+[node name="DisplayParticle75" parent="Pool" instance=ExtResource("3_yaupv")]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+emit_signal_on_click = true
+signal_for_tooltip_on_hover = true
+fade_on_right_click = true
+return_on_bad_drop = true
+perform_merge = true
+disabled = true
+
+[connection signal="pressed" from="Control/ScrollContainer/HBoxContainer/VBoxContainer/sort" to="." method="_on_sort_pressed"]
+[connection signal="pressed" from="Control/ScrollContainer/HBoxContainer/VBoxContainer/conjure" to="." method="_on_conjure_pressed"]

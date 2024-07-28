@@ -8,6 +8,7 @@ func _ready():
 
 var stw : Tween
 func menter():
+	if disabled: return
 	pivot_offset = size/2
 	if stw: stw.kill()
 	stw = create_tween()

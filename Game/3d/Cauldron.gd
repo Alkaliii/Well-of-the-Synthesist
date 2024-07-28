@@ -7,6 +7,7 @@ extends AnimatableBody3D
 
 var tile_size = 1.6
 var in_shadow : int = 0
+var conjures : int = 0
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Global.sage_bounce.connect(push)
@@ -28,6 +29,10 @@ func _process(delta):
 		if sfx: SFXm.play("res://Assets/Sounds/274309__sophronsinesounddesign__match-extinguish-2.wav","master",randf_range(0.9,1.1))
 		ugtw.tween_property(undeglow.material_override,"shader_parameter/alpha",0.0,0.25).set_ease(Tween.EASE_IN_OUT)
 		Global.in_shadow = false
+	if Global.can_conjure and conjures == 0:
+		Global.can_conjure = false
+	if !Global.can_conjure and conjures != 0:
+		Global.can_conjure = true
 
 var moving := false
 func push():
@@ -109,10 +114,10 @@ func _physics_process(delta):
 		open = !open
 
 var in_area := false
-func _on_area_3d_body_entered(body):
+func _on_area_3d_body_entered(_body):
 	in_area = true
 
-func _on_area_3d_body_exited(body):
+func _on_area_3d_body_exited(_body):
 	in_area = false
 	close_ui()
 
@@ -124,3 +129,27 @@ func close_ui():
 	Global.open_cauldron.emit(false)
 	await get_tree().create_timer(0.75).timeout
 	sfx = true
+
+func _on_plant_scope_body_entered(body):
+	#print("plant in")
+	if "plant_type" in body:
+		body.range_state(true)
+		match body.plant_type:
+			0: #dsprt
+				#print("dp")
+				Global.conjure_level += 1
+			1: #cflwr
+				#print("cf")
+				#Global.can_conjure = true
+				conjures += 1
+
+func _on_plant_scope_body_exited(body):
+	#print("plant out")
+	if "plant_type" in body:
+		body.range_state(false)
+		match body.plant_type:
+			0: #dsprt
+				Global.conjure_level -= 1
+			1: #cflwr
+				#Global.can_conjure = false
+				conjures -= 1

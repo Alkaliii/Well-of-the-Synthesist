@@ -214,6 +214,7 @@ mesh = SubResource("QuadMesh_ieddr")
 
 [node name="Stars" type="MeshInstance3D" parent="."]
 transform = Transform3D(-3.09086e-08, -0.707107, 0.707107, 1, -4.37114e-08, 0, 3.09086e-08, 0.707107, 0.707107, -4, 6, -4)
+visible = false
 material_override = SubResource("ShaderMaterial_noydm")
 mesh = SubResource("QuadMesh_h5pg5")
 

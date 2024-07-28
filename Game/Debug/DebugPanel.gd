@@ -14,4 +14,5 @@ func _on_reset_pressed():
 	Global.discovered.clear()
 	Global.tiers_availible.clear()
 	Global.previously_performed_reactions.clear()
+	Global.reset()
 	get_tree().reload_current_scene()

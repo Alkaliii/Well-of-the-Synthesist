@@ -1,21 +1,8 @@
-[gd_scene load_steps=27 format=3 uid="uid://hjkmsdpb7moy"]
+[gd_scene load_steps=10 format=3 uid="uid://hjkmsdpb7moy"]
 
 [ext_resource type="Shader" path="res://Assets/Shaders/CRT.gdshader" id="1_lw6c4"]
-[ext_resource type="PackedScene" uid="uid://cc3s6jhm6tutq" path="res://Game/well.tscn" id="2_xf750"]
+[ext_resource type="PackedScene" uid="uid://bijaxuc7fp0vv" path="res://Game/mountain.tscn" id="2_oql3o"]
 [ext_resource type="Script" path="res://Game/UI/canvasgroups/mUI.gd" id="3_xjv7p"]
-[ext_resource type="Script" path="res://Game/UI/canvasgroups/CauldronCG.gd" id="4_3brsx"]
-[ext_resource type="PackedScene" uid="uid://dvfob4jmvuuxi" path="res://Game/UI/cauldron_ui.tscn" id="5_nladp"]
-[ext_resource type="PackedScene" uid="uid://bs02ml2ejb5ld" path="res://Game/UI/display_particle.tscn" id="6_44phi"]
-[ext_resource type="PackedScene" uid="uid://swg6jnn4mnqi" path="res://Game/UI/small_notification.tscn" id="7_ou7j8"]
-[ext_resource type="Script" path="res://Game/UI/DiscoveryNotifier.gd" id="8_2nc06"]
-[ext_resource type="FontFile" uid="uid://cdwlkjegxsf3m" path="res://Assets/Fonts/catshop/CatShop.ttf" id="9_7a5xe"]
-[ext_resource type="FontFile" uid="uid://bbcr4m4d7iemb" path="res://Assets/Fonts/GreekSprt/NotoSerifDisplay-Medium.ttf" id="10_27j4l"]
-[ext_resource type="FontFile" uid="uid://ct4y3rnndcu5n" path="res://Assets/Fonts/Rubik/static/Rubik-Medium.ttf" id="11_ib2xf"]
-[ext_resource type="Script" path="res://Game/photbar.gd" id="12_vj5te"]
-[ext_resource type="PackedScene" uid="uid://fx816q874ob6" path="res://Game/UI/potion.tscn" id="13_hr4fb"]
-[ext_resource type="PackedScene" uid="uid://m2j03ng2fsue" path="res://Game/UI/potioneval.tscn" id="14_tej80"]
-[ext_resource type="Script" path="res://Game/UI/Status.gd" id="15_0adfk"]
-[ext_resource type="FontFile" uid="uid://bbrehikvtgqca" path="res://Assets/Fonts/amerika/AMERIKAA.ttf" id="16_n6fm0"]
 [ext_resource type="PackedScene" uid="uid://bjgf5y5cyskhe" path="res://Game/UI/msgbox.tscn" id="17_xqpy3"]
 [ext_resource type="Shader" path="res://Assets/Shaders/pxsort.gdshader" id="18_jvr6p"]
 [ext_resource type="Shader" path="res://Assets/Shaders/shockwave.gdshader" id="19_kljhv"]
@@ -37,20 +24,6 @@ shader_parameter/roll_speed = 3.8e-07
 shader_parameter/scan_line_strength = -8.0
 shader_parameter/pixel_strength = -2.0
 
-[sub_resource type="Curve" id="Curve_qyk1s"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="Curve" id="Curve_qpg4w"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.063, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 3
-
-[sub_resource type="Curve" id="Curve_lbbfs"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.031, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 3
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_v0rtd"]
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_13oxp"]
 shader = ExtResource("18_jvr6p")
 shader_parameter/mask_softness = 1.4
@@ -58,10 +31,11 @@ shader_parameter/mask_threshold = 0.6
 shader_parameter/sort = 0.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5y2m3"]
+resource_local_to_scene = true
 shader = ExtResource("19_kljhv")
 shader_parameter/strength = 0.1
 shader_parameter/center = Vector2(0.5, 0.35)
-shader_parameter/radius = 0.0
+shader_parameter/radius = 0.4
 shader_parameter/aberration = 0.425
 shader_parameter/width = 0.1
 shader_parameter/feather = 0.135
@@ -94,7 +68,7 @@ handle_input_locally = false
 size = Vector2i(1280, 720)
 render_target_update_mode = 4
 
-[node name="Well" parent="SubViewportContainer/SubViewport" instance=ExtResource("2_xf750")]
+[node name="Mountain" parent="SubViewportContainer/SubViewport" instance=ExtResource("2_oql3o")]
 
 [node name="UI" type="CanvasLayer" parent="."]
 layer = 2
@@ -113,196 +87,6 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
-
-[node name="CauldronCG" type="CanvasGroup" parent="UI/mUI"]
-position = Vector2(640, 0)
-script = ExtResource("4_3brsx")
-
-[node name="CauldronUI" parent="UI/mUI/CauldronCG" instance=ExtResource("5_nladp")]
-offset_left = -640.0
-offset_top = -360.0
-offset_right = 640.0
-offset_bottom = 360.0
-
-[node name="DisplayParticle" parent="UI/mUI" instance=ExtResource("6_44phi")]
-layout_mode = 0
-offset_right = 48.0
-offset_bottom = 48.0
-follow_mouse_behaviour = 2
-
-[node name="SmallNotification" parent="UI/mUI" instance=ExtResource("7_ou7j8")]
-layout_mode = 1
-mouse_filter = 2
-
-[node name="DiscoveryNotifier" type="Control" parent="UI/mUI" groups=["mdn"]]
-custom_minimum_size = Vector2(40, 40)
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -20.0
-offset_top = -96.0
-offset_right = 20.0
-offset_bottom = -56.0
-grow_horizontal = 2
-script = ExtResource("8_2nc06")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/mUI/DiscoveryNotifier"]
-custom_minimum_size = Vector2(500, 0)
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -250.0
-offset_right = 250.0
-offset_bottom = 40.0
-grow_horizontal = 2
-theme_override_constants/separation = 0
-alignment = 1
-
-[node name="newdisc" type="RichTextLabel" parent="UI/mUI/DiscoveryNotifier/VBoxContainer"]
-custom_minimum_size = Vector2(0, 40)
-layout_mode = 2
-theme_override_fonts/normal_font = ExtResource("9_7a5xe")
-theme_override_fonts/mono_font = ExtResource("10_27j4l")
-theme_override_font_sizes/normal_font_size = 45
-theme_override_font_sizes/mono_font_size = 45
-bbcode_enabled = true
-text = "[center][pulse][wave]m[code]ξ"
-fit_content = true
-scroll_active = false
-
-[node name="nddetail" type="RichTextLabel" parent="UI/mUI/DiscoveryNotifier/VBoxContainer"]
-custom_minimum_size = Vector2(0, 12)
-layout_mode = 2
-theme_override_colors/default_color = Color(0.745098, 0.745098, 0.745098, 1)
-theme_override_fonts/normal_font = ExtResource("11_ib2xf")
-theme_override_font_sizes/normal_font_size = 9
-bbcode_enabled = true
-text = "[center]has bloomed from the ether"
-fit_content = true
-scroll_active = false
-autowrap_mode = 0
-
-[node name="burst" type="CPUParticles2D" parent="UI/mUI/DiscoveryNotifier"]
-position = Vector2(20, 30)
-emitting = false
-amount = 64
-lifetime = 2.0
-one_shot = true
-explosiveness = 0.95
-randomness = 0.5
-direction = Vector2(0, 0)
-spread = 180.0
-gravity = Vector2(0, 0)
-initial_velocity_min = 600.0
-initial_velocity_max = 600.0
-radial_accel_min = -300.0
-radial_accel_max = -300.0
-radial_accel_curve = SubResource("Curve_qyk1s")
-damping_min = 500.0
-damping_max = 500.0
-damping_curve = SubResource("Curve_qpg4w")
-angle_min = -360.0
-angle_max = 360.0
-scale_amount_min = 0.0
-scale_amount_max = 5.0
-scale_amount_curve = SubResource("Curve_lbbfs")
-
-[node name="photbar" type="HBoxContainer" parent="UI/mUI" groups=["phb"]]
-modulate = Color(1, 1, 1, 0.501961)
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 1
-offset_left = 64.0
-offset_top = 64.0
-offset_right = 264.0
-offset_bottom = 196.0
-size_flags_horizontal = 4
-size_flags_vertical = 4
-script = ExtResource("12_vj5te")
-
-[node name="Potion" parent="UI/mUI/photbar" instance=ExtResource("13_hr4fb")]
-layout_mode = 2
-
-[node name="Middle" type="VBoxContainer" parent="UI/mUI/photbar"]
-layout_mode = 2
-
-[node name="Potion2" parent="UI/mUI/photbar/Middle" instance=ExtResource("13_hr4fb")]
-layout_mode = 2
-
-[node name="Potion3" parent="UI/mUI/photbar/Middle" instance=ExtResource("13_hr4fb")]
-layout_mode = 2
-
-[node name="Potion4" parent="UI/mUI/photbar" instance=ExtResource("13_hr4fb")]
-layout_mode = 2
-
-[node name="potioneval" parent="UI/mUI" instance=ExtResource("14_tej80")]
-visible = false
-modulate = Color(1, 1, 1, 0)
-layout_mode = 1
-
-[node name="Margin" type="PanelContainer" parent="UI/mUI"]
-custom_minimum_size = Vector2(1152, 592)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 64.0
-offset_top = 64.0
-offset_right = -64.0
-offset_bottom = -64.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_v0rtd")
-
-[node name="Status" type="HBoxContainer" parent="UI/mUI/Margin"]
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 8
-theme_override_constants/separation = 10
-script = ExtResource("15_0adfk")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/mUI/Margin/Status"]
-layout_mode = 2
-size_flags_vertical = 4
-theme_override_constants/separation = 0
-
-[node name="TotalFusionCount" type="RichTextLabel" parent="UI/mUI/Margin/Status/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 8
-theme_override_colors/default_color = Color(0.466667, 0.466667, 0.466667, 1)
-theme_override_fonts/normal_font = ExtResource("11_ib2xf")
-theme_override_font_sizes/normal_font_size = 15
-bbcode_enabled = true
-text = "total fusions : 10"
-fit_content = true
-scroll_active = false
-autowrap_mode = 0
-
-[node name="Volatility" type="RichTextLabel" parent="UI/mUI/Margin/Status/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 8
-theme_override_colors/default_color = Color(1, 0.835294, 0, 1)
-theme_override_fonts/normal_font = ExtResource("11_ib2xf")
-theme_override_font_sizes/normal_font_size = 15
-bbcode_enabled = true
-text = "volatility : .01"
-fit_content = true
-scroll_active = false
-autowrap_mode = 0
-
-[node name="MoveCount" type="RichTextLabel" parent="UI/mUI/Margin/Status"]
-clip_contents = false
-layout_mode = 2
-size_flags_horizontal = 8
-theme_override_fonts/normal_font = ExtResource("16_n6fm0")
-theme_override_font_sizes/normal_font_size = 110
-bbcode_enabled = true
-text = "[wave]100"
-fit_content = true
-scroll_active = false
-autowrap_mode = 0
 
 [node name="mb" parent="UI/mUI" instance=ExtResource("17_xqpy3")]
 layout_mode = 1
@@ -331,5 +115,3 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]

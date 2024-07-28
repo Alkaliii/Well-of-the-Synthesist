@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://bp8ip3mxn6b60"]
+[gd_scene load_steps=25 format=3 uid="uid://bp8ip3mxn6b60"]
 
 [ext_resource type="Script" path="res://Game/3d/Cauldron.gd" id="1_221yp"]
 [ext_resource type="Shader" path="res://Assets/Shaders/GradientNoiseFire.gdshader" id="2_14d00"]
@@ -101,6 +101,9 @@ size = Vector3(4.8, 1.6, 1.6)
 [sub_resource type="BoxShape3D" id="BoxShape3D_q4wi6"]
 size = Vector3(1.6, 1.6, 4.8)
 
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_f6w5g"]
+radius = 2.4
+
 [node name="Cauldron" type="AnimatableBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8, 0.62, -0.8)
 collision_layer = 5
@@ -179,5 +182,15 @@ shape = SubResource("BoxShape3D_q4wi6")
 [node name="RayCast3D" type="RayCast3D" parent="."]
 collision_mask = 8
 
+[node name="PlantScope" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 16
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlantScope"]
+shape = SubResource("CylinderShape3D_f6w5g")
+
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
 [connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]
+[connection signal="body_entered" from="PlantScope" to="." method="_on_plant_scope_body_entered"]
+[connection signal="body_exited" from="PlantScope" to="." method="_on_plant_scope_body_exited"]

@@ -1,0 +1,122 @@
+[gd_scene load_steps=18 format=3 uid="uid://my133m3122al"]
+
+[ext_resource type="Script" path="res://Game/3d/flower.gd" id="1_vsrpq"]
+[ext_resource type="Shader" path="res://Assets/Shaders/Plant.gdshader" id="2_t1ygn"]
+[ext_resource type="Texture2D" uid="uid://dtlmcvvok32vl" path="res://Assets/Graphics/plants@2x.png" id="3_mym6p"]
+[ext_resource type="Shader" path="res://Assets/Shaders/lpfresnel.gdshader" id="4_4pomj"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4xtfp"]
+atlas = ExtResource("3_mym6p")
+region = Rect2(192, 0, 96, 96)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ytfk3"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("2_t1ygn")
+shader_parameter/tint = Color(1, 1, 1, 1)
+shader_parameter/normal_offset = 0.05
+shader_parameter/time_influence = 3.0
+shader_parameter/y_div = 2.87
+shader_parameter/offset_time = Vector2(1, 1)
+shader_parameter/alpha = 1.0
+shader_parameter/offsetuv = 0.0
+shader_parameter/tex = SubResource("AtlasTexture_4xtfp")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t3e6q"]
+resource_local_to_scene = true
+atlas = ExtResource("3_mym6p")
+region = Rect2(96, 96, 96, 96)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_t3jcd"]
+render_priority = 0
+shader = ExtResource("2_t1ygn")
+shader_parameter/tint = Color(1, 0.2, 0.6, 1)
+shader_parameter/normal_offset = 0.05
+shader_parameter/time_influence = 3.0
+shader_parameter/y_div = 2.87
+shader_parameter/offset_time = Vector2(1, 1)
+shader_parameter/alpha = 1.0
+shader_parameter/offsetuv = 0.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_nrpms"]
+radius = 0.025
+height = 0.05
+
+[sub_resource type="Curve" id="Curve_c33kw"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_5rw5r"]
+
+[sub_resource type="Gradient" id="Gradient_446qf"]
+offsets = PackedFloat32Array(0, 0.8)
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_xihw0"]
+gradient = SubResource("Gradient_446qf")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wdo5i"]
+transparency = 1
+albedo_texture = SubResource("GradientTexture2D_xihw0")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_1goyg"]
+material = SubResource("StandardMaterial3D_wdo5i")
+size = Vector2(1.2, 1.2)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tabk5"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("4_4pomj")
+shader_parameter/inner_alpha = 0.0
+shader_parameter/alpha = 1.0
+shader_parameter/albedo_f = Color(1, 0.2, 0.6, 1)
+shader_parameter/Strength = 30.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_ji24f"]
+radial_segments = 16
+rings = 8
+
+[node name="Conjureflower" type="AnimatableBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4, 0, 2.4)
+collision_layer = 16
+collision_mask = 16
+script = ExtResource("1_vsrpq")
+plant_type = 1
+
+[node name="pSprite" type="Sprite3D" parent="."]
+transform = Transform3D(0.707107, -0.183013, 0.683013, 0, 0.965926, 0.258819, -0.707107, -0.183013, 0.683013, 0.25, 0, 0.25)
+material_override = SubResource("ShaderMaterial_ytfk3")
+offset = Vector2(0, 48)
+texture = SubResource("AtlasTexture_t3e6q")
+
+[node name="CPUParticles3D" type="CPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+material_override = SubResource("ShaderMaterial_t3jcd")
+lifetime = 6.0
+mesh = SubResource("SphereMesh_nrpms")
+emission_shape = 2
+emission_sphere_radius = 0.5
+particle_flag_align_y = true
+particle_flag_rotate_y = true
+direction = Vector3(0, 1, 0)
+spread = 25.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 0.1
+initial_velocity_max = 0.1
+scale_amount_max = 2.0
+scale_amount_curve = SubResource("Curve_c33kw")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("SphereShape3D_5rw5r")
+
+[node name="BlobShadow" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
+mesh = SubResource("PlaneMesh_1goyg")
+
+[node name="range_indicator" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+material_override = SubResource("ShaderMaterial_tabk5")
+mesh = SubResource("SphereMesh_ji24f")

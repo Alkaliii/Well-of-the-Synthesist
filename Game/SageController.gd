@@ -25,7 +25,7 @@ func _ready():
 	snap_in()
 	position.y = 0.1
 	
-	await get_tree().create_timer(0.75).timeout
+	await get_tree().create_timer(1.75).timeout
 	await get_tree().process_frame
 	msgbox = get_tree().get_first_node_in_group("msgbox")
 	if msgbox:
@@ -68,7 +68,7 @@ func move(dir):
 		var tw = create_tween()
 		tw.tween_property(self,"position",position + (inputs[dir] * tile_size),1.0/anim_speed).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 		moving = true
-		SFXm.play("res://Assets/Sounds/footstep09.ogg","master",randf_range(0.9,1.1))
+		SFXm.play("res://Assets/Sounds/footstep09.ogg","master",randf_range(0.9,1.1),0.2)
 		await tw.finished
 		moving = false
 	else:
@@ -76,7 +76,7 @@ func move(dir):
 		tw.tween_property(self,"position",position + (inputs[dir] * (tile_size/4)),0.5/anim_speed).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 		tw.tween_property(self,"position",position,0.5/anim_speed).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 		moving = true
-		SFXm.play("res://Assets/Sounds/bonk.wav","master",randf_range(0.9,1.1))
+		SFXm.play("res://Assets/Sounds/bonk.wav","master",randf_range(0.9,1.1),0.4)
 		Global.sage_bounce.emit()
 		await tw.finished
 		moving = false

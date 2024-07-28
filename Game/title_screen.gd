@@ -30,21 +30,21 @@ func _process(delta):
 var itw : Tween
 func intro():
 	tip.text = str("Adding to oneself shall raise you higher.")
-	ltxt.text = "a + a = a*1"
+	ltxt.text = "a + a = b"
 	itw = create_tween()
 	play_delayed_hush(0,2.8)
 	itw.tween_property(bt,"modulate:a",1,0.3).set_ease(Tween.EASE_IN_OUT).set_delay(3.0)
 	itw.tween_property(tvb,"modulate:a",0,0.3).set_ease(Tween.EASE_IN_OUT).set_delay(3.0)
 	await itw.finished
-	tip.text = str("Twins of divergent fates return anew.")
-	ltxt.text = "a*1 + a*2 = d"
+	tip.text = str("Strangers join together to inspire.")
+	ltxt.text = "a + b = ab"
 	itw = create_tween()
 	SFXm.play("res://Assets/Sounds/hushA.wav","master",randf_range(0.9,1.1))
 	itw.tween_property(tvb,"modulate:a",1,0.3).set_ease(Tween.EASE_IN_OUT).set_delay(0.25)
 	itw.tween_property(tvb,"modulate:a",0,0.3).set_ease(Tween.EASE_IN_OUT).set_delay(3.0)
 	await itw.finished
-	tip.text = str("Strangers join together to break apart.")
-	ltxt.text = "a + b = ab"
+	tip.text = str("This is the mystery of the world disciphered.")
+	ltxt.text = "a + bc = abc"
 	itw = create_tween()
 	SFXm.play("res://Assets/Sounds/hushB.wav","master",randf_range(0.9,1.1))
 	itw.tween_property(tvb,"modulate:a",1,0.3).set_ease(Tween.EASE_IN_OUT).set_delay(0.25)
@@ -126,7 +126,7 @@ func _on_play_pressed():
 	#get_tree().get_first_node_in_group("ldr").loadnew("res://Game/game.tscn")
 	if on_play:
 		Global.player_shader = custom_sage.material_override
-		get_tree().get_first_node_in_group("ldr").loadnew("res://Game/game.tscn")
+		get_tree().get_first_node_in_group("ldr").loadnew("res://Game/game.tscn",true)
 	else: open_cc()
 	#get_tree().change_scene_to_file("res://Game/game.tscn")
 

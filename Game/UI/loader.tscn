@@ -1,9 +1,73 @@
-[gd_scene load_steps=2 format=3 uid="uid://beh4fri1oao7c"]
+[gd_scene load_steps=3 format=3 uid="uid://beh4fri1oao7c"]
 
 [ext_resource type="Script" path="res://Loader.gd" id="1_wuqri"]
+[ext_resource type="FontFile" uid="uid://ct4y3rnndcu5n" path="res://Assets/Fonts/Rubik/static/Rubik-Medium.ttf" id="2_s51q4"]
 
 [node name="Loader" type="ColorRect"]
-offset_right = 40.0
-offset_bottom = 40.0
+process_thread_group = 2
+process_thread_group_order = 0
+process_thread_messages = 0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 color = Color(0, 0, 0, 1)
 script = ExtResource("1_wuqri")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="progress" type="RichTextLabel" parent="CenterContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/default_color = Color(0.415686, 0.415686, 0.415686, 1)
+theme_override_fonts/normal_font = ExtResource("2_s51q4")
+theme_override_font_sizes/normal_font_size = 15
+bbcode_enabled = true
+text = "0%"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="now_loading" type="RichTextLabel" parent="CenterContainer/HBoxContainer"]
+process_thread_group = 1
+process_thread_group_order = 0
+process_thread_messages = 0
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/default_color = Color(0.415686, 0.415686, 0.415686, 1)
+theme_override_fonts/normal_font = ExtResource("2_s51q4")
+theme_override_font_sizes/normal_font_size = 15
+bbcode_enabled = true
+text = "now loading[wave]..."
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="hang_notice" type="RichTextLabel" parent="CenterContainer/HBoxContainer"]
+process_thread_group = 1
+process_thread_group_order = 0
+process_thread_messages = 0
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/default_color = Color(0.352941, 0.352941, 0.352941, 1)
+theme_override_fonts/normal_font = ExtResource("2_s51q4")
+theme_override_font_sizes/normal_font_size = 12
+bbcode_enabled = true
+text = "it will hang, it shouldn't crash"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0

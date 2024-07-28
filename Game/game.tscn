@@ -1,13 +1,13 @@
-[gd_scene load_steps=27 format=3 uid="uid://ck6t8c2gd6k8a"]
+[gd_scene load_steps=28 format=3 uid="uid://ck6t8c2gd6k8a"]
 
 [ext_resource type="Shader" path="res://Assets/Shaders/CRT.gdshader" id="1_n7cky"]
 [ext_resource type="Shader" path="res://Assets/Shaders/pxsort.gdshader" id="2_0cdoi"]
+[ext_resource type="Shader" path="res://Assets/Shaders/blur.gdshader" id="2_6jy34"]
 [ext_resource type="PackedScene" uid="uid://cc3s6jhm6tutq" path="res://Game/well.tscn" id="2_xbka1"]
-[ext_resource type="PackedScene" uid="uid://dvfob4jmvuuxi" path="res://Game/UI/cauldron_ui.tscn" id="3_0bboo"]
 [ext_resource type="Script" path="res://Game/UI/canvasgroups/CauldronCG.gd" id="3_vl8uo"]
 [ext_resource type="Script" path="res://Game/UI/canvasgroups/mUI.gd" id="4_20mvg"]
 [ext_resource type="PackedScene" uid="uid://swg6jnn4mnqi" path="res://Game/UI/small_notification.tscn" id="4_e1fd2"]
-[ext_resource type="PackedScene" uid="uid://bs02ml2ejb5ld" path="res://Game/UI/display_particle.tscn" id="4_xowt0"]
+[ext_resource type="PackedScene" uid="uid://ciroec84d456a" path="res://Game/UI/particleCauldron.tscn" id="5_jhksd"]
 [ext_resource type="Script" path="res://Game/UI/DiscoveryNotifier.gd" id="8_wk6jv"]
 [ext_resource type="FontFile" uid="uid://cdwlkjegxsf3m" path="res://Assets/Fonts/catshop/CatShop.ttf" id="9_l6dnn"]
 [ext_resource type="FontFile" uid="uid://bbcr4m4d7iemb" path="res://Assets/Fonts/GreekSprt/NotoSerifDisplay-Medium.ttf" id="10_82hxy"]
@@ -36,6 +36,13 @@ shader_parameter/roll_line_amount = 0.0
 shader_parameter/roll_speed = 3.8e-07
 shader_parameter/scan_line_strength = -8.0
 shader_parameter/pixel_strength = -2.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ero6y"]
+shader = ExtResource("2_6jy34")
+shader_parameter/blur_type = 0
+shader_parameter/blur_amount = 0
+shader_parameter/blur_radius = 1.0
+shader_parameter/blur_direction = Vector2(1, 1)
 
 [sub_resource type="Curve" id="Curve_qyk1s"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -80,6 +87,16 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
+[node name="BackBufferCopy" type="BackBufferCopy" parent="BelowUI"]
+
+[node name="Blur" type="ColorRect" parent="BelowUI" groups=["blur"]]
+material = SubResource("ShaderMaterial_ero6y")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 custom_minimum_size = Vector2(1000, 720)
 anchors_preset = 15
@@ -114,21 +131,18 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="CauldronCG" type="CanvasGroup" parent="UI/mUI"]
-position = Vector2(640, 0)
+[node name="CauldronCG" type="Control" parent="UI/mUI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("3_vl8uo")
 
-[node name="CauldronUI" parent="UI/mUI/CauldronCG" instance=ExtResource("3_0bboo")]
-offset_left = -640.0
-offset_top = -360.0
-offset_right = 640.0
-offset_bottom = 360.0
-
-[node name="DisplayParticle" parent="UI/mUI" instance=ExtResource("4_xowt0")]
-layout_mode = 0
-offset_right = 48.0
-offset_bottom = 48.0
-follow_mouse_behaviour = 2
+[node name="pContManager" parent="UI/mUI/CauldronCG" instance=ExtResource("5_jhksd")]
+custom_minimum_size = Vector2(440, 440)
+layout_mode = 1
 
 [node name="SmallNotification" parent="UI/mUI" instance=ExtResource("4_e1fd2")]
 layout_mode = 1

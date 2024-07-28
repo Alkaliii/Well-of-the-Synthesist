@@ -1,0 +1,202 @@
+[gd_scene load_steps=9 format=3 uid="uid://bprq8sdlu6kqj"]
+
+[ext_resource type="Script" path="res://EndScreen.gd" id="1_71jy1"]
+[ext_resource type="FontFile" uid="uid://7wgxoxmevhkj" path="res://Assets/Fonts/amerika/AMERIKA_.ttf" id="2_fxlxq"]
+[ext_resource type="FontFile" uid="uid://ct4y3rnndcu5n" path="res://Assets/Fonts/Rubik/static/Rubik-Medium.ttf" id="3_a64n3"]
+[ext_resource type="PackedScene" uid="uid://dw8tk5u763xb0" path="res://Game/UI/leaderboard.tscn" id="4_x6fiy"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k0768"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u21xl"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ns81a"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0, 0, 0, 0.901961)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_x8wve"]
+
+[node name="EndScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_71jy1")
+
+[node name="bt" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="t" type="VBoxContainer" parent="bt"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -285.0
+offset_top = -20.0
+offset_right = 285.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="tip" type="RichTextLabel" parent="bt/t"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/normal_font = ExtResource("2_fxlxq")
+theme_override_font_sizes/normal_font_size = 30
+bbcode_enabled = true
+text = "You consume the elixir"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="ltxt" type="RichTextLabel" parent="bt/t"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_colors/default_color = Color(0.745098, 0.745098, 0.745098, 1)
+theme_override_fonts/normal_font = ExtResource("3_a64n3")
+theme_override_font_sizes/normal_font_size = 15
+bbcode_enabled = true
+text = "and your heart races."
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="GameOverview" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="GameOverview"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 64
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 64
+theme_override_constants/margin_bottom = 32
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GameOverview/MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameOverview/MarginContainer/HBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="tip" type="RichTextLabel" parent="GameOverview/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/normal_font = ExtResource("2_fxlxq")
+theme_override_font_sizes/normal_font_size = 30
+bbcode_enabled = true
+text = "You've crafted an elixir!"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="ltxt" type="RichTextLabel" parent="GameOverview/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_colors/default_color = Color(0.745098, 0.745098, 0.745098, 1)
+theme_override_fonts/normal_font = ExtResource("3_a64n3")
+theme_override_font_sizes/normal_font_size = 15
+bbcode_enabled = true
+text = "FINAL SCORE: 1000000000"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="ss" type="Button" parent="GameOverview/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_a64n3")
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_k0768")
+theme_override_styles/hover = SubResource("StyleBoxFlat_u21xl")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ns81a")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_x8wve")
+text = "submit score"
+
+[node name="Control" type="Control" parent="GameOverview/MarginContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+
+[node name="ts" type="Button" parent="GameOverview/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_a64n3")
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_k0768")
+theme_override_styles/hover = SubResource("StyleBoxFlat_u21xl")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ns81a")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_x8wve")
+text = "title screen"
+
+[node name="pa" type="Button" parent="GameOverview/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_a64n3")
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_k0768")
+theme_override_styles/hover = SubResource("StyleBoxFlat_u21xl")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ns81a")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_x8wve")
+text = "play again"
+
+[node name="Control" type="Control" parent="GameOverview/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Leaderboard" parent="GameOverview/MarginContainer/HBoxContainer" instance=ExtResource("4_x6fiy")]
+layout_mode = 2

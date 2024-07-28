@@ -54,7 +54,7 @@ func fdisp(s:bool):
 
 func set_eval(m : Mixture):
 	viewing = m
-	combinationid.text = str(m.m1.particle + 1,"+",m.m2.particleA + 1,"+",m.m2.particleB + 1," [color=777777]/ ",m.m1.tier,"+",m.m2.tier)
+	combinationid.text = str(m.m1.particle + 1,"+",m.m2.particleA + 1,"+",m.m2.particleB + 1) #," [color=777777]/ ",m.m1.tier,"+",m.m2.tier
 	element_name.text = m.get_nameg(true)
 	
 	m_1.texture.region = Element.get_particle_icon(m.m1.particle)
@@ -82,6 +82,8 @@ func set_eval(m : Mixture):
 		stats.hide()
 
 func _on_dispose_pressed():
+	Global.add_unit.emit(viewing.m1)
+	Global.add_unit.emit(viewing.m2)
 	Global.remove_potion.emit(viewing)
 	Global.eval_potion.emit(false)
 

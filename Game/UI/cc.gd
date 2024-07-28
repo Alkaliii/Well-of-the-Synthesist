@@ -33,7 +33,7 @@ func _on_name_lineedit_text_submitted(new_text : String):
 		if new_text.strip_edges().to_lower() in easter_eggs:
 			match new_text.strip_edges().to_lower():
 				"thor": lbl_2.text = str("[center][wave][color=8cff19]The Captain")
-				"aiwi": lbl_2.text = str("[center][wave][color=ff3399]Simple Synthesist")
+				"aiwi": lbl_2.text = str("[center][wave][color=ff3399]Content Synthesist")
 				"edith": lbl_2.text = str("[center][wave][color=66ccff]Grandmaster Synthesist")
 				"pirate": lbl_2.text = str("[center][wave][color=8cff19]Skilled Scallywag")
 				"edward": lbl_2.text = str("[center][wave][color=b3001e]Fullmetal Synthesist")

@@ -17,10 +17,13 @@ var move_count : int = 100
 #goes down if you move the cauldron at 0 the cauldron will no longer move
 
 var fusion_count : int = 0
-var fusion_lim : int = 10
+var fusion_lim : int = 15
 var total_fusion_count : int = 0
+var duo_chance : float = 50
 
 var in_shadow := false
+var can_conjure := false
+var conjure_level : int = 0
 var can_interact := true
 
 var boost_latin := false
@@ -36,6 +39,7 @@ signal alchemy
 signal wake_sent
 signal sent_regen
 signal sage_bounce
+signal respawn_conjure #on third conjure press respawn happens, and sentinel might wake
 signal move_shadows
 signal rouse_shadows
 signal tickle_shadows
@@ -44,6 +48,8 @@ signal add_shadow
 signal remove_shadow
 
 signal open_cauldron
+signal add_unit #aUnit
+signal return_to_pool #node
 signal force_close_cauldron
 signal add_potion #mixture
 signal remove_potion #mixture
@@ -52,6 +58,7 @@ signal eval_potion #bool mixture
 var dragging
 signal start_drag
 signal stop_drag
+signal dropped
 
 signal finish_pop
 

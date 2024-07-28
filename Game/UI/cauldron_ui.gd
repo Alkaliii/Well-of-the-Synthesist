@@ -45,7 +45,10 @@ func add_a():
 const psfx = ["res://Assets/Sounds/plobcutb.wav", "res://Assets/Sounds/plopcatc.wav", "res://Assets/Sounds/plopcut.wav"]
 func plop(): #like the sound water goes when you drop ice in it lol
 	if inside.size() == 2: return
-	var ice = Global.dragging
+	if !"what_unit" in Global.dragging: 
+		printerr("not for me?")
+		return
+	var ice = Global.dragging.what_unit
 	#clear global?
 	if ice is aUnit: #do stuff
 		print("Recived ",ice.get_name())

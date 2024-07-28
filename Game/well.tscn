@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://cc3s6jhm6tutq"]
+[gd_scene load_steps=63 format=3 uid="uid://cc3s6jhm6tutq"]
 
 [ext_resource type="Script" path="res://Game/SageController.gd" id="1_2ou0e"]
 [ext_resource type="Shader" path="res://Assets/Shaders/gridshader.gdshader" id="1_ykkxh"]
@@ -16,6 +16,11 @@
 [ext_resource type="Texture2D" uid="uid://dke5cqe6d5uxx" path="res://Assets/Graphics/external/fx_cloudalphas/FX_CloudAlpha06.png" id="11_hhuac"]
 [ext_resource type="Shader" path="res://Assets/Shaders/stars3D.gdshader" id="13_vrvck"]
 [ext_resource type="PackedScene" uid="uid://bwwrjyelrxn6t" path="res://Game/3d/sentinel.tscn" id="14_v07eu"]
+[ext_resource type="Shader" path="res://Assets/Shaders/Plant.gdshader" id="17_uujtv"]
+[ext_resource type="Texture2D" uid="uid://dtlmcvvok32vl" path="res://Assets/Graphics/plants@2x.png" id="18_1opxv"]
+[ext_resource type="PackedScene" uid="uid://d1fef10hdcn4" path="res://Game/3d/densitysprout.tscn" id="19_ir7xs"]
+[ext_resource type="Script" path="res://Game/3d/FlowerManager.gd" id="19_whhq0"]
+[ext_resource type="PackedScene" uid="uid://my133m3122al" path="res://Game/3d/conjureflower.tscn" id="20_tkucc"]
 
 [sub_resource type="Environment" id="Environment_6lljk"]
 background_mode = 1
@@ -215,6 +220,45 @@ size = Vector2(3, 3)
 offsets = PackedFloat32Array(0, 0.5, 1)
 colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_4xtfp"]
+atlas = ExtResource("18_1opxv")
+region = Rect2(192, 0, 96, 96)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fawyv"]
+render_priority = 0
+shader = ExtResource("17_uujtv")
+shader_parameter/tint = Color(1, 1, 1, 1)
+shader_parameter/normal_offset = 0.05
+shader_parameter/time_influence = 1.0
+shader_parameter/y_div = 2.87
+shader_parameter/offset_time = Vector2(3, 7)
+shader_parameter/alpha = 1.0
+shader_parameter/offsetuv = 0.0
+shader_parameter/tex = SubResource("AtlasTexture_4xtfp")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_friri"]
+atlas = ExtResource("18_1opxv")
+region = Rect2(0, 0, 96, 192)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_e0aoh"]
+render_priority = 0
+shader = ExtResource("17_uujtv")
+shader_parameter/tint = Color(0.172549, 0.172549, 0.172549, 1)
+shader_parameter/normal_offset = 0.05
+shader_parameter/time_influence = 3.0
+shader_parameter/y_div = 2.87
+shader_parameter/offset_time = Vector2(1, 1)
+shader_parameter/alpha = 1.0
+shader_parameter/offsetuv = 0.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_nrpms"]
+radius = 0.025
+height = 0.05
+
+[sub_resource type="Curve" id="Curve_c33kw"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_noydm"]
 render_priority = 0
 shader = ExtResource("13_vrvck")
@@ -304,6 +348,7 @@ target_position = Vector3(1, 0, 0)
 mesh = SubResource("PlaneMesh_1goyg")
 
 [node name="Cauldron" parent="." instance=ExtResource("4_uli0l")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4, 0.62, -2.4)
 
 [node name="pivot" type="Node3D" parent="." groups=["cam"]]
 script = ExtResource("7_immhd")
@@ -413,6 +458,214 @@ scale_amount_max = 3.0
 color = Color(0.141176, 0.141176, 0.141176, 1)
 color_ramp = SubResource("Gradient_g721y")
 
+[node name="Shadoweed" type="Node3D" parent="ShadowEdge"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.63, -6, -5.887)
+
+[node name="Sprite3D" type="Sprite3D" parent="ShadowEdge/Shadoweed"]
+transform = Transform3D(0.707107, -0.183013, 0.683013, 0, 0.965926, 0.258819, -0.707107, -0.183013, 0.683013, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_fawyv")
+offset = Vector2(0, 96)
+texture = SubResource("AtlasTexture_friri")
+
+[node name="CPUParticles3D" type="CPUParticles3D" parent="ShadowEdge/Shadoweed"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+material_override = SubResource("ShaderMaterial_e0aoh")
+lifetime = 6.0
+mesh = SubResource("SphereMesh_nrpms")
+emission_shape = 2
+emission_sphere_radius = 0.5
+particle_flag_align_y = true
+particle_flag_rotate_y = true
+direction = Vector3(0, 1, 0)
+spread = 25.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 0.1
+initial_velocity_max = 0.1
+scale_amount_max = 2.0
+scale_amount_curve = SubResource("Curve_c33kw")
+
+[node name="Shadoweed2" type="Node3D" parent="ShadowEdge"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.485, -6, -6.397)
+
+[node name="Sprite3D" type="Sprite3D" parent="ShadowEdge/Shadoweed2"]
+transform = Transform3D(0.707107, -0.183013, 0.683013, 0, 0.965926, 0.258819, -0.707107, -0.183013, 0.683013, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_fawyv")
+offset = Vector2(0, 96)
+texture = SubResource("AtlasTexture_friri")
+
+[node name="CPUParticles3D" type="CPUParticles3D" parent="ShadowEdge/Shadoweed2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+material_override = SubResource("ShaderMaterial_e0aoh")
+lifetime = 6.0
+mesh = SubResource("SphereMesh_nrpms")
+emission_shape = 2
+emission_sphere_radius = 0.5
+particle_flag_align_y = true
+particle_flag_rotate_y = true
+direction = Vector3(0, 1, 0)
+spread = 25.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 0.1
+initial_velocity_max = 0.1
+scale_amount_max = 2.0
+scale_amount_curve = SubResource("Curve_c33kw")
+
+[node name="Shadoweed3" type="Node3D" parent="ShadowEdge"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.64, -6, 6.543)
+
+[node name="Sprite3D" type="Sprite3D" parent="ShadowEdge/Shadoweed3"]
+transform = Transform3D(0.707107, -0.183013, 0.683013, 0, 0.965926, 0.258819, -0.707107, -0.183013, 0.683013, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_fawyv")
+offset = Vector2(0, 96)
+texture = SubResource("AtlasTexture_friri")
+
+[node name="CPUParticles3D" type="CPUParticles3D" parent="ShadowEdge/Shadoweed3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+material_override = SubResource("ShaderMaterial_e0aoh")
+lifetime = 6.0
+mesh = SubResource("SphereMesh_nrpms")
+emission_shape = 2
+emission_sphere_radius = 0.5
+particle_flag_align_y = true
+particle_flag_rotate_y = true
+direction = Vector3(0, 1, 0)
+spread = 25.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 0.1
+initial_velocity_max = 0.1
+scale_amount_max = 2.0
+scale_amount_curve = SubResource("Curve_c33kw")
+
+[node name="Shadoweed4" type="Node3D" parent="ShadowEdge"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.33, -6, -0.937)
+
+[node name="Sprite3D" type="Sprite3D" parent="ShadowEdge/Shadoweed4"]
+transform = Transform3D(0.707107, -0.183013, 0.683013, 0, 0.965926, 0.258819, -0.707107, -0.183013, 0.683013, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_fawyv")
+offset = Vector2(0, 96)
+texture = SubResource("AtlasTexture_friri")
+
+[node name="CPUParticles3D" type="CPUParticles3D" parent="ShadowEdge/Shadoweed4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+material_override = SubResource("ShaderMaterial_e0aoh")
+lifetime = 6.0
+mesh = SubResource("SphereMesh_nrpms")
+emission_shape = 2
+emission_sphere_radius = 0.5
+particle_flag_align_y = true
+particle_flag_rotate_y = true
+direction = Vector3(0, 1, 0)
+spread = 25.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 0.1
+initial_velocity_max = 0.1
+scale_amount_max = 2.0
+scale_amount_curve = SubResource("Curve_c33kw")
+
+[node name="ShadoweedSmall" type="Node3D" parent="ShadowEdge"]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, -1.675, -6, 6.908)
+
+[node name="Sprite3D" type="Sprite3D" parent="ShadowEdge/ShadoweedSmall"]
+transform = Transform3D(0.707107, -0.183013, 0.683013, 0, 0.965926, 0.258819, -0.707107, -0.183013, 0.683013, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_fawyv")
+offset = Vector2(0, 96)
+texture = SubResource("AtlasTexture_friri")
+
+[node name="CPUParticles3D" type="CPUParticles3D" parent="ShadowEdge/ShadoweedSmall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+material_override = SubResource("ShaderMaterial_e0aoh")
+lifetime = 6.0
+mesh = SubResource("SphereMesh_nrpms")
+emission_shape = 2
+emission_sphere_radius = 0.5
+particle_flag_align_y = true
+particle_flag_rotate_y = true
+direction = Vector3(0, 1, 0)
+spread = 25.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 0.1
+initial_velocity_max = 0.1
+scale_amount_max = 2.0
+scale_amount_curve = SubResource("Curve_c33kw")
+
+[node name="ShadoweedSmall2" type="Node3D" parent="ShadowEdge"]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 6.825, -6, 0.483)
+
+[node name="Sprite3D" type="Sprite3D" parent="ShadowEdge/ShadoweedSmall2"]
+transform = Transform3D(0.707107, -0.183013, 0.683013, 0, 0.965926, 0.258819, -0.707107, -0.183013, 0.683013, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_fawyv")
+offset = Vector2(0, 96)
+texture = SubResource("AtlasTexture_friri")
+
+[node name="CPUParticles3D" type="CPUParticles3D" parent="ShadowEdge/ShadoweedSmall2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+material_override = SubResource("ShaderMaterial_e0aoh")
+lifetime = 6.0
+mesh = SubResource("SphereMesh_nrpms")
+emission_shape = 2
+emission_sphere_radius = 0.5
+particle_flag_align_y = true
+particle_flag_rotate_y = true
+direction = Vector3(0, 1, 0)
+spread = 25.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 0.1
+initial_velocity_max = 0.1
+scale_amount_max = 2.0
+scale_amount_curve = SubResource("Curve_c33kw")
+
+[node name="ShadoweedBig" type="Node3D" parent="ShadowEdge"]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 1.058, -6, -6.638)
+
+[node name="Sprite3D" type="Sprite3D" parent="ShadowEdge/ShadoweedBig"]
+transform = Transform3D(0.707107, -0.183013, 0.683013, 0, 0.965926, 0.258819, -0.707107, -0.183013, 0.683013, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_fawyv")
+offset = Vector2(0, 96)
+texture = SubResource("AtlasTexture_friri")
+
+[node name="CPUParticles3D" type="CPUParticles3D" parent="ShadowEdge/ShadoweedBig"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+material_override = SubResource("ShaderMaterial_e0aoh")
+lifetime = 6.0
+mesh = SubResource("SphereMesh_nrpms")
+emission_shape = 2
+emission_sphere_radius = 0.5
+particle_flag_align_y = true
+particle_flag_rotate_y = true
+direction = Vector3(0, 1, 0)
+spread = 25.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 0.1
+initial_velocity_max = 0.1
+scale_amount_max = 2.0
+scale_amount_curve = SubResource("Curve_c33kw")
+
+[node name="ShadoweedBig2" type="Node3D" parent="ShadowEdge"]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, -6.592, -6, -1.928)
+
+[node name="Sprite3D" type="Sprite3D" parent="ShadowEdge/ShadoweedBig2"]
+transform = Transform3D(0.707107, -0.183013, 0.683013, 0, 0.965926, 0.258819, -0.707107, -0.183013, 0.683013, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_fawyv")
+offset = Vector2(0, 96)
+texture = SubResource("AtlasTexture_friri")
+
+[node name="CPUParticles3D" type="CPUParticles3D" parent="ShadowEdge/ShadoweedBig2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+material_override = SubResource("ShaderMaterial_e0aoh")
+lifetime = 6.0
+mesh = SubResource("SphereMesh_nrpms")
+emission_shape = 2
+emission_sphere_radius = 0.5
+particle_flag_align_y = true
+particle_flag_rotate_y = true
+direction = Vector3(0, 1, 0)
+spread = 25.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 0.1
+initial_velocity_max = 0.1
+scale_amount_max = 2.0
+scale_amount_curve = SubResource("Curve_c33kw")
+
 [node name="Stars" type="MeshInstance3D" parent="."]
 transform = Transform3D(-3.09086e-08, -0.707107, 0.707107, 1, -4.37114e-08, 0, 3.09086e-08, 0.707107, 0.707107, -4, 6, -4)
 material_override = SubResource("ShaderMaterial_noydm")
@@ -420,3 +673,30 @@ mesh = SubResource("QuadMesh_h5pg5")
 
 [node name="Watcher" parent="." instance=ExtResource("14_v07eu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -4)
+
+[node name="FlowerManager" type="Node3D" parent="."]
+script = ExtResource("19_whhq0")
+
+[node name="Conjures" type="Node3D" parent="FlowerManager"]
+
+[node name="Conjureflower" parent="FlowerManager/Conjures" instance=ExtResource("20_tkucc")]
+
+[node name="Conjureflower2" parent="FlowerManager/Conjures" instance=ExtResource("20_tkucc")]
+
+[node name="Conjureflower3" parent="FlowerManager/Conjures" instance=ExtResource("20_tkucc")]
+
+[node name="Densitysprouts" type="Node3D" parent="FlowerManager"]
+
+[node name="Densitysprout" parent="FlowerManager/Densitysprouts" instance=ExtResource("19_ir7xs")]
+
+[node name="Densitysprout2" parent="FlowerManager/Densitysprouts" instance=ExtResource("19_ir7xs")]
+
+[node name="Densitysprout3" parent="FlowerManager/Densitysprouts" instance=ExtResource("19_ir7xs")]
+
+[node name="Densitysprout4" parent="FlowerManager/Densitysprouts" instance=ExtResource("19_ir7xs")]
+
+[node name="Densitysprout5" parent="FlowerManager/Densitysprouts" instance=ExtResource("19_ir7xs")]
+
+[node name="Densitysprout6" parent="FlowerManager/Densitysprouts" instance=ExtResource("19_ir7xs")]
+
+[node name="Densitysprout7" parent="FlowerManager/Densitysprouts" instance=ExtResource("19_ir7xs")]

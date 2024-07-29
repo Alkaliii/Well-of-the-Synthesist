@@ -16,16 +16,19 @@ func _ready():
 	update_gaze()
 	await get_tree().process_frame
 	msgbox = get_tree().get_first_node_in_group("msgbox")
+	#if Global.cheat_no_sentinel: queue_free()
 
 func regen():
 	chances = clamp(chances + 1,0,4)
 
 func change_gaze():
+	if Global.cheat_no_sentinel: return
 	if [true,false].pick_random():
 		gazing = true
 		update_gaze()
 
 func wake():
+	if Global.cheat_no_sentinel: return
 	gazing = true
 	update_gaze()
 
@@ -41,6 +44,7 @@ func question_mixture():
 		Global.fcam.emit(Vector3.ZERO)
 
 func on_alchemy():
+	if Global.cheat_no_sentinel: return
 	if in_area and !gazing:
 		gazing = true
 		update_gaze()
@@ -126,7 +130,7 @@ func update_gaze():
 	match gazing:
 		true:
 			eye.texture.region = Rect2(0,0,180,108)
-			SFXm.play("res://Assets/Sounds/387533__soundwarf__alert-short.wav","master",randf_range(0.9,1.1))
+			SFXm.play("res://Assets/Sounds/387533__soundwarf__alert-short.wav","sfx",randf_range(0.9,1.1))
 			await get_tree().create_timer(2.5).timeout
 			Global.smallnote.emit("do not perform alchemy while the [color=white]sentinel[/color] gazes.")
 		false:

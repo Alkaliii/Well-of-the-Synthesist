@@ -35,6 +35,11 @@ var player_shader : Material
 
 var consumed_mixture : Mixture
 
+var used_cheats := false
+var cheat_no_sentinel := false
+var cheat_no_move_count := false
+#once on you can't submit your score without hard reseting the game
+
 signal alchemy
 signal wake_sent
 signal sent_regen

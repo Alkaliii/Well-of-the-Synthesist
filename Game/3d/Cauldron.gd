@@ -20,13 +20,13 @@ func _process(delta):
 	if !Global.in_shadow and in_shadow != 0:
 		if ugtw: ugtw.kill()
 		ugtw = create_tween()
-		if sfx: SFXm.play("res://Assets/Sounds/shadowflameon.wav","master",randf_range(0.9,1.1))
+		if sfx: SFXm.play("res://Assets/Sounds/shadowflameon.wav","sfx",randf_range(0.9,1.1))
 		ugtw.tween_property(undeglow.material_override,"shader_parameter/alpha",1.0,0.25).set_ease(Tween.EASE_IN_OUT).set_delay(0.4)
 		Global.in_shadow = true
 	if Global.in_shadow and in_shadow == 0:
 		if ugtw: ugtw.kill()
 		ugtw = create_tween()
-		if sfx: SFXm.play("res://Assets/Sounds/274309__sophronsinesounddesign__match-extinguish-2.wav","master",randf_range(0.9,1.1))
+		if sfx: SFXm.play("res://Assets/Sounds/274309__sophronsinesounddesign__match-extinguish-2.wav","sfx",randf_range(0.9,1.1))
 		ugtw.tween_property(undeglow.material_override,"shader_parameter/alpha",0.0,0.25).set_ease(Tween.EASE_IN_OUT)
 		Global.in_shadow = false
 	if Global.can_conjure and conjures == 0:
@@ -56,7 +56,8 @@ func push():
 		tw.tween_property(self,"position",position + (dir * tile_size),1.0/anim_speed).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
 		moving = true
 		Global.volatility += randf_range(0.01,0.1)
-		Global.move_count -= 1
+		if !Global.cheat_no_move_count:
+			Global.move_count -= 1
 		await tw.finished
 		moving = false
 	else:

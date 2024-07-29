@@ -191,7 +191,7 @@ func check_drop():
 		var points = [Vector2(0,0),Vector2(24,24),Vector2(-24,24),Vector2(24,-24),Vector2(-24,-24)]
 		for p in points:
 			if get_global_rect().has_point(get_global_mouse_position() + p):
-				SFXm.play(psfx.pick_random(),"master",randf_range(0.9,1.1)) 
+				SFXm.play(psfx.pick_random(),"sfx",randf_range(0.9,1.1)) 
 				if Global.dragging and "bad_drop" in Global.dragging:
 					Global.dragging.bad_drop = false
 					var m = Global.dragging
@@ -216,6 +216,9 @@ func check_drop():
 								notify_new_disc(new[0].get_nameg(true),rxp)
 								Global.discovered.append(new[0].get_nameb())
 							Global.add_potion.emit(new[0])
+							if lucky: 
+								Global.add_unit.emit(new[0].m1)
+								Global.add_unit.emit(new[0].m2)
 							Global.return_to_pool.emit(m)
 							Global.return_to_pool.emit(self)
 						if new[0] is Element or new[0] is Alloy:
@@ -256,7 +259,8 @@ func set_fc():
 		Global.move_shadows.emit()
 	else:
 		Global.fusion_count += 1
-		Global.total_fusion_count += 1
+		if Global.conjure_level in [0,1]:
+			Global.total_fusion_count += 1
 		Global.alchemy.emit()
 	
 	var pr = remap(float(Global.fusion_count) / float(Global.fusion_lim),0,1,0.25,1) + 1.0

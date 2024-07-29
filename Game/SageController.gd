@@ -38,6 +38,7 @@ func _ready():
 		Global.zcam.emit(12)
 		Global.fcam.emit(Vector3.ZERO)
 	set_physics_process(true)
+	SFXm.loop("res://Assets/Music/AliGame20240724.wav","Music")
 
 func snap_in():
 	position = position.snapped(Vector3.ONE * tile_size)
@@ -68,7 +69,7 @@ func move(dir):
 		var tw = create_tween()
 		tw.tween_property(self,"position",position + (inputs[dir] * tile_size),1.0/anim_speed).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 		moving = true
-		SFXm.play("res://Assets/Sounds/footstep09.ogg","master",randf_range(0.9,1.1),0.2)
+		SFXm.play("res://Assets/Sounds/footstep09.ogg","sfx",randf_range(0.9,1.1),0.2)
 		await tw.finished
 		moving = false
 	else:
@@ -76,7 +77,7 @@ func move(dir):
 		tw.tween_property(self,"position",position + (inputs[dir] * (tile_size/4)),0.5/anim_speed).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 		tw.tween_property(self,"position",position,0.5/anim_speed).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 		moving = true
-		SFXm.play("res://Assets/Sounds/bonk.wav","master",randf_range(0.9,1.1),0.4)
+		SFXm.play("res://Assets/Sounds/bonk.wav","sfx",randf_range(0.9,1.1),0.4)
 		Global.sage_bounce.emit()
 		await tw.finished
 		moving = false

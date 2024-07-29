@@ -98,6 +98,7 @@ scroll_active = false
 autowrap_mode = 0
 
 [node name="GameOverview" type="Control" parent="."]
+modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -117,14 +118,56 @@ theme_override_constants/margin_top = 32
 theme_override_constants/margin_right = 64
 theme_override_constants/margin_bottom = 32
 
-[node name="HBoxContainer" type="HBoxContainer" parent="GameOverview/MarginContainer"]
+[node name="HBoxContainer" type="VBoxContainer" parent="GameOverview/MarginContainer"]
 layout_mode = 2
+alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="GameOverview/MarginContainer/HBoxContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="tip" type="RichTextLabel" parent="GameOverview/MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="GameOverview/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="ts" type="Button" parent="GameOverview/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_a64n3")
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_k0768")
+theme_override_styles/hover = SubResource("StyleBoxFlat_u21xl")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ns81a")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_x8wve")
+text = "title screen"
+
+[node name="space" type="Control" parent="GameOverview/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="pa" type="Button" parent="GameOverview/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_a64n3")
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_k0768")
+theme_override_styles/hover = SubResource("StyleBoxFlat_u21xl")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ns81a")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_x8wve")
+text = "play again"
+
+[node name="space" type="Control" parent="GameOverview/MarginContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="head" type="RichTextLabel" parent="GameOverview/MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_fonts/normal_font = ExtResource("2_fxlxq")
@@ -135,7 +178,7 @@ fit_content = true
 scroll_active = false
 autowrap_mode = 0
 
-[node name="ltxt" type="RichTextLabel" parent="GameOverview/MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="fs" type="RichTextLabel" parent="GameOverview/MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
@@ -162,41 +205,13 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_ns81a")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_x8wve")
 text = "submit score"
 
-[node name="Control" type="Control" parent="GameOverview/MarginContainer/HBoxContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 60)
-layout_mode = 2
-
-[node name="ts" type="Button" parent="GameOverview/MarginContainer/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("3_a64n3")
-theme_override_font_sizes/font_size = 15
-theme_override_styles/normal = SubResource("StyleBoxFlat_k0768")
-theme_override_styles/hover = SubResource("StyleBoxFlat_u21xl")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_ns81a")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_x8wve")
-text = "title screen"
-
-[node name="pa" type="Button" parent="GameOverview/MarginContainer/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("3_a64n3")
-theme_override_font_sizes/font_size = 15
-theme_override_styles/normal = SubResource("StyleBoxFlat_k0768")
-theme_override_styles/hover = SubResource("StyleBoxFlat_u21xl")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_ns81a")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_x8wve")
-text = "play again"
-
 [node name="Control" type="Control" parent="GameOverview/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="Leaderboard" parent="GameOverview/MarginContainer/HBoxContainer" instance=ExtResource("4_x6fiy")]
 layout_mode = 2
+
+[connection signal="pressed" from="GameOverview/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/ts" to="." method="_on_ts_pressed"]
+[connection signal="pressed" from="GameOverview/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/pa" to="." method="_on_pa_pressed"]
+[connection signal="pressed" from="GameOverview/MarginContainer/HBoxContainer/VBoxContainer/ss" to="." method="_on_ss_pressed"]

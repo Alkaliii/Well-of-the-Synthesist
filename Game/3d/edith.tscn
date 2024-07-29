@@ -10,6 +10,7 @@
 [node name="edith" type="Node3D"]
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
+visible = false
 modulate = Color(1, 1, 1, 0.137255)
 texture = ExtResource("1_w3blg")
 

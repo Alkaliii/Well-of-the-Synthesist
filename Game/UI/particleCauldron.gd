@@ -227,7 +227,9 @@ func conjure_anim():
 
 func _on_conjure_pressed():
 	conjure.release_focus()
+	conjure.disabled = true
 	if displays.get_child_count() > 60:
+		SFXm.play("res://Assets/Sounds/error_006.ogg","sfx",randf_range(0.9,1.1))
 		Global.smallnote.emit("cauldron will boil over if you conjure anymore particles.")
 		return
 	cnjr_count += 1
@@ -236,8 +238,8 @@ func _on_conjure_pressed():
 		Global.respawn_conjure.emit()
 		if [true,false].pick_random() and Global.fusion_count < Global.fusion_lim: Global.wake_sent.emit()
 		if range(12).pick_random() == 3: Global.tickle_shadows.emit()
-	SFXm.play("res://Assets/Sounds/conjure.wav","master",randf_range(0.95,1.05))
-	SFXm.play("res://Assets/Sounds/403970__instantchow__cup-and-straw-bubbles.wav","master",randf_range(0.9,1.1)) 
+	SFXm.play("res://Assets/Sounds/conjure.wav","sfx",randf_range(0.95,1.05))
+	SFXm.play("res://Assets/Sounds/403970__instantchow__cup-and-straw-bubbles.wav","sfx",randf_range(0.9,1.1)) 
 	await conjure_anim()
 	#scroll_container.hide()
 	for i in 5:

@@ -1,0 +1,223 @@
+[gd_scene load_steps=11 format=3 uid="uid://cradfba2l13ab"]
+
+[ext_resource type="Script" path="res://Game/UI/settings.gd" id="1_fdj25"]
+[ext_resource type="FontFile" uid="uid://7wgxoxmevhkj" path="res://Assets/Fonts/amerika/AMERIKA_.ttf" id="1_r5m76"]
+[ext_resource type="PackedScene" uid="uid://col5nncce6km8" path="res://Game/UI/input_rot.tscn" id="2_x8p7g"]
+[ext_resource type="FontFile" uid="uid://ct4y3rnndcu5n" path="res://Assets/Fonts/Rubik/static/Rubik-Medium.ttf" id="3_n32re"]
+
+[sub_resource type="Theme" id="Theme_7d3vw"]
+default_font = ExtResource("3_n32re")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sywc2"]
+content_margin_left = 16.0
+content_margin_top = 16.0
+content_margin_right = 16.0
+content_margin_bottom = 16.0
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5j440"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hgqfw"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c5jfy"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0, 0, 0, 0.901961)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vmm7c"]
+
+[node name="Settings" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = SubResource("Theme_7d3vw")
+script = ExtResource("1_fdj25")
+
+[node name="pc" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_sywc2")
+
+[node name="vbc" type="VBoxContainer" parent="pc"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+
+[node name="head" type="RichTextLabel" parent="pc/vbc"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/normal_font = ExtResource("1_r5m76")
+theme_override_font_sizes/normal_font_size = 30
+bbcode_enabled = true
+text = "Options"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="space2" type="Control" parent="pc/vbc"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+
+[node name="sub" type="RichTextLabel" parent="pc/vbc"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_colors/default_color = Color(0.745098, 0.745098, 0.745098, 1)
+theme_override_fonts/normal_font = ExtResource("3_n32re")
+theme_override_font_sizes/normal_font_size = 15
+bbcode_enabled = true
+text = "volume"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="mstr" parent="pc/vbc" instance=ExtResource("2_x8p7g")]
+layout_mode = 2
+label = "Master"
+default = 0.8
+range_settings = Vector3(0, 1.1, 0.1)
+
+[node name="muse" parent="pc/vbc" instance=ExtResource("2_x8p7g")]
+layout_mode = 2
+label = "Music"
+default = 0.5
+range_settings = Vector3(0, 1.1, 0.1)
+
+[node name="sfx" parent="pc/vbc" instance=ExtResource("2_x8p7g")]
+layout_mode = 2
+label = "SFX"
+default = 0.9
+range_settings = Vector3(0, 1.1, 0.1)
+
+[node name="space" type="Control" parent="pc/vbc"]
+custom_minimum_size = Vector2(0, 15)
+layout_mode = 2
+
+[node name="sub2" type="RichTextLabel" parent="pc/vbc"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_colors/default_color = Color(0.745098, 0.745098, 0.745098, 1)
+theme_override_fonts/normal_font = ExtResource("3_n32re")
+theme_override_font_sizes/normal_font_size = 15
+bbcode_enabled = true
+text = "cheats"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="sc" type="Button" parent="pc/vbc"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_n32re")
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_5j440")
+theme_override_styles/hover = SubResource("StyleBoxFlat_hgqfw")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_c5jfy")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_vmm7c")
+text = "show cheats"
+
+[node name="cheats" type="VBoxContainer" parent="pc/vbc"]
+visible = false
+layout_mode = 2
+
+[node name="s" type="CheckButton" parent="pc/vbc/cheats"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_n32re")
+text = "Disable Sentinel"
+
+[node name="mc" type="CheckButton" parent="pc/vbc/cheats"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_n32re")
+text = "No Move Count"
+
+[node name="sub2" type="RichTextLabel" parent="pc/vbc/cheats"]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_colors/default_color = Color(1, 0.835294, 0, 1)
+theme_override_fonts/normal_font = ExtResource("3_n32re")
+theme_override_font_sizes/normal_font_size = 13
+bbcode_enabled = true
+text = "[!] Once enabled, the ability to submit scores to the leaderboard is revoked until a hard reset."
+fit_content = true
+scroll_active = false
+autowrap_mode = 2
+
+[node name="space3" type="Control" parent="pc/vbc"]
+custom_minimum_size = Vector2(0, 15)
+layout_mode = 2
+
+[node name="rstrt" type="Button" parent="pc/vbc"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_n32re")
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_5j440")
+theme_override_styles/hover = SubResource("StyleBoxFlat_hgqfw")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_c5jfy")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_vmm7c")
+text = "restart"
+
+[node name="ts" type="Button" parent="pc/vbc"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_n32re")
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_5j440")
+theme_override_styles/hover = SubResource("StyleBoxFlat_hgqfw")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_c5jfy")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_vmm7c")
+text = "title screen"
+
+[connection signal="pressed" from="pc/vbc/sc" to="." method="_on_sc_pressed"]
+[connection signal="toggled" from="pc/vbc/cheats/s" to="." method="_on_s_toggled"]
+[connection signal="toggled" from="pc/vbc/cheats/mc" to="." method="_on_mc_toggled"]
+[connection signal="pressed" from="pc/vbc/rstrt" to="." method="_on_rstrt_pressed"]
+[connection signal="pressed" from="pc/vbc/ts" to="." method="_on_ts_pressed"]

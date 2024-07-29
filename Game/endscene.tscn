@@ -1,22 +1,25 @@
-[gd_scene load_steps=10 format=3 uid="uid://hjkmsdpb7moy"]
+[gd_scene load_steps=12 format=3 uid="uid://hjkmsdpb7moy"]
 
+[ext_resource type="Texture2D" uid="uid://bcf5qeysveoqm" path="res://Assets/Graphics/mountain@2x.png" id="1_h7nn5"]
 [ext_resource type="Shader" path="res://Assets/Shaders/CRT.gdshader" id="1_lw6c4"]
-[ext_resource type="PackedScene" uid="uid://bijaxuc7fp0vv" path="res://Game/mountain.tscn" id="2_oql3o"]
+[ext_resource type="Texture2D" uid="uid://6hsl4tywe2g6" path="res://Assets/Graphics/edithmountain@2x.png" id="2_d3uko"]
 [ext_resource type="Script" path="res://Game/UI/canvasgroups/mUI.gd" id="3_xjv7p"]
+[ext_resource type="PackedScene" uid="uid://bprq8sdlu6kqj" path="res://Game/UI/end_screen.tscn" id="8_p8qtw"]
 [ext_resource type="PackedScene" uid="uid://bjgf5y5cyskhe" path="res://Game/UI/msgbox.tscn" id="17_xqpy3"]
 [ext_resource type="Shader" path="res://Assets/Shaders/pxsort.gdshader" id="18_jvr6p"]
 [ext_resource type="Shader" path="res://Assets/Shaders/shockwave.gdshader" id="19_kljhv"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ldoel"]
+resource_local_to_scene = true
 shader = ExtResource("1_lw6c4")
 shader_parameter/resolution = Vector2(512, 288)
 shader_parameter/scan_line_amount = 1.0
-shader_parameter/warp_amount = 0.1
+shader_parameter/warp_amount = 0.0
 shader_parameter/noise_amount = 0.03
 shader_parameter/interference_amount = 0.2
 shader_parameter/grille_amount = 0.1
 shader_parameter/grille_size = 1.0
-shader_parameter/vignette_amount = 1.5
+shader_parameter/vignette_amount = 0.2
 shader_parameter/vignette_intensity = 1.0
 shader_parameter/aberation_amount = 0.5
 shader_parameter/roll_line_amount = 0.0
@@ -35,7 +38,7 @@ resource_local_to_scene = true
 shader = ExtResource("19_kljhv")
 shader_parameter/strength = 0.1
 shader_parameter/center = Vector2(0.5, 0.35)
-shader_parameter/radius = 0.4
+shader_parameter/radius = 0.0
 shader_parameter/aberration = 0.425
 shader_parameter/width = 0.1
 shader_parameter/feather = 0.135
@@ -44,6 +47,27 @@ shader_parameter/feather = 0.135
 
 [node name="BelowUI" type="CanvasLayer" parent="."]
 layer = 2
+
+[node name="Mountain" type="TextureRect" parent="BelowUI" groups=["esm"]]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_h7nn5")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Edith" type="TextureRect" parent="BelowUI" groups=["ese"]]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_d3uko")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="CRT" type="ColorRect" parent="BelowUI"]
 material = SubResource("ShaderMaterial_ldoel")
@@ -54,21 +78,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
-custom_minimum_size = Vector2(1000, 720)
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-stretch = true
-
-[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
-handle_input_locally = false
-size = Vector2i(1280, 720)
-render_target_update_mode = 4
-
-[node name="Mountain" parent="SubViewportContainer/SubViewport" instance=ExtResource("2_oql3o")]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="BelowUI"]
 
 [node name="UI" type="CanvasLayer" parent="."]
 layer = 2
@@ -89,6 +99,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="mb" parent="UI/mUI" instance=ExtResource("17_xqpy3")]
+visible = false
 layout_mode = 1
 
 [node name="AboveUI" type="CanvasLayer" parent="."]
@@ -115,3 +126,5 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+
+[node name="EndScreen" parent="AboveUI" instance=ExtResource("8_p8qtw")]

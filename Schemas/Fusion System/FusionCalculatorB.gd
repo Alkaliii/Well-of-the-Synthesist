@@ -53,7 +53,7 @@ func perform_rx(a : aUnit, b : aUnit) -> Array:
 func chemical_rx(a : Element, b : Alloy) -> Array[Mixture]:
 	var phb = Global.get_tree().get_first_node_in_group("phb")
 	if phb.in_hotbar.size() == 4: 
-		SFXm.play("res://Assets/Sounds/error_006.ogg","master",randf_range(0.9,1.1))
+		SFXm.play("res://Assets/Sounds/error_006.ogg","sfx",randf_range(0.9,1.1))
 		var n = str("You can only hold [color=white]4[/color] mixtures at once. Please dispose.")
 		Global.smallnote.emit(n)
 		return []

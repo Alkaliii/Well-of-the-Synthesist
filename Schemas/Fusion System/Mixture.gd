@@ -85,11 +85,11 @@ func calculate_value() -> float:
 		v /= 2.0
 	
 	if hypersaturated():
-		v = v * 0.8
+		v = v * 0.6
 	if oversaturated():
 		v = v * 0.85
 	
-	v -= impurities / 2
+	v -= impurities / 4.0
 	
 	return v
 
@@ -98,6 +98,19 @@ func set_random(pmm : Vector2i = Vector2i(0,49), tmm : Vector2i = Vector2i.ZERO)
 	m2 = Alloy.get_random(pmm,tmm)
 	created_in_shadow = [true,false].pick_random()
 	impurities = randi_range(0,1000)
+	static_volatility = randf_range(0.0,10.0)
+
+func has_greek() -> bool:
+	if m1.particle in range(25,50): return true
+	elif m2.particleA in range(25,50): return true
+	elif m2.particleB in range(25,50): return true
+	return false
+
+func has_latin() -> bool:
+	if m1.particle in range(0,26): return true
+	elif m2.particleA in range(0,26): return true
+	elif m2.particleB in range(0,26): return true
+	return false
 
 static func get_random(pmm : Vector2i = Vector2i(0,49), tmm : Vector2i = Vector2i.ZERO) -> Mixture:
 	var new : Mixture = Mixture.new()

@@ -39,14 +39,14 @@ func intro():
 	tip.text = str("Strangers join together to inspire.")
 	ltxt.text = "a + b = ab"
 	itw = create_tween()
-	SFXm.play("res://Assets/Sounds/hushA.wav","master",randf_range(0.9,1.1))
+	SFXm.play("res://Assets/Sounds/hushA.wav","sfx",randf_range(0.9,1.1))
 	itw.tween_property(tvb,"modulate:a",1,0.3).set_ease(Tween.EASE_IN_OUT).set_delay(0.25)
 	itw.tween_property(tvb,"modulate:a",0,0.3).set_ease(Tween.EASE_IN_OUT).set_delay(3.0)
 	await itw.finished
 	tip.text = str("This is the mystery of the world disciphered.")
 	ltxt.text = "a + bc = abc"
 	itw = create_tween()
-	SFXm.play("res://Assets/Sounds/hushB.wav","master",randf_range(0.9,1.1))
+	SFXm.play("res://Assets/Sounds/hushb.wav","sfx",randf_range(0.9,1.1))
 	itw.tween_property(tvb,"modulate:a",1,0.3).set_ease(Tween.EASE_IN_OUT).set_delay(0.25)
 	itw.tween_property(tvb,"modulate:a",0,0.3).set_ease(Tween.EASE_IN_OUT).set_delay(3.0)
 	await itw.finished
@@ -59,8 +59,8 @@ func intro():
 func play_delayed_hush(which : int, delay : float):
 	await get_tree().create_timer(delay).timeout
 	match which:
-		0: SFXm.play("res://Assets/Sounds/hushA.wav","master",randf_range(0.9,1.1))
-		1: SFXm.play("res://Assets/Sounds/hushB.wav","master",randf_range(0.9,1.1))
+		0: SFXm.play("res://Assets/Sounds/hushA.wav","sfx",randf_range(0.9,1.1))
+		1: SFXm.play("res://Assets/Sounds/hushb.wav","sfx",randf_range(0.9,1.1))
 
 @onready var logo = $logo
 @onready var ph = $ph
@@ -78,7 +78,7 @@ func show_title():
 	returnn.hide()
 	settings.show()
 	help.show()
-	SFXm.play("res://Assets/Sounds/titlebuildup.wav","master")
+	SFXm.play("res://Assets/Sounds/titlebuildup.wav","sfx")
 	tw.tween_property(titlecam,"position:y",2.2,3.0).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_EXPO).set_delay(0.6)
 	tw.parallel().tween_property(cauldron,"position:z",0,0.25).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_QUAD)
 	tw.parallel().tween_property(custom_sage,"position",Vector3(0,1.02,-1.16),0.25).set_ease(Tween.EASE_IN_OUT)
@@ -155,3 +155,11 @@ func _on_return_pressed():
 	show_title()
 	var tw = create_tween()
 	tw.tween_property(cc,"modulate:a",0.0,0.25).set_ease(Tween.EASE_IN_OUT)
+
+@onready var settings_panel = $Settings
+@onready var settings_btn = $ph/Settings
+func _on_settings_pressed():
+	settings_btn.release_focus()
+	match settings_panel.visible:
+		false: settings_panel.open()
+		true: settings_panel.close()

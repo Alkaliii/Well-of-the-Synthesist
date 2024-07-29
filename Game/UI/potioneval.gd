@@ -95,3 +95,10 @@ func _on_rouse_pressed():
 	Global.rouse_shadows.emit()
 	await get_tree().process_frame
 	if [true,false,false].pick_random(): Global.move_shadows.emit()
+
+@onready var consume = $VBoxContainer/HBoxContainer2/consume
+func _on_consume_pressed():
+	consume.release_focus()
+	consume.disabled = true
+	Global.consumed_mixture = viewing
+	get_tree().get_first_node_in_group("ldr").loadnew("res://Game/endscene.tscn")

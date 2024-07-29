@@ -432,5 +432,6 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_jtnsl")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_vun1y")
 text = "dispose"
 
+[connection signal="pressed" from="VBoxContainer/HBoxContainer2/consume" to="." method="_on_consume_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer2/rouse" to="." method="_on_rouse_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer2/dispose" to="." method="_on_dispose_pressed"]

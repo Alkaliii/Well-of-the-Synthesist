@@ -9,7 +9,12 @@ var queue_bus = []
 var queue_pitch = []
 var queue_volume = []
 
+var looping : Array[AudioStreamPlayer] = []
+var loop_paths : Array = []
+
 func _ready():
+	AudioServer.set_bus_volume_db(1,linear_to_db(0.5))
+	#AudioServer.set_bus_volume_db(1,linear_to_db(0.8))
 	for i in num_players:
 		var p = AudioStreamPlayer.new()
 		add_child(p)
@@ -18,6 +23,35 @@ func _ready():
 
 func _stream_finished(stream):
 	available.append(stream)
+
+func loop(sound_path,bus = "master", pitch : float = 1.0):
+	var lasp := AudioStreamPlayer.new()
+	add_child(lasp)
+	looping.append(lasp)
+	loop_paths.append(sound_path)
+	lasp.stream = load(sound_path)
+	lasp.bus = bus
+	lasp.pitch_scale = pitch
+	lasp.play()
+
+func stop_loop(sound_path,fade_length := 0.25):
+	for l in loop_paths:
+		if l == sound_path:
+			var tw = create_tween()
+			var asp = looping[loop_paths.find(l)]
+			tw.tween_property(asp,"volume_db",linear_to_db(0.0),fade_length).set_ease(Tween.EASE_IN_OUT)
+			await tw.finished
+			loop_paths.erase(l)
+			looping.erase(asp)
+			remove_child(asp)
+			asp.queue_free()
+			break
+
+func pause_loop(sound_path, pause := false):
+	for l in loop_paths:
+		if l == sound_path:
+			var asp = looping[loop_paths.find(l)]
+			asp.stream_paused = pause
 
 func play(sound_path,bus = "master",pitch : float = 1.0,volume : float = 1.0):
 	queue_sound.append(sound_path)

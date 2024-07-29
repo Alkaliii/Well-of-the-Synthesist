@@ -47,7 +47,7 @@ func notify_new_disc(new_name : String,rxp):
 	nddetail.visible_ratio = 0
 	ntw.tween_property(self,"position:y",96,0.3).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
 	ntw.parallel().tween_property(pxsrt.material,"shader_parameter/sort",randf_range(1.2,2),0.2).set_ease(Tween.EASE_IN_OUT)
-	SFXm.play("res://Assets/Sounds/679162__nkzelula__glitch-10.wav","master",randf_range(0.9,1.1))
+	SFXm.play("res://Assets/Sounds/679162__nkzelula__glitch-10.wav","sfx",randf_range(0.9,1.1))
 	ntw.tween_property(pxsrt.material,"shader_parameter/sort",0.0,0.2).set_ease(Tween.EASE_IN_OUT)
 	if new_name.contains("+") or new_name.contains("-"):
 		#print("shockwave")
@@ -61,7 +61,7 @@ func notify_new_disc(new_name : String,rxp):
 	
 	await ntw.finished
 	burst.emitting = true
-	SFXm.play("res://Assets/Sounds/170523__alexkandrell__royal-sparkle-whoosh-centre.wav","master",randf_range(0.9,1.1))
+	SFXm.play("res://Assets/Sounds/170523__alexkandrell__royal-sparkle-whoosh-centre.wav","sfx",randf_range(0.9,1.1))
 	var n = str("you performed [color=ff3399]",rxp,"[/color], congrats on the new discovery")
 	Global.smallnote.emit(n)
 	ntw = create_tween()
@@ -71,4 +71,4 @@ func notify_new_disc(new_name : String,rxp):
 
 func pshockwavesfx():
 	await get_tree().create_timer(0.35).timeout
-	SFXm.play("res://Assets/Sounds/743008__silverillusionist__massive-laser-more-bass.wav","master",randf_range(0.9,1.1),0.8)
+	SFXm.play("res://Assets/Sounds/743008__silverillusionist__massive-laser-more-bass.wav","sfx",randf_range(0.9,1.1),0.8)

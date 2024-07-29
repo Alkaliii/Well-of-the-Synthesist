@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://ck6t8c2gd6k8a"]
+[gd_scene load_steps=32 format=3 uid="uid://ck6t8c2gd6k8a"]
 
 [ext_resource type="Shader" path="res://Assets/Shaders/CRT.gdshader" id="1_n7cky"]
 [ext_resource type="Shader" path="res://Assets/Shaders/pxsort.gdshader" id="2_0cdoi"]
@@ -19,6 +19,9 @@
 [ext_resource type="Script" path="res://Game/UI/Status.gd" id="15_j3tcy"]
 [ext_resource type="FontFile" uid="uid://bbrehikvtgqca" path="res://Assets/Fonts/amerika/AMERIKAA.ttf" id="16_67jyr"]
 [ext_resource type="PackedScene" uid="uid://bjgf5y5cyskhe" path="res://Game/UI/msgbox.tscn" id="17_4odaq"]
+[ext_resource type="Texture2D" uid="uid://dqwmleeri8x3j" path="res://Assets/Graphics/othericonatlas.png" id="17_52nl7"]
+[ext_resource type="Script" path="res://Game/UI/btn_s_m.gd" id="18_data0"]
+[ext_resource type="PackedScene" uid="uid://cradfba2l13ab" path="res://Game/UI/settings.tscn" id="20_mxj74"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ldoel"]
 shader = ExtResource("1_n7cky")
@@ -57,6 +60,10 @@ _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.031, 1), 0.0, 0.0, 0, 0, Vecto
 point_count = 3
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_v0rtd"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2fvul"]
+atlas = ExtResource("17_52nl7")
+region = Rect2(480, 0, 96, 96)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_13oxp"]
 shader = ExtResource("2_0cdoi")
@@ -318,7 +325,21 @@ fit_content = true
 scroll_active = false
 autowrap_mode = 0
 
+[node name="Settings" type="Button" parent="UI/mUI/Margin"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+icon = SubResource("AtlasTexture_2fvul")
+flat = true
+expand_icon = true
+script = ExtResource("18_data0")
+
 [node name="mb" parent="UI/mUI" instance=ExtResource("17_4odaq")]
+layout_mode = 1
+
+[node name="Settings" parent="UI/mUI" instance=ExtResource("20_mxj74")]
+visible = false
 layout_mode = 1
 
 [node name="AboveUI" type="CanvasLayer" parent="."]
@@ -347,3 +368,5 @@ grow_vertical = 2
 mouse_filter = 2
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[connection signal="pressed" from="UI/mUI/Margin/Settings" to="UI/mUI" method="_on_settings_pressed"]

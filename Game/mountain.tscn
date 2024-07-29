@@ -168,6 +168,7 @@ mesh = SubResource("CylinderMesh_1thke")
 
 [node name="Sage" type="AnimatableBody3D" parent="." groups=["player"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8, 0.1, 0.8)
+visible = false
 collision_layer = 3
 script = ExtResource("2_456t8")
 
@@ -209,6 +210,7 @@ far = 60.0
 
 [node name="rainsnow" type="MeshInstance3D" parent="pivot/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, -2.98023e-08, 1, 0, 0, -2)
+visible = false
 material_override = SubResource("ShaderMaterial_wxgw5")
 mesh = SubResource("QuadMesh_ieddr")
 
@@ -230,4 +232,5 @@ material_override = SubResource("ShaderMaterial_nsu74")
 mesh = SubResource("PlaneMesh_55ea2")
 
 [node name="edith" parent="." instance=ExtResource("10_ha7c5")]
-transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -1, 4, -1)
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -1, 2, -1)
+visible = false

@@ -50,7 +50,7 @@ func settle_spirit():
 	if current == spirits.keys()[0] or do_nothing:
 		return
 	await get_tree().create_timer(0.15).timeout
-	SFXm.play("res://Assets/Sounds/745961__argmantas__wobbly-bell.wav","master",randf_range(0.9,1.1))
+	SFXm.play("res://Assets/Sounds/745961__argmantas__wobbly-bell.wav","sfx",randf_range(0.9,1.1))
 	var n : String
 	match current:
 		"FORGETFULNESS": 
@@ -243,7 +243,7 @@ var btw : Tween
 func _on_area_3d_body_entered(body):
 	if current != spirits.keys()[0] and !do_nothing:
 		Global.smallnote.emit(str("you've approached [color=white]",current).to_lower())
-		SFXm.play("res://Assets/Sounds/541887__d4xx__pop-up-sound.wav","master",randf_range(0.9,1.1))
+		SFXm.play("res://Assets/Sounds/541887__d4xx__pop-up-sound.wav","sfx",randf_range(0.9,1.1))
 		if btw and btw.is_running(): 
 			await btw.finished
 		elif btw: btw.kill()

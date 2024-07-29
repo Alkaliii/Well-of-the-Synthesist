@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://chqieyfb5r4x2"]
+[gd_scene load_steps=31 format=3 uid="uid://chqieyfb5r4x2"]
 
 [ext_resource type="Script" path="res://Game/title_screen.gd" id="1_co7pu"]
 [ext_resource type="PackedScene" uid="uid://bp8ip3mxn6b60" path="res://Game/3d/cauldron.tscn" id="1_sw1j6"]
@@ -16,6 +16,7 @@
 [ext_resource type="FontFile" uid="uid://ct4y3rnndcu5n" path="res://Assets/Fonts/Rubik/static/Rubik-Medium.ttf" id="12_qaw8r"]
 [ext_resource type="Script" path="res://Game/UI/btn_s_m.gd" id="13_q5n48"]
 [ext_resource type="PackedScene" uid="uid://p6ikw8bau02k" path="res://Game/UI/cc.tscn" id="16_53d1s"]
+[ext_resource type="PackedScene" uid="uid://cradfba2l13ab" path="res://Game/UI/settings.tscn" id="17_n71rh"]
 
 [sub_resource type="Environment" id="Environment_23yob"]
 ambient_light_source = 2
@@ -364,7 +365,12 @@ flat = true
 expand_icon = true
 script = ExtResource("13_q5n48")
 
+[node name="Settings" parent="." instance=ExtResource("17_n71rh")]
+visible = false
+layout_mode = 1
+
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
 [connection signal="pressed" from="ph/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="ph/Return" to="." method="_on_return_pressed"]
+[connection signal="pressed" from="ph/Settings" to="." method="_on_settings_pressed"]

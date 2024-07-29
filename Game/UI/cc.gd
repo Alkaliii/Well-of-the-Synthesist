@@ -14,7 +14,12 @@ func _ready():
 	for e in eye_edits:
 		e.edit = edit
 	
-	name_lineedit.placeholder_text = default_names.pick_random()
+	if Global.player_name:
+		name_lineedit.placeholder_text = Global.player_name
+		name_lineedit.text = Global.player_name
+	else:
+		name_lineedit.placeholder_text = default_names.pick_random()
+		Global.player_name = name_lineedit.placeholder_text
 	cc_pick_color.new_value.connect(set_cloak)
 	hc_pick_color.new_value.connect(set_hood)
 
@@ -24,7 +29,7 @@ func _process(delta):
 
 @onready var lbl_2 = $VBoxContainer/TextInput/lbl2
 
-const default_names := ["Yiev","Sara","Lucy","James","Arlo","Rusi","Kiel","Opal","Cujo"]
+const default_names := ["Yiev","Sara","Lucy","Jack","Arlo","Rusi","Kiel","Opal","Cujo"]
 const easter_eggs := ["thor","aiwi","edith","pirate","edward","elric","senku","ishigami","erina","nakiri","bell","cranel","you"]
 func _on_name_lineedit_text_submitted(new_text : String):
 	if new_text:

@@ -163,3 +163,7 @@ func _on_settings_pressed():
 	match settings_panel.visible:
 		false: settings_panel.open()
 		true: settings_panel.close()
+
+func _on_help_pressed():
+	help.release_focus()
+	OS.shell_open("https://docs.google.com/document/d/1ykNDhaJlVvK5PKkz9LY5_5-E_XTCJvJluvYuVdQJhWg/edit?usp=sharing")

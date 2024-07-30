@@ -374,3 +374,4 @@ layout_mode = 1
 [connection signal="pressed" from="ph/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="ph/Return" to="." method="_on_return_pressed"]
 [connection signal="pressed" from="ph/Settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="ph/Help" to="." method="_on_help_pressed"]

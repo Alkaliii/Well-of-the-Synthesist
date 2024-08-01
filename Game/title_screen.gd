@@ -43,7 +43,7 @@ func intro():
 	itw.tween_property(tvb,"modulate:a",1,0.3).set_ease(Tween.EASE_IN_OUT).set_delay(0.25)
 	itw.tween_property(tvb,"modulate:a",0,0.3).set_ease(Tween.EASE_IN_OUT).set_delay(3.0)
 	await itw.finished
-	tip.text = str("This is the mystery of the world disciphered.")
+	tip.text = str("This is the mystery of the world deciphered.")
 	ltxt.text = "a + bc = abc"
 	itw = create_tween()
 	SFXm.play("res://Assets/Sounds/hushb.wav","sfx",randf_range(0.9,1.1))

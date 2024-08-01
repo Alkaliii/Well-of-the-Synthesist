@@ -184,7 +184,7 @@ offset = Vector2(-64, 0)
 texture_filter = 5
 texture = SubResource("AtlasTexture_7srci")
 
-[node name="CRT" type="ColorRect" parent="."]
+[node name="CRT" type="ColorRect" parent="." groups=["crt_eft"]]
 material = SubResource("ShaderMaterial_4s47j")
 layout_mode = 1
 anchors_preset = 15

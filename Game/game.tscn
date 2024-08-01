@@ -85,7 +85,7 @@ shader_parameter/feather = 0.135
 [node name="BelowUI" type="CanvasLayer" parent="."]
 layer = 2
 
-[node name="CRT" type="ColorRect" parent="BelowUI"]
+[node name="CRT" type="ColorRect" parent="BelowUI" groups=["crt_eft"]]
 material = SubResource("ShaderMaterial_ldoel")
 anchors_preset = 15
 anchor_right = 1.0

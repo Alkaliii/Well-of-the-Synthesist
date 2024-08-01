@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cradfba2l13ab"]
+[gd_scene load_steps=15 format=3 uid="uid://cradfba2l13ab"]
 
 [ext_resource type="Script" path="res://Game/UI/settings.gd" id="1_fdj25"]
 [ext_resource type="FontFile" uid="uid://7wgxoxmevhkj" path="res://Assets/Fonts/amerika/AMERIKA_.ttf" id="1_r5m76"]
@@ -18,6 +18,41 @@ corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l4bhs"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xrcxt"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oejce"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 0, 0, 0.901961)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8p180"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5j440"]
 content_margin_left = 8.0
@@ -154,10 +189,10 @@ theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3_n32re")
 theme_override_font_sizes/font_size = 15
-theme_override_styles/normal = SubResource("StyleBoxFlat_5j440")
-theme_override_styles/hover = SubResource("StyleBoxFlat_hgqfw")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_c5jfy")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_vmm7c")
+theme_override_styles/normal = SubResource("StyleBoxFlat_l4bhs")
+theme_override_styles/hover = SubResource("StyleBoxFlat_xrcxt")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_oejce")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_8p180")
 text = "show cheats"
 
 [node name="cheats" type="VBoxContainer" parent="pc/vbc"]
@@ -185,6 +220,24 @@ text = "[!] Once enabled, the ability to submit scores to the leaderboard is rev
 fit_content = true
 scroll_active = false
 autowrap_mode = 2
+
+[node name="sub3" type="RichTextLabel" parent="pc/vbc"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_colors/default_color = Color(0.745098, 0.745098, 0.745098, 1)
+theme_override_fonts/normal_font = ExtResource("3_n32re")
+theme_override_font_sizes/normal_font_size = 15
+bbcode_enabled = true
+text = "other"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="crtt" type="CheckButton" parent="pc/vbc"]
+layout_mode = 2
+button_pressed = true
+text = "CRT Effect"
 
 [node name="space3" type="Control" parent="pc/vbc"]
 custom_minimum_size = Vector2(0, 15)
@@ -219,5 +272,6 @@ text = "title screen"
 [connection signal="pressed" from="pc/vbc/sc" to="." method="_on_sc_pressed"]
 [connection signal="toggled" from="pc/vbc/cheats/s" to="." method="_on_s_toggled"]
 [connection signal="toggled" from="pc/vbc/cheats/mc" to="." method="_on_mc_toggled"]
+[connection signal="pressed" from="pc/vbc/crtt" to="." method="_on_crtt_pressed"]
 [connection signal="pressed" from="pc/vbc/rstrt" to="." method="_on_rstrt_pressed"]
 [connection signal="pressed" from="pc/vbc/ts" to="." method="_on_ts_pressed"]

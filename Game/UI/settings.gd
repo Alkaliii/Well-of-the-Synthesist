@@ -21,6 +21,12 @@ func _ready():
 	
 	s.button_pressed = Global.cheat_no_sentinel
 	mc.button_pressed = Global.cheat_no_move_count
+	
+	await get_tree().process_frame
+	var c = get_tree().get_first_node_in_group("crt_eft")
+	if c: 
+		crtt.button_pressed = Global.crt_vis
+		c.visible = crtt.button_pressed
 
 func open():
 	var effect : AudioEffect = AudioEffectLowPassFilter.new()
@@ -75,3 +81,10 @@ func _on_mc_toggled(toggled_on):
 	mc.release_focus()
 	if toggled_on: Global.used_cheats = true
 	Global.cheat_no_move_count = toggled_on
+
+@onready var crtt = $pc/vbc/crtt
+func _on_crtt_pressed():
+	crtt.release_focus()
+	var c = get_tree().get_first_node_in_group("crt_eft")
+	Global.crt_vis = crtt.button_pressed
+	if c: c.visible = crtt.button_pressed

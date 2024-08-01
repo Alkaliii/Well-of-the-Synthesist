@@ -212,7 +212,6 @@ range_settings = Vector3(0, 6.28, 0.01)
 
 [node name="eaVec2p" parent="VBoxContainer/v/eyes/EyeA" instance=ExtResource("5_qdq8b")]
 layout_mode = 2
-label = "EyeA Position"
 default = Vector2(0.05, 0.02)
 x_range_settings = Vector3(-2, 2, 0.01)
 y_range_settings = Vector3(-2, 2, 0.01)
